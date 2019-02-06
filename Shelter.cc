@@ -1,5 +1,8 @@
 #include "Shelter.h"
-#include "sqlite3.h"
+#include <QSqlDatabase>
+#include <QSql>
+#include <QSqlQuery>
+#include <QDebug>
 #include <vector>
 #include <string.h>
 
@@ -26,22 +29,8 @@ Shelter& Shelter::operator+=(Client* c) {
     return *this;
 }
 
-void Shelter::load(){
+void Shelter::load(QSqlDatabase db){
 
-      sqlite3 *db;
-      sqlite3_stmt* stmt = 0;
-      int rc;
-
-      rc = sqlite3_open("cuACSDb", &db);
-        if(rc != SQLITE_OK){
-            printf("%d\n", rc );
-            printf("DATABASE ERROR \n");
-        }else{
-              loadAnimals(db,stmt,rc);
-              loadUsers(db,stmt,rc);
-          }
-          sqlite3_finalize(stmt);
-          sqlite3_close(db);
 }
 
 //get Specific client from their emailAddress
@@ -62,95 +51,48 @@ Shelter& Shelter::operator+=(Staff* s) {
     return *this;
 }
 
-void Shelter::loadAnimals(sqlite3* db, sqlite3_stmt* stmt, int rc){
-  string statement = "SELECT * FROM Animals";
-  rc = sqlite3_prepare_v2(db, statement.c_str(), -1, &stmt, 0);
+QSqlQuery Shelter::loadAnimals(QSqlDatabase db){
+    QSqlQuery* qry=new QSqlQuery(db);
 
-  for (int bindIndex = 0; bindIndex < 1; bindIndex++){
-    rc = sqlite3_bind_int( stmt, 1, 1);
+    qry->prepare("SELECT Name FROM Animals");
+    qry->exec();
 
-   while( sqlite3_step( stmt) == SQLITE_ROW ) {
-     string type = "";
-     string name = "";
-     string colour = "";
-     string breed = "";
-     int age = 0;
-     char sex = '\0';
-    for (int colIndex=0; colIndex < sqlite3_column_count( stmt ); colIndex++ ){
-        if (colIndex == 0){
-          type  = (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }else if (colIndex == 1){
-          name = (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }else if (colIndex == 2){
-          age = sqlite3_column_int( stmt, colIndex );
-        }else if (colIndex == 3){
-          colour = (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }else if (colIndex == 4){
-          sex =  (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))))[0];
-        }
-    }
-              if (type == "Dog"){
-                cout << "Dog"<<endl;
-                Dog* newDog = new Dog(name,colour,age,sex,breed);
-                animals.insert(animals.end(), newDog);
-              }else if (type =="Cat"){
-                cout << "Cat"<<endl;
-                Cat* newCat = new Cat(name,colour,age,sex,breed);
-                animals.insert(animals.end(), newCat);
-              }
+    //while (qry->exec()) {
+        //              if (type == "Dog"){
+        //                cout << "Dog"<<endl;
+        //                Dog* newDog = new Dog(name,colour,age,sex,breed);
+        //                animals.insert(animals.end(), newDog);
+        //              }else if (type =="Cat"){
+        //                cout << "Cat"<<endl;
+        //                Cat* newCat = new Cat(name,colour,age,sex,breed);
+        //                animals.insert(animals.end(), newCat);
+        //              }
+    //}
+
+    return *qry;
 
 
-              //delete newAnimal;
 
-    }
-  }
+//    }
+//  }
 }
 
-void Shelter::loadUsers(sqlite3* db, sqlite3_stmt* stmt, int rc){
-  string statement = "SELECT * FROM Users";
-  rc = sqlite3_prepare_v2(db, statement.c_str(), -1, &stmt, 0);
-
-  for (int bindIndex = 0; bindIndex < 1; bindIndex++){
-    rc = sqlite3_bind_int( stmt, 1, 1);
-
-   while( sqlite3_step( stmt) == SQLITE_ROW ) {
-     string type = "";
-     string fname = "";
-     string lname = "";
-     string add = "";
-     string pnum = "";
-     string email = "";
-
-    for (int colIndex=0; colIndex < sqlite3_column_count( stmt ); colIndex++ ){
-        if (colIndex == 0){
-          type  = (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }else if (colIndex == 1){
-          fname = (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }else if (colIndex == 2){
-          lname = (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }else if (colIndex == 3){
-          add = (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }else if (colIndex == 4){
-          pnum =  (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }else if (colIndex == 5){
-          email = (string(reinterpret_cast<const char*>(sqlite3_column_text( stmt, colIndex ))));
-        }
-    }
-              if (type == "Client"){
-                cout << "Client"<<endl;
-                Client* newClient = new Client(fname,lname,add,pnum,email);
-                clients.insert(clients.end(), newClient);
-              }else if (type =="Staff"){
-                cout << "Staff"<<endl;
-                Staff* newStaff = new Staff(fname,lname,add,pnum,email);
-                staff.insert(staff.end(),  newStaff);
-              }
+QSqlQuery Shelter::loadUsers(QSqlDatabase* db){
+//              if (type == "Client"){
+//                cout << "Client"<<endl;
+//                Client* newClient = new Client(fname,lname,add,pnum,email);
+//                clients.insert(clients.end(), newClient);
+//              }else if (type =="Staff"){
+//                cout << "Staff"<<endl;
+//                Staff* newStaff = new Staff(fname,lname,add,pnum,email);
+//                staff.insert(staff.end(),  newStaff);
+//              }
 
 
               //delete newAnimal;
 
-    }
-  }
+//    }
+//  }
 }
 //return vector of animals
 vector<Animal*>& Shelter::getAnimals() {return animals; }
