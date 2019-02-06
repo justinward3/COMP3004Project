@@ -64,7 +64,7 @@ QSqlQuery Shelter::loadAnimals(QSqlDatabase db){
         int age = qry->value(3).toInt();
         //QString breed = qry->value(4).toString();
         QString breed = "Unknown";
-        QString colour = qry->value(5).toString();
+        QString colour = qry->value(4).toString();
 
         qDebug() << name << type << sex << age << breed << colour;
 
@@ -83,10 +83,6 @@ QSqlQuery Shelter::loadAnimals(QSqlDatabase db){
 
     return *qry;
 
-
-
-//    }
-//  }
 }
 
 QSqlQuery Shelter::loadUsers(QSqlDatabase* db){
