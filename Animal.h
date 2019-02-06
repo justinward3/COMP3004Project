@@ -23,13 +23,14 @@ class Animal {
 
 
     public:
-        Animal(QString, QString, int, QChar);
+        Animal(QString, QString, int, QChar, QString);
         //Animal(string, string, int);
         //~Animal();
         QString getName() const;
         QString getColour() const;
         int getAge() const;
         QChar getSex() const;
+        QString getType() const;
         //bool operator<(Animal&);
         //bool operator>(Animal&);
 

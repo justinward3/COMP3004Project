@@ -3,13 +3,10 @@ using namespace std;
 #include <QString>
 #include "Dog.h"
 
-Dog::Dog(QString na, QString col, int a, QChar s, QString b) :
-            Animal(na,col,a,s)
-{
-  breed = b;
-}
+Dog::Dog(QString na, QString col, int a, QChar s, QString t) :
+            Animal(na,col,a,s,t){}
 
-QString  Dog::getBreed() const     { return breed; }
+//QString  Dog::getBreed() const     { return breed; }
 
 QString Dog::toString() const
 {
@@ -22,17 +19,3 @@ QString Dog::toString() const
 
 //    return output.str();
 }
-
-/*
-ostream& operator<<(ostream& output, Dog& d)
-{
-    /*
-    ostringstream make_model;
-    make_model << v.make << " " << v.model;
-
-    output << "\t" << setw(7) << v.colour << " " << v.year << " " << setw(17);
-    output << make_model.str() << " (" << v.mileage << "km)" << endl;
-
-    return output << d.toString();
-}
-*/

@@ -15,10 +15,10 @@ class Cat : public Animal{
 
     private:
         virtual QString toString() const;
-        QString breed;
+        //QString breed;
     public:
         Cat(QString, QString, int, QChar, QString);
-        QString getBreed() const;
+        //QString getBreed() const;
 
 
 };
