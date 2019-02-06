@@ -2,24 +2,24 @@ using namespace std;
 #include <string>
 #include "Cat.h"
 
-Cat::Cat(string na, string col, int a, char s, string b) :
+Cat::Cat(QString na, QString col, int a, QChar s, QString b) :
             Animal(na,col,a,s)
 {
   breed = b;
 }
 
-string  Cat::getBreed() const     { return breed; }
+QString  Cat::getBreed() const     { return breed; }
 
-string Cat::toString() const
+QString Cat::toString() const
 {
-    ostringstream output;
-    output << "Cat    \t" <<endl;
-    output << "Name   :\t" << name <<endl;
-    output << "Sex    :\t" << sex <<endl;
-    output << "Colour :\t" <<  colour <<endl;
-    output << "Age    :\t " << age <<endl;
+//    ostringstream output;
+//    output << "Cat    \t" <<endl;
+//    output << "Name   :\t" << name <<endl;
+//    output << "Sex    :\t" << sex <<endl;
+//    outut << "Colour :\t" <<  colour <<endl;
+//    output << "Age    :\t " << age <<endl;
 
-    return output.str();
+//    return output.str();
 }
 
 /*

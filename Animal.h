@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <QString>
 
 using namespace std;
 
@@ -13,22 +14,22 @@ class Animal {
     friend ostream& operator<<(ostream&, Animal&);
 
   protected:
-      string name;
-      string colour;
+      QString name;
+      QString colour;
       int age;
-      char sex;
-      string type;
-      virtual string toString() const=0;
+      QChar sex;
+      QString type;
+      virtual QString toString() const=0;
 
 
     public:
-        Animal(string, string, int, char);
+        Animal(QString, QString, int, QChar);
         //Animal(string, string, int);
         //~Animal();
-        string getName() const;
-        string getColour() const;
+        QString getName() const;
+        QString getColour() const;
         int getAge() const;
-        char getSex() const;
+        QChar getSex() const;
         //bool operator<(Animal&);
         //bool operator>(Animal&);
 

@@ -54,20 +54,32 @@ Shelter& Shelter::operator+=(Staff* s) {
 QSqlQuery Shelter::loadAnimals(QSqlDatabase db){
     QSqlQuery* qry=new QSqlQuery(db);
 
-    qry->prepare("SELECT Name FROM Animals");
+    qry->prepare("SELECT name, type, sex, age, colour FROM Animals");
     qry->exec();
 
-    //while (qry->exec()) {
-        //              if (type == "Dog"){
-        //                cout << "Dog"<<endl;
-        //                Dog* newDog = new Dog(name,colour,age,sex,breed);
-        //                animals.insert(animals.end(), newDog);
-        //              }else if (type =="Cat"){
-        //                cout << "Cat"<<endl;
-        //                Cat* newCat = new Cat(name,colour,age,sex,breed);
-        //                animals.insert(animals.end(), newCat);
-        //              }
-    //}
+    while (qry->next()) {
+        QString name = qry->value(0).toString();
+        QString type = qry->value(1).toString();
+        QChar sex = qry->value(2).toChar();
+        int age = qry->value(3).toInt();
+        //QString breed = qry->value(4).toString();
+        QString breed = "Unknown";
+        QString colour = qry->value(5).toString();
+
+        qDebug() << name << type << sex << age << breed << colour;
+
+        if (type == "Dog") {
+            Dog* newDog = new Dog(name, colour, age, sex, breed);
+            animals.insert(animals.end(), newDog);
+            cout << "Dog" <<endl;
+        }
+        else if (type == "Cat") {
+            Cat* newCat = new Cat(name, colour, age, sex, breed);
+            animals.insert(animals.end(), newCat);
+            cout << "Cat" <<endl;
+        }
+
+    }
 
     return *qry;
 

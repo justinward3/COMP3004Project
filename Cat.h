@@ -14,11 +14,11 @@ class Cat : public Animal{
     friend ostream& operator<<(ostream&, Cat&);
 
     private:
-        virtual string toString() const;
-        string breed;
+        virtual QString toString() const;
+        QString breed;
     public:
-        Cat(string, string, int, char,string);
-        string getBreed() const;
+        Cat(QString, QString, int, QChar, QString);
+        QString getBreed() const;
 
 
 };

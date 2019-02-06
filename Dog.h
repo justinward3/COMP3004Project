@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <QString>
 #include "Animal.h"
 
 using namespace std;
@@ -14,11 +15,11 @@ class Dog : public Animal{
     friend ostream& operator<<(ostream&, Dog&);
 
     private:
-        virtual string toString() const;
-        string breed;
+        virtual QString toString() const;
+        QString breed;
     public:
-        Dog(string, string, int, char,string);
-        string getBreed() const;
+        Dog(QString, QString, int, QChar, QString);
+        QString getBreed() const;
 
 
 };

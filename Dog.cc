@@ -1,25 +1,26 @@
 using namespace std;
 #include <string>
+#include <QString>
 #include "Dog.h"
 
-Dog::Dog(string na, string col, int a, char s, string b) :
+Dog::Dog(QString na, QString col, int a, QChar s, QString b) :
             Animal(na,col,a,s)
 {
   breed = b;
 }
 
-string  Dog::getBreed() const     { return breed; }
+QString  Dog::getBreed() const     { return breed; }
 
-string Dog::toString() const
+QString Dog::toString() const
 {
-    ostringstream output;
-    output << "Dog    :\t" <<endl;
-    output << "Name   :\t" << name <<endl;
-    output << "Sex    :\t" << sex <<endl;
-    output << "Colour :\t" <<  colour <<endl;
-    output << "Age    :\t " << age <<endl;
+//    ostringstream output;
+//    output << "Dog    :\t" <<endl;
+//    output << "Name   :\t" << name <<endl;
+//    output << "Sex    :\t" << sex <<endl;
+//    output << "Colour :\t" <<  colour <<endl;
+//    output << "Age    :\t " << age <<endl;
 
-    return output.str();
+//    return output.str();
 }
 
 /*
