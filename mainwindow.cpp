@@ -12,17 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     shelter = new Shelter();
     ui->setupUi(this);
-    QString DbPath = QApplication::applicationDirPath() + "/cuACSDb";
-    db=QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("/home/student/COMP3004-D1/3004/cuACSDb");
-    db.open();
 
-    if (!db.open()) {
-        printf("DATABASE ERROR\n");
-    }
-
-    QSqlQueryModel* model=new QSqlQueryModel();
-    model->setQuery(shelter->loadAnimals(db));
     //ui->animalList->setModel(model);
     cout<<shelter->getAnimals().size()<<endl;
 }

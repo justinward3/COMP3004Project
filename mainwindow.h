@@ -16,7 +16,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    QSqlDatabase db;
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Shelter* shelter;

@@ -18,6 +18,7 @@ void staffWindow::setShelter(Shelter *shelter_ptr){
 }
 void staffWindow::on_viewAnimalsButton_clicked()
 {
+
     this->hide();
     viewAnimals* animalView = new viewAnimals();
     animalView->setShelter(sh);

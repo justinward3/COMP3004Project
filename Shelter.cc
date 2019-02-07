@@ -13,6 +13,20 @@ using namespace std;
 Shelter::Shelter() {
       cout<< "Shelter Constructor " <<endl;
 
+      //QString DbPath = QApplication::applicationDirPath() + "/cuACSDb";
+      db=QSqlDatabase::addDatabase("QSQLITE");
+      db.setDatabaseName("/home/student/Downloads/3004-master/cuACSDb");
+      db.open();
+
+      if (!db.open()) {
+          printf("DATABASE ERROR\n");
+      }
+
+      QSqlQueryModel* model=new QSqlQueryModel();
+
+      model->setQuery(this->loadAnimals());
+
+
 }
 
 //Deconstructor for Shelter
@@ -51,7 +65,7 @@ Shelter& Shelter::operator+=(Staff* s) {
     return *this;
 }
 
-QSqlQuery Shelter::loadAnimals(QSqlDatabase db){
+QSqlQuery Shelter::loadAnimals(){
     QSqlQuery* qry=new QSqlQuery(db);
 
     qry->prepare("SELECT name, type, sex, age, colour FROM Animals");
@@ -69,18 +83,19 @@ QSqlQuery Shelter::loadAnimals(QSqlDatabase db){
         qDebug() << name << type << sex << age << breed << colour;
 
         if (type == "Dog") {
-            Dog* newDog = new Dog(name, colour, age, sex, breed);
+            Dog* newDog = new Dog(name, colour, age, sex, type);
             animals.insert(animals.end(), newDog);
             cout << "Dog" <<endl;
         }
         else if (type == "Cat") {
-            Cat* newCat = new Cat(name, colour, age, sex, breed);
+            Cat* newCat = new Cat(name, colour, age, sex, type);
             animals.insert(animals.end(), newCat);
             cout << "Cat" <<endl;
         }
 
-    }
 
+    }
+    db.close();
     return *qry;
 
 }
@@ -103,7 +118,9 @@ QSqlQuery Shelter::loadUsers(QSqlDatabase* db){
 //  }
 }
 //return vector of animals
-vector<Animal*>& Shelter::getAnimals() {return animals; }
+vector<Animal*>& Shelter::getAnimals() {
+    return animals;
+}
 
 //return vector of staff
 vector<Staff*>& Shelter::getStaff()  { return staff; }

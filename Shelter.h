@@ -7,6 +7,7 @@
 #include "Animal.h"
 #include "Dog.h"
 #include "Cat.h"
+#include <QtSql>
 #include <QSqlDatabase>
 
 class Shelter{
@@ -14,6 +15,7 @@ class Shelter{
     public:
         Shelter();
         ~Shelter();
+        QSqlDatabase db;
         Shelter& operator+=(Client*);
         void load(QSqlDatabase);
         Client* getClient(string);
@@ -21,8 +23,9 @@ class Shelter{
         Shelter& operator+=(Staff*);
         vector<Animal*>& getAnimals();
         vector<Staff*>& getStaff();
-        QSqlQuery loadAnimals(QSqlDatabase);
+        QSqlQuery loadAnimals();
         QSqlQuery loadUsers(QSqlDatabase*);
+
 
     private:
         vector<Client*> clients;
