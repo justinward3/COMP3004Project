@@ -5,6 +5,7 @@
 #include <QDialog>
 #include "staffwindow.h"
 #include <QtSql>
+#include "Shelter.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,7 @@ public:
     QSqlDatabase db;
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    Shelter* shelter;
 
 private slots:
     void on_staffButton_clicked();

@@ -13,11 +13,14 @@ staffWindow::~staffWindow()
 {
     delete ui;
 }
-
+void staffWindow::setShelter(Shelter *shelter_ptr){
+    sh = shelter_ptr;
+}
 void staffWindow::on_viewAnimalsButton_clicked()
 {
     this->hide();
-    viewAnimals viewAnimals;
-    viewAnimals.setModal(true);
-    viewAnimals.exec();
+    viewAnimals* animalView = new viewAnimals();
+    animalView->setShelter(sh);
+    animalView->setModal(true);
+    animalView->exec();
 }

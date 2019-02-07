@@ -2,6 +2,7 @@
 #define VIEWANIMALS_H
 
 #include <QDialog>
+#include "Shelter.h"
 
 namespace Ui {
 class viewAnimals;
@@ -14,6 +15,8 @@ class viewAnimals : public QDialog
 public:
     explicit viewAnimals(QWidget *parent = 0);
     ~viewAnimals();
+    void setShelter(Shelter*);
+
 
 private slots:
     void on_backButton_clicked();
@@ -22,6 +25,7 @@ private slots:
 
 private:
     Ui::viewAnimals *ui;
+    Shelter* sh;
 };
 
 #endif // VIEWANIMALS_H
