@@ -81,7 +81,6 @@ Shelter& Shelter::operator+=(Staff* s) {
 
 //add Animal function (operator overload)
 Shelter& Shelter::operator+=(Animal* a) {
-    animals.insert(animals.end(),a);
     qry=new QSqlQuery(db);
     QString s = "INSERT INTO `Animals`(`Type`,`Name`,`Age`,`Colour`,`Sex`,`Detail`) VALUES (:type,:name,:age,:colour,:sex,:detail);";
     qry->prepare(s);
@@ -100,6 +99,7 @@ Shelter& Shelter::operator+=(Animal* a) {
     qry->bindValue(":detail", a->getDetail());
 
     if(qry->exec())
+        animals.insert(animals.end(),a);
         QMessageBox::critical(0, "DB Status","DATABASE UPDATED", QMessageBox::Ok);
     else
         QMessageBox::critical(0, "DB Status","DATABASE NOT UPDATED", QMessageBox::Ok);
