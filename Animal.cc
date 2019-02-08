@@ -1,18 +1,18 @@
 #include "Animal.h"
 
-Animal::Animal(QString na, QString col, int a, QChar s, QString t) {
+Animal::Animal(QString na, QString col, int a, QChar s, QString d) {
     name = na;
     age = a;
     colour = col;
     sex = s;
-    type = t;
+    detail = d;
 }
 
 QString  Animal::getName() const     { return name; }
 int  Animal::getAge() const    { return age; }
 QString  Animal::getColour() const   { return colour; }
 QChar Animal::getSex() const        {return sex; }
-QString Animal::getType() const     {return type; }
+QString Animal::getDetail() const     {return detail; }
 
 
 ostream& operator<<(ostream& output, Animal& a)

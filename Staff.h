@@ -14,7 +14,7 @@ class Staff : public User {
 
     public:
 
-        Staff(string="", string="", string="", string="", string="");
+        Staff(QString="", QString="", QString="", QString="", QString="");
         bool operator<(Staff&);
         bool operator>(Staff&);
 

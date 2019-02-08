@@ -4,12 +4,22 @@
 #include "addanimal.h"
 #include "mainwindow.h"
 #include "Shelter.h"
+#include <QStandardItemModel>
 
 viewAnimals::viewAnimals(QWidget *parent):
     QDialog(parent),
     ui(new Ui::viewAnimals)
 {
     ui->setupUi(this);
+    QStringList headers;
+    headers<<"Type"<<"Detail"<<"Name"<<"Age"<<"Colour"<<"Sex";
+    //QStringListModel *model = new QStringListModel();
+    model = new QStandardItemModel();
+    model->setColumnCount(4);
+    model->setHorizontalHeaderLabels(headers);
+    ui->animalList->setModel(model);
+    ui->animalList->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->animalList->setEditTriggers(QAbstractItemView::NoEditTriggers);
     //sh = shelter;
 
     //cout << QApplication::topLevelWidgets() <<endl;
@@ -34,43 +44,62 @@ viewAnimals::viewAnimals(QWidget *parent):
 
 viewAnimals::~viewAnimals()
 {
+    delete model;
     delete ui;
 }
 void viewAnimals::setShelter(Shelter* shelter_ptr){
     cout << "SetShelter"<<endl;
     sh = shelter_ptr;
-    //ui->animalList->setModel(QList<Animal>::fromVector(sh->getAnimals());
-    //cout << sh->getAnimals() <<endl;
     vector<Animal*> animals = sh->getAnimals();
-    //QList<QString> temp = new QList<QString>();
     for(int i=0; i< animals.size();i++){
-        cout<<"loop"<<endl;
-        cout<<animals[i]->getName().toUtf8().constData()<<endl;
-        //temp.append(animals[i]->getName());
+        QList<QStandardItem*> newRow;
+        QStandardItem* type;
+        if ( dynamic_cast<Dog*>( animals[i] ) )
+           type = new QStandardItem(QString("Dog"));
+
+        else if ( dynamic_cast<Cat*>( animals[i] ) )
+           type = new QStandardItem(QString("Cat"));
+
+        QStandardItem* name = new QStandardItem(QString(animals[i]->getName()));
+        QStandardItem* age = new QStandardItem(QString(QString::number(animals[i]->getAge())));
+        QStandardItem* colour = new QStandardItem(QString(animals[i]->getColour()));
+        QStandardItem* sex = new QStandardItem(QString(QChar::fromLatin1(animals[i]->getSex().toLatin1())));
+        QStandardItem* detail = new QStandardItem(QString(animals[i]->getDetail()));
+
+        //Order matters here
+        newRow.append(type);
+        newRow.append(detail);
+        newRow.append(name);
+        newRow.append(age);
+        newRow.append(colour);
+        newRow.append(sex);
+        model->appendRow(newRow);
     }
-    //QStringListModel *model = new QStringListModel();
-    //model->setStringList(temp);
-    //ui->animalList->setModel(model);
+
+    ui->animalList->setModel(model);
 }
 void viewAnimals::on_backButton_clicked()
 {
-    MainWindow conn;
-    conn.db.close();
-    conn.db.removeDatabase(QSqlDatabase::defaultConnection);
     this->hide();
     staffWindow staffWindow;
+    staffWindow.setShelter(sh);
     staffWindow.setModal(true);
     staffWindow.exec();
 }
 
 void viewAnimals::on_addButton_clicked()
 {
-    MainWindow conn;
-    conn.db.close();
-    conn.db.removeDatabase(QSqlDatabase::defaultConnection);
-    this->hide();
+    /*this->hide();
     addAnimal addAnimal;
+    addAnimal.setShelter(sh);
     addAnimal.setModal(true);
     addAnimal.exec();
+    */
+    this->hide();
+    addAnimal* animalAdd = new addAnimal();
+    animalAdd->setShelter(sh);
+    animalAdd->setModal(true);
+    animalAdd->deleteLater();
+    animalAdd->exec();
 }
 

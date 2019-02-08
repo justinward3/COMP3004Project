@@ -23,5 +23,6 @@ void staffWindow::on_viewAnimalsButton_clicked()
     viewAnimals* animalView = new viewAnimals();
     animalView->setShelter(sh);
     animalView->setModal(true);
+    animalView->deleteLater();
     animalView->exec();
 }

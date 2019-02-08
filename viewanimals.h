@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "Shelter.h"
+#include <QStandardItemModel>
 
 namespace Ui {
 class viewAnimals;
@@ -26,6 +27,8 @@ private slots:
 private:
     Ui::viewAnimals *ui;
     Shelter* sh;
+    QStandardItemModel* model;
+
 };
 
 #endif // VIEWANIMALS_H

@@ -18,7 +18,7 @@ class Animal {
       QString colour;
       int age;
       QChar sex;
-      QString type;
+      QString detail;
       virtual QString toString() const=0;
 
 
@@ -30,7 +30,7 @@ class Animal {
         QString getColour() const;
         int getAge() const;
         QChar getSex() const;
-        QString getType() const;
+        QString getDetail() const;
         //bool operator<(Animal&);
         //bool operator>(Animal&);
 

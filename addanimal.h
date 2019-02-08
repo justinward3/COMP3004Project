@@ -2,6 +2,10 @@
 #define ADDANIMAL_H
 
 #include <QDialog>
+#include "Shelter.h"
+#include "Animal.h"
+#include "Dog.h"
+#include "Cat.h"
 
 namespace Ui {
 class addAnimal;
@@ -13,6 +17,7 @@ class addAnimal : public QDialog
 
 public:
     explicit addAnimal(QWidget *parent = 0);
+    void setShelter(Shelter*);
     ~addAnimal();
 
 private slots:
@@ -22,6 +27,8 @@ private slots:
 
 private:
     Ui::addAnimal *ui;
+    Shelter* sh;
+    Animal* animal;
 
 };
 

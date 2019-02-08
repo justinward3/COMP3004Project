@@ -17,20 +17,22 @@ class Shelter{
         ~Shelter();
         QSqlDatabase db;
         Shelter& operator+=(Client*);
-        void load(QSqlDatabase);
-        Client* getClient(string);
+        Client* getClient(QString);
         vector<Client*>& getClients();
         Shelter& operator+=(Staff*);
+        Shelter& operator+=(Animal*) ;
         vector<Animal*>& getAnimals();
         vector<Staff*>& getStaff();
-        QSqlQuery loadAnimals();
-        QSqlQuery loadUsers(QSqlDatabase*);
+        void loadAnimals();
+        void loadUsers();
 
 
     private:
         vector<Client*> clients;
         vector<Staff*> staff;
         vector<Animal*> animals;
+        QSqlQuery* qry;
+        QSqlQueryModel* model;
 
 };
 

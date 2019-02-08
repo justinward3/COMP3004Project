@@ -142,7 +142,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>130</y>
+     <y>170</y>
      <width>64</width>
      <height>21</height>
     </rect>
@@ -155,7 +155,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>130</y>
+     <y>170</y>
      <width>161</width>
      <height>25</height>
     </rect>
@@ -175,7 +175,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>170</y>
+     <y>210</y>
      <width>64</width>
      <height>21</height>
     </rect>
@@ -188,7 +188,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>170</y>
+     <y>210</y>
      <width>161</width>
      <height>25</height>
     </rect>
@@ -198,7 +198,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>210</y>
+     <y>250</y>
      <width>161</width>
      <height>25</height>
     </rect>
@@ -208,7 +208,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>210</y>
+     <y>250</y>
      <width>64</width>
      <height>21</height>
     </rect>
@@ -228,6 +228,29 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>130</y>
+     <width>64</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Detail:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="animalDetail">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>130</y>
+     <width>161</width>
+     <height>25</height>
+    </rect>
    </property>
   </widget>
  </widget>

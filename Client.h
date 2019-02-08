@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <sstream>
 #include "User.h"
+#include <string>
+#include <QString>
 
 using namespace std;
 
@@ -15,7 +17,7 @@ class Client : public User {
 
     public:
 
-        Client(string="", string="", string="", string="" ,string="");
+        Client(QString="", QString="", QString="", QString="" ,QString="");
 
         bool operator<(Client&);
         bool operator>(Client&);

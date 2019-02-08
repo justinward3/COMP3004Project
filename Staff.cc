@@ -2,11 +2,12 @@
 using namespace std;
 #include "Staff.h"
 
-Staff::Staff(string fname, string lname, string add, string pnum, string email) :
+Staff::Staff(QString fname, QString lname, QString add, QString pnum, QString email) :
         User(fname,lname,add,pnum,email) { }
 
 ostream& operator<<(ostream& output, Staff& m)
 {
+    /*
     ostringstream name;
     name << m.firstName << " " << m.lastName;
 
@@ -16,6 +17,7 @@ ostream& operator<<(ostream& output, Staff& m)
            << "    Phone Number: " << setw(32) << m.phoneNumber << endl
            << "    Email: " << setw(38) << m.emailAddress << endl;
     return output;
+    */
 }
 
 

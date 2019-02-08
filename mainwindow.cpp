@@ -7,9 +7,9 @@
 #include <QFileInfo>
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent)
 {
+    ui= new Ui::MainWindow();
     shelter = new Shelter();
     ui->setupUi(this);
 
@@ -19,7 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    printf("MainWindow says goodbye");
+    printf("MainWindow says goodbye");\
+    delete shelter;
     delete ui;
 }
 
@@ -29,5 +30,6 @@ void MainWindow::on_staffButton_clicked()
     staffWindow staffWindow;
     staffWindow.setShelter(shelter);
     staffWindow.setModal(true);
+    staffWindow.deleteLater();
     staffWindow.exec();
 }
