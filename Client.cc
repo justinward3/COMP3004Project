@@ -3,8 +3,7 @@ using namespace std;
 #include "Client.h"
 
 
-
-Client::Client(string fname, string lname, string add, string pnum, string email) :
+Client::Client(QString fname, QString lname, QString add, QString pnum, QString email) :
         User(fname,lname,add,pnum,email) { }
 
 
@@ -20,6 +19,7 @@ bool Client::operator>(Client& c)
 
 ostream& operator<<(ostream& output, Client& c)
 {
+    /*
     ostringstream name;
     name << c.firstName << " " << c.lastName;
 
@@ -28,4 +28,5 @@ ostream& operator<<(ostream& output, Client& c)
            << "    Address: " << setw(37) << c.address << endl
            << "    Phone Number: " << setw(32) << c.phoneNumber << endl
            << "    Email: " << setw(32) << c.emailAddress << endl;
+           */
 }
