@@ -108,8 +108,8 @@ Shelter& Shelter::operator+=(Animal* a) {
 }
 
 void Shelter::loadAnimals(){
+    //prepare Sql Query to load animals
     qry=new QSqlQuery(db);
-
     qry->prepare("SELECT name, type, sex, age, colour, detail FROM Animals");
     qry->exec();
 
@@ -122,7 +122,8 @@ void Shelter::loadAnimals(){
         QString colour = qry->value(4).toString();
 
         //qDebug() << name << type << sex << age << breed << colour;
-
+      
+        //Create instances of Animals and add to Vector of Animals
         if (type == "Dog") {
             Dog* newDog = new Dog(name, colour, age, sex[0], detail);
             animals.insert(animals.end(), newDog);
@@ -133,15 +134,23 @@ void Shelter::loadAnimals(){
             animals.insert(animals.end(), newCat);
             //cout << "Cat" <<endl;
         }
-
-
+        else if (type == "Bird") {
+            //Cat* newCat = new Cat(name, colour, age, sex[0], detail);
+            //animals.insert(animals.end(), newCat);
+            //cout << "Cat" <<endl;
+        }
+        else if (type == "SmallAnimal") {
+            //Cat* newCat = new Cat(name, colour, age, sex[0], detail);
+            //animals.insert(animals.end(), newCat);
+            //cout << "Cat" <<endl;
+        }  
     }
     delete qry;
 }
 
 void Shelter::loadUsers(){
+    //prepare Sql Query to load Users
     qry=new QSqlQuery(db);
-
     qry->prepare("SELECT FirstName,LastName, Type, Address, PhoneNumber, EmailAddress FROM Users");
     qry->exec();
 
