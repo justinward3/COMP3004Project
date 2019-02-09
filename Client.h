@@ -1,5 +1,5 @@
-#ifndef Client_H
-#define Client_H
+#ifndef CLIENT_H
+#define CLIENT_H
 
 #include <string>
 #include <iostream>
@@ -19,8 +19,8 @@ class Client : public User {
 
         Client(QString="", QString="", QString="", QString="" ,QString="");
 
-        bool operator<(Client&);
-        bool operator>(Client&);
+        //bool operator<(Client&);
+        //bool operator>(Client&);
 
 
 };

@@ -15,22 +15,6 @@ using namespace std;
 //Constructor for Shelter
 Shelter::Shelter() {
       cout<< "Shelter Constructor " <<endl;
-      QDir dir;
-      QString DbPath = dir.currentPath();
-      DbPath.append("/cuACSDb");
-      cout<<DbPath.toUtf8().constData()<<endl;
-      db=QSqlDatabase::addDatabase("QSQLITE");
-      db.setDatabaseName(DbPath);
-      db.open();
-
-      if (!db.open()) {
-          printf("DATABASE ERROR\n");
-      }
-
-      this->loadAnimals();
-      //this->loadUsers();
-
-
 }
 
 //Deconstructor for Shelter
@@ -53,6 +37,18 @@ Shelter::~Shelter() {
       }
       staff.clear();
 
+}
+
+bool Shelter::connect(){
+    QDir dir;
+    QString DbPath = dir.currentPath();
+    DbPath.append("/cuACSDb");
+    cout<<DbPath.toUtf8().constData()<<endl;
+    db=QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(DbPath);
+    if(db.open()){
+        return this->loadAnimals();
+    }
 }
 
 //add Client function (operator overload)
@@ -80,7 +76,7 @@ Shelter& Shelter::operator+=(Staff* s) {
 }
 
 //add Animal function (operator overload)
-Shelter& Shelter::operator+=(Animal* a) {
+bool Shelter::operator+=(Animal* a) {
     qry=new QSqlQuery(db);
     QString s = "INSERT INTO `Animals`(`Type`,`Name`,`Age`,`Colour`,`Sex`,`Detail`) VALUES (:type,:name,:age,:colour,:sex,:detail);";
     qry->prepare(s);
@@ -107,54 +103,61 @@ Shelter& Shelter::operator+=(Animal* a) {
 
     if(qry->exec()){
         animals.insert(animals.end(),a);
-        QMessageBox::critical(0, "DB Status","DATABASE UPDATED", QMessageBox::Ok);
+        delete qry;
+        return true;
     }
     else{
-        QMessageBox::critical(0, "DB Status","DATABASE NOT UPDATED", QMessageBox::Ok);
+        delete qry;
+        return false;
     }
-    delete qry;
-    return *this;
 }
 
-void Shelter::loadAnimals(){
+bool Shelter::loadAnimals(){
+    bool status;
     //prepare Sql Query to load animals
     qry=new QSqlQuery(db);
     qry->prepare("SELECT name, type, sex, age, colour, detail FROM Animals");
-    qry->exec();
 
-    while (qry->next()) {
-        QString name = qry->value(0).toString();
-        QString type = qry->value(1).toString();
-        QString sex = qry->value(2).toString();
-        int age = qry->value(3).toInt();
-        QString detail = qry->value(5).toString();
-        QString colour = qry->value(4).toString();
+    if(qry->exec()){
+        status = true;
+        while (qry->next()) {
+            QString name = qry->value(0).toString();
+            QString type = qry->value(1).toString();
+            QString sex = qry->value(2).toString();
+            int age = qry->value(3).toInt();
+            QString detail = qry->value(5).toString();
+            QString colour = qry->value(4).toString();
 
-        //qDebug() << name << type << sex << age << breed << colour;
-      
-        //Create instances of Animals and add to Vector of Animals
-        if (type == "Dog") {
-            Dog* newDog = new Dog(name, colour, age, sex[0], detail);
-            animals.insert(animals.end(), newDog);
+            //qDebug() << name << type << sex << age << breed << colour;
 
+            //Create instances of Animals and add to Vector of Animals
+            if (type == "Dog") {
+                Dog* newDog = new Dog(name, colour, age, sex[0], detail);
+                animals.insert(animals.end(), newDog);
+
+            }
+            else if (type == "Cat") {
+                Cat* newCat = new Cat(name, colour, age, sex[0], detail);
+                animals.insert(animals.end(), newCat);
+
+            }
+            else if (type == "Bird") {
+                Bird* newBird = new Bird(name, colour, age, sex[0], detail);
+                animals.insert(animals.end(), newBird);
+
+            }
+            else if (type == "Small Animal") {
+                SmallAnimal* newSmallAnimal = new SmallAnimal(name, colour, age, sex[0], detail);
+                animals.insert(animals.end(), newSmallAnimal);
+
+            }
         }
-        else if (type == "Cat") {
-            Cat* newCat = new Cat(name, colour, age, sex[0], detail);
-            animals.insert(animals.end(), newCat);
-
-        }
-        else if (type == "Bird") {
-            Bird* newBird = new Bird(name, colour, age, sex[0], detail);
-            animals.insert(animals.end(), newBird);
-
-        }
-        else if (type == "Small Animal") {
-            SmallAnimal* newSmallAnimal = new SmallAnimal(name, colour, age, sex[0], detail);
-            animals.insert(animals.end(), newSmallAnimal);
-
-        }  
+    }
+    else {
+        status = false;
     }
     delete qry;
+    return status;
 }
 
 void Shelter::loadUsers(){
@@ -180,9 +183,7 @@ void Shelter::loadUsers(){
 }
 
 //return vector of animals
-vector<Animal*>& Shelter::getAnimals() {
-    return animals;
-}
+vector<Animal*>& Shelter::getAnimals() {return animals; }
 
 //return vector of staff
 vector<Staff*>& Shelter::getStaff()  { return staff; }

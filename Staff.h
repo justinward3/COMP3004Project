@@ -1,5 +1,5 @@
-#ifndef MECHANIC_H
-#define MECHANIC_H
+#ifndef STAFF_H
+#define STAFF_H
 
 #include <iostream>
 #include <iomanip>
@@ -15,8 +15,9 @@ class Staff : public User {
     public:
 
         Staff(QString="", QString="", QString="", QString="", QString="");
-        bool operator<(Staff&);
-        bool operator>(Staff&);
+
+        //bool operator<(Staff&);
+        //bool operator>(Staff&);
 
 };
 

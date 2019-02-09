@@ -17,19 +17,20 @@ class Shelter{
     public:
         Shelter();
         ~Shelter();
-        QSqlDatabase db;
+        bool connect();
         Shelter& operator+=(Client*);
         Client* getClient(QString);
         vector<Client*>& getClients();
         Shelter& operator+=(Staff*);
-        Shelter& operator+=(Animal*) ;
+        bool operator+=(Animal*) ;
         vector<Animal*>& getAnimals();
         vector<Staff*>& getStaff();
-        void loadAnimals();
+        bool loadAnimals();
         void loadUsers();
 
 
     private:
+        QSqlDatabase db;
         vector<Client*> clients;
         vector<Staff*> staff;
         vector<Animal*> animals;

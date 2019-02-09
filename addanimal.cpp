@@ -52,7 +52,13 @@ void addAnimal::on_addButton_clicked()
         else if(type == "Small Animal"){
             animal = new SmallAnimal(name,colour,age,sex[0],detail);
         }
-        sh->operator +=(animal);
+        if(sh->operator +=(animal)){
+            QMessageBox::critical(0, "DB Status",animal->getName()+" added to DATABASE", QMessageBox::Ok);
+            this->on_backButton_clicked();
+        }
+        else{
+            QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please contact system admin", QMessageBox::Ok);
+        }
     }
     else {
         QMessageBox::critical(0, "Add Animal","Invalid Info", QMessageBox::Ok);
