@@ -10,15 +10,9 @@
 using namespace std;
 
 class SmallAnimal : public Animal{
-
-    friend ostream& operator<<(ostream&, SmallAnimal&);
-
-    private:
-        virtual QString toString() const;
-        //QString breed;
     public:
         SmallAnimal(QString, QString, int, QChar, QString);
-        //QString getBreed() const;
+        ~SmallAnimal();
 
 
 };

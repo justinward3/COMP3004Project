@@ -30,6 +30,5 @@ void MainWindow::on_staffButton_clicked()
     staffWindow staffWindow;
     staffWindow.setShelter(shelter);
     staffWindow.setModal(true);
-    staffWindow.deleteLater();
     staffWindow.exec();
 }

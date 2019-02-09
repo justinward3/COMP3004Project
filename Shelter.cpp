@@ -28,7 +28,7 @@ Shelter::Shelter() {
       }
 
       this->loadAnimals();
-      this->loadUsers();
+      //this->loadUsers();
 
 
 }
@@ -63,7 +63,7 @@ Shelter& Shelter::operator+=(Client* c) {
 
 //get Specific client from their emailAddress
 Client* Shelter::getClient(QString email)  {
-    for (int i = 0; i < clients.size(); i++)  {
+    for (size_t i = 0; i < clients.size(); i++)  {
         if (clients.at(i)->getEmail() == email)
             return clients.at(i);
     }
@@ -91,6 +91,13 @@ Shelter& Shelter::operator+=(Animal* a) {
 
     else if ( dynamic_cast<Cat*>( a ) )
        qry->bindValue(":type", "Cat");
+
+    else if ( dynamic_cast<Bird*>( a ) )
+       qry->bindValue(":type", "Bird");
+
+    else if ( dynamic_cast<SmallAnimal*>( a ) )
+       qry->bindValue(":type", "Small Animal");
+
     QString temp;
     temp.append(a->getSex());
     qry->bindValue(":sex", temp);
@@ -98,11 +105,13 @@ Shelter& Shelter::operator+=(Animal* a) {
     qry->bindValue(":colour", a->getColour());
     qry->bindValue(":detail", a->getDetail());
 
-    if(qry->exec())
+    if(qry->exec()){
         animals.insert(animals.end(),a);
         QMessageBox::critical(0, "DB Status","DATABASE UPDATED", QMessageBox::Ok);
-    else
+    }
+    else{
         QMessageBox::critical(0, "DB Status","DATABASE NOT UPDATED", QMessageBox::Ok);
+    }
     delete qry;
     return *this;
 }
@@ -127,22 +136,22 @@ void Shelter::loadAnimals(){
         if (type == "Dog") {
             Dog* newDog = new Dog(name, colour, age, sex[0], detail);
             animals.insert(animals.end(), newDog);
-            //cout << "Dog" <<endl;
+
         }
         else if (type == "Cat") {
             Cat* newCat = new Cat(name, colour, age, sex[0], detail);
             animals.insert(animals.end(), newCat);
-            //cout << "Cat" <<endl;
+
         }
         else if (type == "Bird") {
-            //Cat* newCat = new Cat(name, colour, age, sex[0], detail);
-            //animals.insert(animals.end(), newCat);
-            //cout << "Cat" <<endl;
+            Bird* newBird = new Bird(name, colour, age, sex[0], detail);
+            animals.insert(animals.end(), newBird);
+
         }
-        else if (type == "SmallAnimal") {
-            //Cat* newCat = new Cat(name, colour, age, sex[0], detail);
-            //animals.insert(animals.end(), newCat);
-            //cout << "Cat" <<endl;
+        else if (type == "Small Animal") {
+            SmallAnimal* newSmallAnimal = new SmallAnimal(name, colour, age, sex[0], detail);
+            animals.insert(animals.end(), newSmallAnimal);
+
         }  
     }
     delete qry;

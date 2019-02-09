@@ -29,13 +29,15 @@ SOURCES += \
     staffwindow.cpp \
     addanimal.cpp \
     viewanimals.cpp \
-    Animal.cc \
-    Cat.cc \
-    Client.cc \
-    Dog.cc \
-    Shelter.cc \
-    Staff.cc \
-    User.cc
+    Animal.cpp \
+    Bird.cpp \
+    Cat.cpp \
+    Client.cpp \
+    Dog.cpp \
+    Shelter.cpp \
+    SmallAnimal.cpp \
+    Staff.cpp \
+    User.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +50,9 @@ HEADERS += \
     Dog.h \
     Shelter.h \
     Staff.h \
-    User.h
+    User.h \
+    Bird.h \
+    SmallAnimal.h
 
 FORMS += \
         mainwindow.ui \

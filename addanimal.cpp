@@ -2,6 +2,7 @@
 #include "ui_addanimal.h"
 #include "viewanimals.h"
 #include "mainwindow.h"
+#include "QMessageBox"
 
 addAnimal::addAnimal(QWidget *parent) :
     QDialog(parent),
@@ -12,7 +13,6 @@ addAnimal::addAnimal(QWidget *parent) :
 
 addAnimal::~addAnimal()
 {
-    delete animal;
     delete ui;
 }
 
@@ -24,11 +24,10 @@ void addAnimal::setShelter(Shelter *shelter_ptr)
 void addAnimal::on_backButton_clicked()
 {
     this->hide();
-    viewAnimals* animalView = new viewAnimals();
-    animalView->setShelter(sh);
-    animalView->setModal(true);
-    animalView->deleteLater();
-    animalView->exec();
+    viewAnimals animalView;
+    animalView.setShelter(sh);
+    animalView.setModal(true);
+    animalView.exec();
 }
 
 void addAnimal::on_addButton_clicked()
@@ -40,18 +39,23 @@ void addAnimal::on_addButton_clicked()
     QString sex = ui->animalSex->currentText();
     QString colour = ui->animalColour->text();
     QString detail = ui->animalDetail->text();
-    if (name!="" && ageStr!="" && colour!="") {
+    if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!="") {
         if(type == "Dog"){
             animal = new Dog(name,colour,age,sex[0],detail);
         }
         else if(type == "Cat"){
             animal = new Cat(name,colour,age,sex[0],detail);
         }
+        else if(type == "Bird"){
+            animal = new Bird(name,colour,age,sex[0],detail);
+        }
+        else if(type == "Small Animal"){
+            animal = new SmallAnimal(name,colour,age,sex[0],detail);
+        }
         sh->operator +=(animal);
     }
-
     else {
-        ui->status->setText("MISSING DATA");
+        QMessageBox::critical(0, "Add Animal","Invalid Info", QMessageBox::Ok);
     }
 
 }

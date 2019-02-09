@@ -11,7 +11,7 @@ using namespace std;
 
 class Animal {
 
-    friend ostream& operator<<(ostream&, Animal&);
+    //friend ostream& operator<<(ostream&, Animal&);
 
   protected:
       QString name;
@@ -19,13 +19,13 @@ class Animal {
       int age;
       QChar sex;
       QString detail;
-      virtual QString toString() const=0;
+      //virtual QString toString() const=0;
 
 
     public:
         Animal(QString, QString, int, QChar, QString);
         //Animal(string, string, int);
-        //~Animal();
+        virtual ~Animal() = 0;
         QString getName() const;
         QString getColour() const;
         int getAge() const;

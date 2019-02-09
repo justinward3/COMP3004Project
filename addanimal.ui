@@ -137,6 +137,16 @@
      <string>Cat</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>Bird</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Small Animal</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
@@ -215,19 +225,6 @@
    </property>
    <property name="text">
     <string>Colour:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="status">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>260</y>
-     <width>161</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">

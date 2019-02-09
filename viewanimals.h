@@ -4,6 +4,11 @@
 #include <QDialog>
 #include "Shelter.h"
 #include <QStandardItemModel>
+#include "Animal.h"
+#include "Dog.h"
+#include "Cat.h"
+#include "Bird.h"
+#include "SmallAnimal.h"
 
 namespace Ui {
 class viewAnimals;

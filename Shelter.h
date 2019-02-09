@@ -7,6 +7,8 @@
 #include "Animal.h"
 #include "Dog.h"
 #include "Cat.h"
+#include "Bird.h"
+#include "SmallAnimal.h"
 #include <QtSql>
 #include <QSqlDatabase>
 

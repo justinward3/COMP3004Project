@@ -7,6 +7,7 @@ Animal::Animal(QString na, QString col, int a, QChar s, QString d) {
     sex = s;
     detail = d;
 }
+Animal::~Animal(){ cout<< "animal deconstructor"<<endl;}
 
 QString  Animal::getName() const     { return name; }
 int  Animal::getAge() const    { return age; }
@@ -15,7 +16,3 @@ QChar Animal::getSex() const        {return sex; }
 QString Animal::getDetail() const     {return detail; }
 
 
-ostream& operator<<(ostream& output, Animal& a)
-{
-    //return output << a.toString();
-}

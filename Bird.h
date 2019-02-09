@@ -1,5 +1,5 @@
-#ifndef SMALLANIMAL_H
-#define SMALLANIMAL_H
+#ifndef BIRD_H
+#define BIRD_H
 
 #include <iostream>
 #include <iomanip>
@@ -9,16 +9,16 @@
 
 using namespace std;
 
-class SmallAnimal : public Animal{
-
-    friend ostream& operator<<(ostream&, SMALLANIMAL&);
+class Bird : public Animal{
 
     private:
-        virtual QString toString() const;
-        //QString breed;
+    //virtual QString toString() const;
+    QString breed;
+
     public:
-        SmallAnimal(QString, QString, int, QChar, QString);
-        //QString getBreed() const;
+        Bird(QString, QString, int, QChar, QString);
+        ~Bird();
+
 
 
 };

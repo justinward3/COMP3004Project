@@ -20,26 +20,6 @@ viewAnimals::viewAnimals(QWidget *parent):
     ui->animalList->setModel(model);
     ui->animalList->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->animalList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    //sh = shelter;
-
-    //cout << QApplication::topLevelWidgets() <<endl;
-            //MainWindow conn;
-    //Shelter shelter;
-    /*
-    conn.db.open();
-
-    if (!conn.db.open()) {
-        printf("DATABASE ERROR\n");
-    }
-    else {
-        QSqlQueryModel* model=new QSqlQueryModel();
-        model->setQuery(conn.shelter->loadAnimals(conn.db));
-        ui->animalList->setModel(model);
-    }
-    */
-    //This is ideally how the UI should call the shelter to display the animals
-    //ui->animalList->setModel(QList<Animal>::fromVector(sh->getAnimals());
-    //QApplication.
 }
 
 viewAnimals::~viewAnimals()
@@ -51,7 +31,7 @@ void viewAnimals::setShelter(Shelter* shelter_ptr){
     cout << "SetShelter"<<endl;
     sh = shelter_ptr;
     vector<Animal*> animals = sh->getAnimals();
-    for(int i=0; i< animals.size();i++){
+    for(size_t i=0; i< animals.size();i++){
         QList<QStandardItem*> newRow;
         QStandardItem* type;
         if ( dynamic_cast<Dog*>( animals[i] ) )
@@ -59,6 +39,12 @@ void viewAnimals::setShelter(Shelter* shelter_ptr){
 
         else if ( dynamic_cast<Cat*>( animals[i] ) )
            type = new QStandardItem(QString("Cat"));
+
+        else if ( dynamic_cast<Bird*>( animals[i] ) )
+           type = new QStandardItem(QString("Bird"));
+
+        else if ( dynamic_cast<SmallAnimal*>( animals[i] ) )
+           type = new QStandardItem(QString("Small Animal"));
 
         QStandardItem* name = new QStandardItem(QString(animals[i]->getName()));
         QStandardItem* age = new QStandardItem(QString(QString::number(animals[i]->getAge())));
@@ -89,17 +75,10 @@ void viewAnimals::on_backButton_clicked()
 
 void viewAnimals::on_addButton_clicked()
 {
-    /*this->hide();
-    addAnimal addAnimal;
-    addAnimal.setShelter(sh);
-    addAnimal.setModal(true);
-    addAnimal.exec();
-    */
     this->hide();
-    addAnimal* animalAdd = new addAnimal();
-    animalAdd->setShelter(sh);
-    animalAdd->setModal(true);
-    animalAdd->deleteLater();
-    animalAdd->exec();
+    addAnimal animalAdd;
+    animalAdd.setShelter(sh);
+    animalAdd.setModal(true);
+    animalAdd.exec();
 }
 
