@@ -9,15 +9,9 @@
 using namespace std;
 
 class Staff : public User {
-
-    //friend ostream& operator<<(ostream&, Staff&);
-
     public:
 
         Staff(QString="", QString="", QString="", QString="", QString="");
-
-        //bool operator<(Staff&);
-        //bool operator>(Staff&);
 
 };
 

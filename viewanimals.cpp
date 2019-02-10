@@ -11,6 +11,7 @@ viewAnimals::viewAnimals(QWidget *parent):
     ui(new Ui::viewAnimals)
 {
     ui->setupUi(this);
+    //Set up table and ui
     QStringList headers;
     headers<<"Type"<<"Detail"<<"Name"<<"Age"<<"Colour"<<"Sex";
     //QStringListModel *model = new QStringListModel();
@@ -27,13 +28,17 @@ viewAnimals::~viewAnimals()
     delete model;
     delete ui;
 }
+//set shelter pointer
 void viewAnimals::setShelter(Shelter* shelter_ptr){
-    cout << "SetShelter"<<endl;
+    //cout << "SetShelter"<<endl;
     sh = shelter_ptr;
     vector<Animal*> animals = sh->getAnimals();
+
+    //Add animals to table
     for(size_t i=0; i< animals.size();i++){
         QList<QStandardItem*> newRow;
         QStandardItem* type;
+        //get animal type and corresponding string
         if ( dynamic_cast<Dog*>( animals[i] ) )
            type = new QStandardItem(QString("Dog"));
 
@@ -59,11 +64,14 @@ void viewAnimals::setShelter(Shelter* shelter_ptr){
         newRow.append(age);
         newRow.append(colour);
         newRow.append(sex);
+        //append to table
         model->appendRow(newRow);
     }
 
     ui->animalList->setModel(model);
 }
+
+//command handler for back button
 void viewAnimals::on_backButton_clicked()
 {
     this->hide();
@@ -73,6 +81,7 @@ void viewAnimals::on_backButton_clicked()
     staffWindow.exec();
 }
 
+//command handler for add button
 void viewAnimals::on_addButton_clicked()
 {
     this->hide();

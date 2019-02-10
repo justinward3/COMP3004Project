@@ -11,15 +11,11 @@ using namespace std;
 
 class Cat : public Animal{
 
-    //friend ostream& operator<<(ostream&, Cat&);
-
     private:
-        //virtual QString toString() const;
         QString breed;
     public:
         Cat(QString, QString, int, QChar, QString);
         ~Cat();
-        //QString getBreed() const;
 
 
 };

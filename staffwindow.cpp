@@ -13,12 +13,15 @@ staffWindow::~staffWindow()
 {
     delete ui;
 }
+
+//set shelter pointer
 void staffWindow::setShelter(Shelter *shelter_ptr){
     sh = shelter_ptr;
 }
+
+//command handler for viewAnimals button
 void staffWindow::on_viewAnimalsButton_clicked()
 {
-
     this->hide();
     viewAnimals* animalView = new viewAnimals();
     animalView->setShelter(sh);

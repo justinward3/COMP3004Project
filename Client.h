@@ -13,15 +13,9 @@ using namespace std;
 
 class Client : public User {
 
-    friend ostream& operator<<(ostream&, Client&);
-
     public:
 
         Client(QString="", QString="", QString="", QString="" ,QString="");
-
-        //bool operator<(Client&);
-        //bool operator>(Client&);
-
 
 };
 

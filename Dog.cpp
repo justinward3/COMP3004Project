@@ -6,4 +6,4 @@ using namespace std;
 Dog::Dog(QString na, QString col, int a, QChar s, QString t) :
             Animal(na,col,a,s,t){}
 
-Dog::~Dog(){cout<<"dog says goodbye"<<endl;}
+Dog::~Dog(){}

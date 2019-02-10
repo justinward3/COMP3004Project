@@ -20,7 +20,7 @@ Shelter::Shelter() {
 //Deconstructor for Shelter
 Shelter::~Shelter() {
       db.close();
-      cout<< "Shelter Deconstructor " <<endl;
+      //cout<< "Shelter Deconstructor " <<endl;
       for (vector<Animal*>::iterator it = animals.begin() ; it != animals.end(); ++it)
       {
         delete (*it);
@@ -49,6 +49,7 @@ bool Shelter::connect(){
     if(db.open()){
         return this->loadAnimals();
     }
+    return false;
 }
 
 //add Client function (operator overload)
@@ -77,11 +78,13 @@ Shelter& Shelter::operator+=(Staff* s) {
 
 //add Animal function (operator overload)
 bool Shelter::operator+=(Animal* a) {
+    //Set up query
     qry=new QSqlQuery(db);
     QString s = "INSERT INTO `Animals`(`Type`,`Name`,`Age`,`Colour`,`Sex`,`Detail`) VALUES (:type,:name,:age,:colour,:sex,:detail);";
     qry->prepare(s);
     qry->bindValue(":name", a->getName());
 
+    //Check subclass of animal and set type bind value
     if ( dynamic_cast<Dog*>( a ) )
        qry->bindValue(":type", "Dog");
 
@@ -94,13 +97,17 @@ bool Shelter::operator+=(Animal* a) {
     else if ( dynamic_cast<SmallAnimal*>( a ) )
        qry->bindValue(":type", "Small Animal");
 
+    //convert char to str
     QString temp;
     temp.append(a->getSex());
+
+    //set bind values
     qry->bindValue(":sex", temp);
     qry->bindValue(":age", a->getAge());
     qry->bindValue(":colour", a->getColour());
     qry->bindValue(":detail", a->getDetail());
 
+    //if added to Db then add to vector
     if(qry->exec()){
         animals.insert(animals.end(),a);
         delete qry;
@@ -118,17 +125,17 @@ bool Shelter::loadAnimals(){
     qry=new QSqlQuery(db);
     qry->prepare("SELECT name, type, sex, age, colour, detail FROM Animals");
 
+    //if succesfully connected to dB
     if(qry->exec()){
         status = true;
         while (qry->next()) {
+            //local var for info from Db
             QString name = qry->value(0).toString();
             QString type = qry->value(1).toString();
             QString sex = qry->value(2).toString();
             int age = qry->value(3).toInt();
             QString detail = qry->value(5).toString();
             QString colour = qry->value(4).toString();
-
-            //qDebug() << name << type << sex << age << breed << colour;
 
             //Create instances of Animals and add to Vector of Animals
             if (type == "Dog") {
@@ -160,26 +167,33 @@ bool Shelter::loadAnimals(){
     return status;
 }
 
-void Shelter::loadUsers(){
+//to be implemented
+bool Shelter::loadUsers(){
     //prepare Sql Query to load Users
     qry=new QSqlQuery(db);
     qry->prepare("SELECT FirstName,LastName, Type, Address, PhoneNumber, EmailAddress FROM Users");
-    qry->exec();
-
-    while (qry->next()) {
-        QString type = qry->value(0).toString();
-        qDebug() << type<< qry->value(1).toString()<<qry->value(2).toString()<<qry->value(3).toString()<<qry->value(4).toString()<<qry->value(5).toString();
-              if (type == "Client"){
-                cout << "Client"<<endl;
-                Client* newClient = new Client(qry->value(1).toString(),qry->value(2).toString(),qry->value(3).toString(),qry->value(4).toString(),qry->value(5).toString());
-                clients.insert(clients.end(), newClient);
-              }else if (type =="Staff"){
-                cout << "Staff"<<endl;
-                Staff* newStaff = new Staff(qry->value(1).toString(),qry->value(2).toString(),qry->value(3).toString(),qry->value(4).toString(),qry->value(5).toString());
-                staff.insert(staff.end(), newStaff);
-              }
+    bool status;
+    if(qry->exec()){
+        status=true;
+        while (qry->next()) {
+            status = true;
+            QString type = qry->value(0).toString();
+            qDebug() << type<< qry->value(1).toString()<<qry->value(2).toString()<<qry->value(3).toString()<<qry->value(4).toString()<<qry->value(5).toString();
+                  if (type == "Client"){
+                    cout << "Client"<<endl;
+                    Client* newClient = new Client(qry->value(1).toString(),qry->value(2).toString(),qry->value(3).toString(),qry->value(4).toString(),qry->value(5).toString());
+                    clients.insert(clients.end(), newClient);
+                  }else if (type =="Staff"){
+                    cout << "Staff"<<endl;
+                    Staff* newStaff = new Staff(qry->value(1).toString(),qry->value(2).toString(),qry->value(3).toString(),qry->value(4).toString(),qry->value(5).toString());
+                    staff.insert(staff.end(), newStaff);
+                  }
+        }
+    }else{
+        status = false;
     }
     delete qry;
+    return status;
 }
 
 //return vector of animals

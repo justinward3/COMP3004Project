@@ -7,7 +7,7 @@ Animal::Animal(QString na, QString col, int a, QChar s, QString d) {
     sex = s;
     detail = d;
 }
-Animal::~Animal(){ cout<< "animal deconstructor"<<endl;}
+Animal::~Animal(){}
 
 QString  Animal::getName() const     { return name; }
 int  Animal::getAge() const    { return age; }

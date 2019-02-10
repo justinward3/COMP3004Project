@@ -5,4 +5,4 @@ using namespace std;
 Bird::Bird(QString na, QString col, int a, QChar s, QString t) :
     Animal(na,col,a,s,t){}
 
-Bird::~Bird(){cout<<"Bird says goodbye"<<endl;}
+Bird::~Bird(){}

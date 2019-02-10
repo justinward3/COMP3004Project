@@ -12,7 +12,6 @@ using namespace std;
 class Bird : public Animal{
 
     private:
-    //virtual QString toString() const;
     QString breed;
 
     public:

@@ -13,7 +13,6 @@ class staffWindow : public QDialog
     Q_OBJECT
 
 public:
-    //staffWindow(QWidget *parent = 0, Shelter sh);
     staffWindow(QWidget *parent = 0);\
     void setShelter(Shelter*);
     ~staffWindow();

@@ -7,9 +7,3 @@ Staff::Staff(QString fname, QString lname, QString add, QString pnum, QString em
 
 
 
-
-/*
-bool Staff::operator<(Staff& c) { return true; }
-
-bool Staff::operator>(Staff& c) { return false; }
-*/

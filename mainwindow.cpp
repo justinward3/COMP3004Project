@@ -17,13 +17,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    printf("MainWindow says goodbye");\
     delete shelter;
     delete ui;
 }
 
+//command handler for staff button
 void MainWindow::on_staffButton_clicked()
 {
+    //check if connected to Db
     if(connected){
         this->hide();
         staffWindow staffWindow;
@@ -32,6 +33,7 @@ void MainWindow::on_staffButton_clicked()
         staffWindow.exec();
     }
     else{
+        //pop message for Db failure
         QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please contact system admin", QMessageBox::Ok);
     }
 }

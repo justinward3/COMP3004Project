@@ -11,16 +11,9 @@
 using namespace std;
 
 class Dog : public Animal{
-
-    //friend ostream& operator<<(ostream&, Dog&);
-
-    private:
-        //virtual QString toString() const;
-        QString breed;
     public:
         Dog(QString, QString, int, QChar, QString);
         ~Dog();
-        //QString getBreed() const;
 
 
 };

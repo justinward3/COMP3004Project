@@ -25,9 +25,6 @@ class Shelter{
         bool operator+=(Animal*) ;
         vector<Animal*>& getAnimals();
         vector<Staff*>& getStaff();
-        bool loadAnimals();
-        void loadUsers();
-
 
     private:
         QSqlDatabase db;
@@ -36,6 +33,8 @@ class Shelter{
         vector<Animal*> animals;
         QSqlQuery* qry;
         QSqlQueryModel* model;
+        bool loadAnimals();
+        bool loadUsers();
 
 };
 
