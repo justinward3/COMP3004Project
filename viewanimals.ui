@@ -16,16 +16,16 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>231</width>
+     <x>180</x>
+     <y>20</y>
+     <width>271</width>
      <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>DejaVu Sans</family>
-     <pointsize>14</pointsize>
+     <pointsize>16</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -43,10 +43,10 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>80</y>
-     <width>120</width>
-     <height>281</height>
+     <x>640</x>
+     <y>20</y>
+     <width>151</width>
+     <height>511</height>
     </rect>
    </property>
    <property name="title">
@@ -57,7 +57,7 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>101</width>
+      <width>131</width>
       <height>25</height>
      </rect>
     </property>
@@ -70,7 +70,7 @@
      <rect>
       <x>10</x>
       <y>70</y>
-      <width>101</width>
+      <width>131</width>
       <height>25</height>
      </rect>
     </property>
@@ -82,10 +82,10 @@
   <widget class="QTableView" name="animalList">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>40</y>
-     <width>561</width>
-     <height>491</height>
+     <x>20</x>
+     <y>70</y>
+     <width>601</width>
+     <height>461</height>
     </rect>
    </property>
   </widget>
