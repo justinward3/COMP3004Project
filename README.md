@@ -6,7 +6,7 @@ Sabina Bialic 101029479
 Brandon Ward 101038470
 
 - - - - - - - - - - - - - - - - - - - -
-- - - - LAUNCHING INSTRUCTIONS  - - - -
+LAUNCHING INSTRUCTIONS
 - - - - - - - - - - - - - - - - - - - -
 1) In the terminal, cd to where the folder was saved
 2) Use the following command in the terminal to compile: 
