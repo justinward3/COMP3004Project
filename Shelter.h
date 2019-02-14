@@ -18,7 +18,7 @@ class Shelter{
         Shelter();
         ~Shelter();
         bool connect();
-        Shelter& operator+=(Client*);
+        bool operator+=(Client*);
         Client* getClient(QString);
         vector<Client*>& getClients();
         Shelter& operator+=(Staff*);

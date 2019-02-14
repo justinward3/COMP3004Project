@@ -21,6 +21,8 @@ public:
 private slots:
     void on_viewAnimalsButton_clicked();
 
+    void on_viewClientsButton_clicked();
+
 private:
     Ui::staffWindow *ui;
     Shelter* sh;

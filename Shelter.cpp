@@ -47,15 +47,41 @@ bool Shelter::connect(){
     db=QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(DbPath);
     if(db.open()){
-        return this->loadAnimals();
+        return this->loadAnimals() && this->loadUsers();
     }
     return false;
 }
 
 //add Client function (operator overload)
-Shelter& Shelter::operator+=(Client* c) {
-    clients.insert(clients.end(), c);
-    return *this;
+bool Shelter::operator+=(Client* c) {
+    //Set up query
+    qry=new QSqlQuery(db);
+    bool unique = true;
+    for (size_t i = 0; i < clients.size(); i++) {
+        if(clients[i]->getEmail()==c->getEmail()){
+            unique = false;
+        }
+    }
+    if(unique){
+        QString s = "INSERT INTO `Users`(`Type`,`FirstName`,`LastName`,`Address`,`PhoneNumber`,`EmailAddress`) VALUES (:type,:fname,:lname,:add,:phone,:email);";
+        qry->prepare(s);
+        qry->bindValue(":fname", c->getFname());
+        qry->bindValue(":lname", c->getLname());
+        qry->bindValue(":type", "Client");
+        qry->bindValue(":add", c->getAddress());
+        qry->bindValue(":phone", c->getPhoneNumber());
+        qry->bindValue(":email", c->getEmail());
+        //if added to Db then add to vector
+        if(qry->exec()){
+            clients.insert(clients.end(),c);
+            delete qry;
+            return true;
+        }
+    }
+    delete qry;
+    return false;
+
+
 }
 
 //get Specific client from their emailAddress
@@ -171,7 +197,7 @@ bool Shelter::loadAnimals(){
 bool Shelter::loadUsers(){
     //prepare Sql Query to load Users
     qry=new QSqlQuery(db);
-    qry->prepare("SELECT FirstName,LastName, Type, Address, PhoneNumber, EmailAddress FROM Users");
+    qry->prepare("SELECT Type,FirstName,LastName, Address, PhoneNumber, EmailAddress FROM Users");
     bool status;
     if(qry->exec()){
         status=true;
@@ -191,6 +217,9 @@ bool Shelter::loadUsers(){
         }
     }else{
         status = false;
+    }
+    for(size_t i=0;i<clients.size();i++){
+        qDebug()<<clients[i]->getFname();
     }
     delete qry;
     return status;

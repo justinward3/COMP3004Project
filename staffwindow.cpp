@@ -1,6 +1,7 @@
 #include "staffwindow.h"
 #include "ui_staffwindow.h"
 #include "viewanimals.h"
+#include "viewclients.h"
 
 staffWindow::staffWindow(QWidget *parent) :
     QDialog(parent),
@@ -29,3 +30,13 @@ void staffWindow::on_viewAnimalsButton_clicked()
     animalView->deleteLater();
     animalView->exec();
 }
+
+void staffWindow::on_viewClientsButton_clicked()
+{
+    this->hide();
+    viewClients viewClients;
+    viewClients.setShelter(sh);
+    viewClients.setModal(true);
+    viewClients.exec();
+}
+
