@@ -5,6 +5,10 @@
 #include "Shelter.h"
 #include <QStandardItemModel>
 #include "Client.h"
+#include "staffwindow.h"
+#include "addanimal.h"
+#include "mainwindow.h"
+#include "addclient.h"
 
 
 namespace Ui {

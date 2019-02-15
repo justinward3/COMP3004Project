@@ -1,9 +1,5 @@
 #include "viewclients.h"
 #include "ui_viewclients.h"
-#include "staffwindow.h"
-#include "addanimal.h"
-#include "mainwindow.h"
-#include "Shelter.h"
 #include <QStandardItemModel>
 
 viewClients::viewClients(QWidget *parent):
@@ -71,9 +67,9 @@ void viewClients::on_backButton_clicked()
 void viewClients::on_addButton_clicked()
 {
     this->hide();
-    addAnimal animalAdd;
-    animalAdd.setShelter(sh);
-    animalAdd.setModal(true);
-    animalAdd.exec();
+    addClient clientAdd;
+    clientAdd.setShelter(sh);
+    clientAdd.setModal(true);
+    clientAdd.exec();
 }
 

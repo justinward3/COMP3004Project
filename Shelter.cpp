@@ -55,7 +55,6 @@ bool Shelter::connect(){
 //add Client function (operator overload)
 bool Shelter::operator+=(Client* c) {
     //Set up query
-    qry=new QSqlQuery(db);
     bool unique = true;
     for (size_t i = 0; i < clients.size(); i++) {
         if(clients[i]->getEmail()==c->getEmail()){
@@ -63,6 +62,7 @@ bool Shelter::operator+=(Client* c) {
         }
     }
     if(unique){
+        qry=new QSqlQuery(db);
         QString s = "INSERT INTO `Users`(`Type`,`FirstName`,`LastName`,`Address`,`PhoneNumber`,`EmailAddress`) VALUES (:type,:fname,:lname,:add,:phone,:email);";
         qry->prepare(s);
         qry->bindValue(":fname", c->getFname());
@@ -72,12 +72,16 @@ bool Shelter::operator+=(Client* c) {
         qry->bindValue(":phone", c->getPhoneNumber());
         qry->bindValue(":email", c->getEmail());
         //if added to Db then add to vector
+        cout <<"try to exec"<<endl;
         if(qry->exec()){
+                    cout <<"try to exec2"<<endl;
+
             clients.insert(clients.end(),c);
             delete qry;
             return true;
         }
     }
+     qDebug()<< qry->lastError().databaseText();
     delete qry;
     return false;
 

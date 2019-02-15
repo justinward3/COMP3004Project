@@ -38,7 +38,8 @@ SOURCES += \
     SmallAnimal.cpp \
     Staff.cpp \
     User.cpp \
-    viewclients.cpp
+    viewclients.cpp \
+    addclient.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,11 +55,13 @@ HEADERS += \
     User.h \
     Bird.h \
     SmallAnimal.h \
-    viewclients.h
+    viewclients.h \
+    addclient.h
 
 FORMS += \
         mainwindow.ui \
     staffwindow.ui \
     viewanimals.ui \
     addanimal.ui \
-    viewclients.ui
+    viewclients.ui \
+    addclient.ui
