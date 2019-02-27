@@ -18,9 +18,13 @@ viewAnimals::viewAnimals(QWidget *parent):
     model = new QStandardItemModel();
     model->setColumnCount(4);
     model->setHorizontalHeaderLabels(headers);
+
+    //Setup table
     ui->animalList->setModel(model);
     ui->animalList->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->animalList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->animalList->setSelectionMode( QAbstractItemView::SingleSelection );
+    ui->animalList->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 viewAnimals::~viewAnimals()

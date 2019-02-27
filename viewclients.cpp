@@ -14,9 +14,14 @@ viewClients::viewClients(QWidget *parent):
     model = new QStandardItemModel();
     model->setColumnCount(4);
     model->setHorizontalHeaderLabels(headers);
+
+    //setup table
     ui->clientList->setModel(model);
     ui->clientList->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->clientList->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->clientList->setSelectionMode( QAbstractItemView::SingleSelection );
+    ui->clientList->setSelectionBehavior(QAbstractItemView::SelectRows);
+
 }
 
 viewClients::~viewClients()
