@@ -88,6 +88,41 @@ bool Shelter::operator+=(Client* c) {
 
 }
 
+//add Staff function (operator overload)
+bool Shelter::operator+=(Staff* s) {
+    cout<<"staffop"<<endl;
+    //Set up query
+    bool unique = true;
+    for (size_t i = 0; i < staff.size(); i++) {
+        if(staff[i]->getEmail()==s->getEmail()){
+            unique = false;
+        }
+    }
+    if(unique){
+        qry=new QSqlQuery(db);
+        QString sqry = "INSERT INTO `Users`(`Type`,`FirstName`,`LastName`,`Address`,`PhoneNumber`,`EmailAddress`) VALUES (:type,:fname,:lname,:add,:phone,:email);";
+        qry->prepare(sqry);
+        qry->bindValue(":fname", s->getFname());
+        qry->bindValue(":lname", s->getLname());
+        qry->bindValue(":type", "Staff");
+        qry->bindValue(":add", s->getAddress());
+        qry->bindValue(":phone", s->getPhoneNumber());
+        qry->bindValue(":email", s->getEmail());
+        //if added to Db then add to vector
+        cout <<"try to exec"<<endl;
+        if(qry->exec()){
+                    cout <<"try to exec2"<<endl;
+
+            staff.insert(staff.end(),s);
+            delete qry;
+            return true;
+        }
+    }
+     qDebug()<< qry->lastError().databaseText();
+    delete qry;
+    return false;
+}
+
 //get Specific client from their emailAddress
 Client* Shelter::getClient(QString email)  {
     for (size_t i = 0; i < clients.size(); i++)  {
@@ -99,12 +134,6 @@ Client* Shelter::getClient(QString email)  {
 
 //return vector of clients
 vector<Client*>& Shelter::getClients() { return clients; }
-
-//add Staff function (operator overload)
-Shelter& Shelter::operator+=(Staff* s) {
-    staff.insert(staff.end(),s);
-    return *this;
-}
 
 //add Animal function (operator overload)
 bool Shelter::operator+=(Animal* a) {

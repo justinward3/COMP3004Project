@@ -21,7 +21,7 @@ class Shelter{
         bool operator+=(Client*);
         Client* getClient(QString);
         vector<Client*>& getClients();
-        Shelter& operator+=(Staff*);
+        bool operator+=(Staff*);
         bool operator+=(Animal*) ;
         vector<Animal*>& getAnimals();
         vector<Staff*>& getStaff();

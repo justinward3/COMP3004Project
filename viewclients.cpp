@@ -28,7 +28,7 @@ viewClients::~viewClients()
 void viewClients::setShelter(Shelter* shelter_ptr){
     cout << "SetShelter"<<endl;
     sh = shelter_ptr;
-    vector<Client*> clients = sh->getClients();
+    clients = sh->getClients();
 
     //Add clients to table
     for(size_t i=0; i< clients.size();i++){
@@ -73,3 +73,14 @@ void viewClients::on_addButton_clicked()
     clientAdd.exec();
 }
 
+
+void viewClients::on_detailButton_clicked()
+{
+    QItemSelectionModel *select = ui->clientList->selectionModel();
+
+
+    if(select->hasSelection()){
+        cout<<"hasselection"<<endl;
+        qDebug() << clients[select->currentIndex().row()]->getFname();
+    }
+}

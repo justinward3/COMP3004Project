@@ -78,6 +78,19 @@
      <string>Back</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="detailButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>131</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>View Client Detail</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QTableView" name="clientList">
    <property name="geometry">

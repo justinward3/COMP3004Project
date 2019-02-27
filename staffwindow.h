@@ -23,6 +23,8 @@ private slots:
 
     void on_viewClientsButton_clicked();
 
+    void on_addStaffButton_clicked();
+
 private:
     Ui::staffWindow *ui;
     Shelter* sh;
