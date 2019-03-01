@@ -20,6 +20,7 @@ class Shelter{
         bool connect();
         bool operator+=(Client*);
         Client* getClient(QString);
+        Staff* getOneStaff(QString);
         vector<Client*>& getClients();
         bool operator+=(Staff*);
         bool operator+=(Animal*) ;

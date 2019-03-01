@@ -132,6 +132,15 @@ Client* Shelter::getClient(QString email)  {
     return 0;
 }
 
+//get Specific staff from their emailAddress
+Staff* Shelter::getOneStaff(QString email)  {
+    for (size_t i = 0; i < staff.size(); i++)  {
+        if (staff.at(i)->getEmail() == email)
+            return staff.at(i);
+    }
+    return 0;
+}
+
 //return vector of clients
 vector<Client*>& Shelter::getClients() { return clients; }
 

@@ -26,11 +26,13 @@ void MainWindow::on_staffButton_clicked()
 {
     //check if connected to Db
     if(connected){
-        this->hide();
-        staffWindow staffWindow;
-        staffWindow.setShelter(shelter);
-        staffWindow.setModal(true);
-        staffWindow.exec();
+        if(shelter->getOneStaff(ui->username->text())){
+            this->hide();
+            staffWindow staffWindow;
+            staffWindow.setShelter(shelter);
+            staffWindow.setModal(true);
+            staffWindow.exec();
+        }
     }
     else{
         //pop message for Db failure
