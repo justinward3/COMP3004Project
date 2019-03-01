@@ -246,14 +246,19 @@ bool Shelter::loadUsers(){
         while (qry->next()) {
             status = true;
             QString type = qry->value(0).toString();
-            qDebug() << type<< qry->value(1).toString()<<qry->value(2).toString()<<qry->value(3).toString()<<qry->value(4).toString()<<qry->value(5).toString();
+            QString fname = qry->value(1).toString();
+            QString lname = qry->value(2).toString();
+            QString add = qry->value(3).toString();
+            QString pnum = qry->value(4).toString();
+            QString email = qry->value(5).toString();
+            qDebug() << type<< qry->value(1).toString()<<qry->value(3).toString()<<qry->value(4).toString()<<qry->value(5).toString()<<qry->value(6).toString();
                   if (type == "Client"){
                     cout << "Client"<<endl;
-                    Client* newClient = new Client(qry->value(1).toString(),qry->value(2).toString(),qry->value(3).toString(),qry->value(4).toString(),qry->value(5).toString());
+                    Client* newClient = new Client(fname,lname,add,pnum,email);
                     clients.insert(clients.end(), newClient);
                   }else if (type =="Staff"){
                     cout << "Staff"<<endl;
-                    Staff* newStaff = new Staff(qry->value(1).toString(),qry->value(2).toString(),qry->value(3).toString(),qry->value(4).toString(),qry->value(5).toString());
+                    Staff* newStaff = new Staff(fname,lname,add,pnum,email);
                     staff.insert(staff.end(), newStaff);
                   }
         }
