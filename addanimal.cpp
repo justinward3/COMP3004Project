@@ -5,6 +5,7 @@
 #include "QMessageBox"
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QString>
 
 addAnimal::addAnimal(QWidget *parent) :
     QDialog(parent),
@@ -21,12 +22,21 @@ addAnimal::~addAnimal()
 }
 
 //set view
-void addAnimal::setView(int view)
+void addAnimal::setView(int view, Animal *animal)
 {
     if (view == 1) {
         ui->label->setText("Edit Animal");
         ui->addButton->setVisible(false);
         ui->saveButton->setVisible(true);
+
+        ui->animalName->setText(animal->getName());
+        ui->animalSex->setCurrentText(animal->getSex());
+
+        QString s = QString::number(animal->getAge());
+        ui->animalAge->setText(s);
+
+        ui->animalColour->setText(animal->getColour());
+        ui->animalDetail->setText(animal->getDetail());
     }
 }
 
