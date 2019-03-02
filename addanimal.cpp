@@ -90,6 +90,22 @@ void addAnimal::on_addButton_clicked()
     if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!=""
             && lifespanStr!="" && costStr!="" && timeStr!="" && ui->childrenButtonGroup->checkedButton()!=0) {
         QMap<QString,int> attr;
+        attr.insert("doc", (ui->animalDifficulty->currentIndex()+1));
+        attr.insert("affection", (ui->animalAffection->currentIndex()+1));
+        attr.insert("cost", cost);
+        attr.insert("time", time);
+        attr.insert("space", space);
+        attr.insert("loudness", (ui->animalLoudness->currentIndex()+1));
+        attr.insert("activeness", (ui->animalActiveness->currentIndex()+1));
+        attr.insert("obedience", (ui->animalObedience->currentIndex()+1));
+        attr.insert("shedding", (ui->animalShedding->currentIndex()+1));
+        attr.insert("lifespan", lifespan);
+        
+        qDebug() << "DoC: " << attr["doc"] << "\nAffection: " << attr["affection"] << "\nACost: " << attr["cost"] 
+            << "\nTime: " << attr["time"] << "\nSpace: " << attr["space"] << "\nLoudness: " << attr["loudness"] 
+            << "\nActiveness: " << attr["activeness"] << "\nObedience: " << attr["obedience"] 
+            << "\nShedding: " << attr["shedding"] << "\nLifespan: " << attr["lifespan"] << endl;
+        
         //Create animal based on type
         if(type == "Dog"){
             animal = new Dog(name,colour,age,sex[0],detail,attr);
