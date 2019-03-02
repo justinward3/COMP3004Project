@@ -14,7 +14,7 @@ class Cat : public Animal{
     private:
         QString breed;
     public:
-        Cat(QString, QString, int, QChar, QString);
+        Cat(QString, QString, int, QChar, QString, QDict);
         ~Cat();
 
 
