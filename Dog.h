@@ -5,8 +5,6 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
-#include <QString>
-#include <QDict>
 #include "Animal.h"
 
 using namespace std;
