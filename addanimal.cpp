@@ -67,7 +67,7 @@ void addAnimal::on_addButton_clicked()
 
     //Check fields have value
     if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!=""
-            && lifespanStr!="" && costStr!="" && timeStr!="") {
+            && lifespanStr!="" && costStr!="" && timeStr!="" && ui->childrenButtonGroup->checkedButton()!=0) {
         //Create animal based on type
         if(type == "Dog"){
             animal = new Dog(name,colour,age,sex[0],detail);
