@@ -17,6 +17,7 @@ class Animal {
       int age;
       QChar sex;
       QString detail;
+      QDict<int> traits;
 
     public:
         Animal(QString, QString, int, QChar, QString);
@@ -25,6 +26,7 @@ class Animal {
         QString getColour() const;
         int getAge() const;
         QChar getSex() const;
+        QDict<int> getTraits() const;
         QString getDetail() const;
 
 
