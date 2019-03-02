@@ -15,7 +15,7 @@ class Bird : public Animal{
     QString breed;
 
     public:
-        Bird(QString, QString, int, QChar, QString);
+        Bird(QString, QString, int, QChar, QString, QDict);
         ~Bird();
 
 
