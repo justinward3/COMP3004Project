@@ -65,12 +65,9 @@ void addAnimal::on_addButton_clicked()
     QString obedience = ui->animalObedience->currentText();
     QString shedding = ui->animalShedding->currentText();
 
-//    if (ui->childrenButtonGroup->checkedButton()!=0){
-//     printf("OK\n");
-//    }
-
     //Check fields have value
-    if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!="") {
+    if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!=""
+            && lifespanStr!="" && costStr!="" && timeStr!="") {
         //Create animal based on type
         if(type == "Dog"){
             animal = new Dog(name,colour,age,sex[0],detail);
