@@ -28,6 +28,8 @@ void addClient::setView(int view, Client *client)
 
         ui->clientFName->setText(client->getFname());
         ui->clientLName->setText(client->getLname());
+        ui->clientEmail->setText(client->getEmail());
+        ui->clientPNum->setText(client->getPhoneNumber());
     }
 }
 
