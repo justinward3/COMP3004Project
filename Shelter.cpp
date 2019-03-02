@@ -191,7 +191,7 @@ bool Shelter::loadAnimals(){
     bool status;
     //prepare Sql Query to load animals
     qry=new QSqlQuery(db);
-    qry->prepare("SELECT name, type, sex, age, colour, detail FROM Animals");
+    qry->prepare("SELECT name, type, sex, age, colour, detail, DoC, Affection, Cost, Time, LifeSpan, Space, Loudness, Activeness, Obedience, Shedding, IntWithDog, IntWithCat, IntWithChild  FROM Animals");
 
     //if succesfully connected to dB
     if(qry->exec()){
@@ -204,6 +204,19 @@ bool Shelter::loadAnimals(){
             int age = qry->value(3).toInt();
             QString detail = qry->value(5).toString();
             QString colour = qry->value(4).toString();
+            int DoC = qry->value(6).toInt();
+            int Affection = qry->value(7).toInt();
+            int Cost = qry->value(8).toInt();
+            int Time = qry->value(9).toInt();
+            int LifeSpan = qry->value(10).toInt();
+            int Space = qry->value(11).toInt();
+            int Loudness = qry->value(12).toInt();
+            int Activeness = qry->value(13).toInt();
+            int Obedience = qry->value(14).toInt();
+            int Shedding = qry->value(15).toInt();
+            int IntWithDog = qry->value(16).toInt();
+            int IntWithCat = qry->value(17).toInt();
+            int IntWithChild = qry->value(18).toInt();
 
             //Create instances of Animals and add to Vector of Animals
             if (type == "Dog") {
