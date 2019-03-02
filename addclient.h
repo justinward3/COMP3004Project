@@ -17,6 +17,7 @@ class addClient : public QDialog
 public:
     explicit addClient(QWidget *parent = 0);
     void setShelter(Shelter*);
+    void setView(int);
     ~addClient();
 
 private slots:

@@ -11,12 +11,23 @@ addAnimal::addAnimal(QWidget *parent) :
     ui(new Ui::addAnimal)
 {
     ui->setupUi(this);
+    ui->saveButton->setVisible(false);
 }
 
 //Deconstructor
 addAnimal::~addAnimal()
 {
     delete ui;
+}
+
+//set view
+void addAnimal::setView(int view)
+{
+    if (view == 1) {
+        ui->label->setText("Edit Animal");
+        ui->addButton->setVisible(false);
+        ui->saveButton->setVisible(true);
+    }
 }
 
 //set shelter pointer

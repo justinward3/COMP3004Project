@@ -9,12 +9,23 @@ addClient::addClient(QWidget *parent) :
     ui(new Ui::addClient)
 {
     ui->setupUi(this);
+    ui->saveButton->setVisible(false);
 }
 
 //Deconstructor
 addClient::~addClient()
 {
     delete ui;
+}
+
+//set view
+void addClient::setView(int view)
+{
+    if (view == 1) {
+        ui->label->setText("Edit Client");
+        ui->addButton->setVisible(false);
+        ui->saveButton->setVisible(true);
+    }
 }
 
 //set shelter pointer

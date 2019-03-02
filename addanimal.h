@@ -20,11 +20,11 @@ class addAnimal : public QDialog
 public:
     explicit addAnimal(QWidget *parent = 0);
     void setShelter(Shelter*);
+    void setView(int);
     ~addAnimal();
 
 private slots:
     void on_backButton_clicked();
-
     void on_addButton_clicked();
 
 private:
