@@ -27,11 +27,13 @@ public:
 private slots:
     void on_backButton_clicked();
     void on_addButton_clicked();
+    void on_detailButton_clicked();
 
 private:
     Ui::viewAnimals *ui;
     Shelter* sh;
     QStandardItemModel* model;
+    vector<Animal*>  animals;
 
 };
 

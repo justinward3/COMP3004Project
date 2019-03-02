@@ -36,7 +36,7 @@ viewAnimals::~viewAnimals()
 void viewAnimals::setShelter(Shelter* shelter_ptr){
     //cout << "SetShelter"<<endl;
     sh = shelter_ptr;
-    vector<Animal*> animals = sh->getAnimals();
+    animals = sh->getAnimals();
 
     //Add animals to table
     for(size_t i=0; i< animals.size();i++){
@@ -93,5 +93,18 @@ void viewAnimals::on_addButton_clicked()
     animalAdd.setShelter(sh);
     animalAdd.setModal(true);
     animalAdd.exec();
+}
+
+
+
+void viewAnimals::on_detailButton_clicked()
+{
+    QItemSelectionModel *select = ui->animalList->selectionModel();
+
+
+    if(select->hasSelection()){
+        cout<<"hasselection"<<endl;
+        qDebug() << animals[select->currentIndex().row()]->getName();
+    }
 }
 
