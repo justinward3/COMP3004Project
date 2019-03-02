@@ -217,25 +217,25 @@ bool Shelter::loadAnimals(){
             int IntWithDog = qry->value(16).toInt();
             int IntWithCat = qry->value(17).toInt();
             int IntWithChild = qry->value(18).toInt();
-
+            QMap<QString,int> attr;
             //Create instances of Animals and add to Vector of Animals
             if (type == "Dog") {
-                Dog* newDog = new Dog(name, colour, age, sex[0], detail);
+                Dog* newDog = new Dog(name, colour, age, sex[0], detail,attr);
                 animals.insert(animals.end(), newDog);
 
             }
             else if (type == "Cat") {
-                Cat* newCat = new Cat(name, colour, age, sex[0], detail);
+                Cat* newCat = new Cat(name, colour, age, sex[0], detail,attr);
                 animals.insert(animals.end(), newCat);
 
             }
             else if (type == "Bird") {
-                Bird* newBird = new Bird(name, colour, age, sex[0], detail);
+                Bird* newBird = new Bird(name, colour, age, sex[0], detail,attr);
                 animals.insert(animals.end(), newBird);
 
             }
             else if (type == "Small Animal") {
-                SmallAnimal* newSmallAnimal = new SmallAnimal(name, colour, age, sex[0], detail);
+                SmallAnimal* newSmallAnimal = new SmallAnimal(name, colour, age, sex[0], detail,attr);
                 animals.insert(animals.end(), newSmallAnimal);
 
             }

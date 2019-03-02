@@ -79,18 +79,19 @@ void addAnimal::on_addButton_clicked()
     //Check fields have value
     if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!=""
             && lifespanStr!="" && costStr!="" && timeStr!="" && ui->childrenButtonGroup->checkedButton()!=0) {
+        QMap<QString,int> attr;
         //Create animal based on type
         if(type == "Dog"){
-            animal = new Dog(name,colour,age,sex[0],detail);
+            animal = new Dog(name,colour,age,sex[0],detail,attr);
         }
         else if(type == "Cat"){
-            animal = new Cat(name,colour,age,sex[0],detail);
+            animal = new Cat(name,colour,age,sex[0],detail,attr);
         }
         else if(type == "Bird"){
-            animal = new Bird(name,colour,age,sex[0],detail);
+            animal = new Bird(name,colour,age,sex[0],detail,attr);
         }
         else if(type == "Small Animal"){
-            animal = new SmallAnimal(name,colour,age,sex[0],detail);
+            animal = new SmallAnimal(name,colour,age,sex[0],detail,attr);
         }
         //If successfully added to Shelter, pop a success message and go back
         if(sh->operator +=(animal)){

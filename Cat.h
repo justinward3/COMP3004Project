@@ -11,10 +11,8 @@ using namespace std;
 
 class Cat : public Animal{
 
-    private:
-        QString breed;
     public:
-        Cat(QString, QString, int, QChar, QString, QDict);
+        Cat(QString, QString, int, QChar, QString, QMap<QString,int>);
         ~Cat();
 
 

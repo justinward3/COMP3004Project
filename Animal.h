@@ -6,7 +6,7 @@
 #include <sstream>
 #include <string>
 #include <QString>
-#include <QDict>
+#include <QMap>
 
 using namespace std;
 
@@ -18,16 +18,16 @@ class Animal {
       int age;
       QChar sex;
       QString detail;
-      QDict<int> traits;
+      QMap<QString,int> traits;
 
     public:
-        Animal(QString, QString, int, QChar, QString);
+        Animal(QString, QString, int, QChar, QString, QMap<QString,int>);
         virtual ~Animal() = 0;
         QString getName() const;
         QString getColour() const;
         int getAge() const;
         QChar getSex() const;
-        QDict<int> getTraits() const;
+        QMap<QString,int> getTraits() const;
         QString getDetail() const;
 
 
