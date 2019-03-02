@@ -106,5 +106,12 @@ void viewAnimals::on_detailButton_clicked()
         cout<<"hasselection"<<endl;
         qDebug() << animals[select->currentIndex().row()]->getName();
     }
+
+    this->hide();
+    addAnimal animalAdd;
+    animalAdd.setView(1);
+    animalAdd.setShelter(sh);
+    animalAdd.setModal(true);
+    animalAdd.exec();
 }
 

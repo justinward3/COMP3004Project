@@ -88,4 +88,12 @@ void viewClients::on_detailButton_clicked()
         cout<<"hasselection"<<endl;
         qDebug() << clients[select->currentIndex().row()]->getFname();
     }
+
+
+    this->hide();
+    addClient clientAdd;
+    clientAdd.setView(1);
+    clientAdd.setShelter(sh);
+    clientAdd.setModal(true);
+    clientAdd.exec();
 }
