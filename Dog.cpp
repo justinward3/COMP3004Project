@@ -1,9 +1,8 @@
 using namespace std;
 #include <string>
-#include <QString>
 #include "Dog.h"
 
-Dog::Dog(QString na, QString col, int a, QChar s, QString t) :
-            Animal(na,col,a,s,t){}
+Dog::Dog(QString na, QString col, int a, QChar s, QString t, QDict dict) :
+            Animal(na,col,a,s,t,dict){}
 
 Dog::~Dog(){}
