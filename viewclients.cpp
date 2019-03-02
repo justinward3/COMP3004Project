@@ -92,7 +92,7 @@ void viewClients::on_detailButton_clicked()
 
     this->hide();
     addClient clientAdd;
-    clientAdd.setView(1);
+    clientAdd.setView(1, clients[select->currentIndex().row()]);
     clientAdd.setShelter(sh);
     clientAdd.setModal(true);
     clientAdd.exec();

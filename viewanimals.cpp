@@ -109,7 +109,7 @@ void viewAnimals::on_detailButton_clicked()
 
     this->hide();
     addAnimal animalAdd;
-    animalAdd.setView(1);
+    animalAdd.setView(1, animals[select->currentIndex().row()]);
     animalAdd.setShelter(sh);
     animalAdd.setModal(true);
     animalAdd.exec();

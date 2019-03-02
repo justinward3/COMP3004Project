@@ -148,7 +148,7 @@ vector<Client*>& Shelter::getClients() { return clients; }
 bool Shelter::operator+=(Animal* a) {
     //Set up query
     qry=new QSqlQuery(db);
-    QString s = "INSERT INTO `Animals`(`Type`,`Name`,`Age`,`Colour`,`Sex`,`Detail`) VALUES (:type,:name,:age,:colour,:sex,:detail);";
+    QString s = "INSERT INTO `Animals`(`Type`,`Name`,`Age`,`Colour`,`Sex`,`Detail`,`DoC`,`Affection`,`Cost`,`Time`,`LifeSpan`,`Space`,`Loudness`,`Activeness`,`Obedience`,`Shedding`,`IntWithDog`,`IntWithCat`,`IntWithChild`) VALUES (:type,:name,:age,:colour,:sex,:detail,:doc,:affection,:cost,:time,:lifespan,:space,:loudness,:activeness,:obedience,:shedding,:intwithdog,:intwithcat,:intwithchild);";
     qry->prepare(s);
     qry->bindValue(":name", a->getName());
 
@@ -174,7 +174,20 @@ bool Shelter::operator+=(Animal* a) {
     qry->bindValue(":age", a->getAge());
     qry->bindValue(":colour", a->getColour());
     qry->bindValue(":detail", a->getDetail());
-
+    qry->bindValue(":doc", a->getTraits()["doc"]);
+    qry->bindValue(":affection", a->getTraits()["affection"]);
+    qry->bindValue(":cost", a->getTraits()["cost"]);
+    qry->bindValue(":time", a->getTraits()["time"]);
+    qry->bindValue(":lifespan", a->getTraits()["lifespan"]);
+    qry->bindValue(":space", a->getTraits()["space"]);
+    qry->bindValue(":loudness", a->getTraits()["loudness"]);
+    qry->bindValue(":activeness", a->getTraits()["activeness"]);
+    qry->bindValue(":obedience", a->getTraits()["obedience"]);
+    qry->bindValue(":shedding", a->getTraits()["shedding"]);
+    qry->bindValue(":intwithdog", a->getTraits()["intwithdog"]);
+    qry->bindValue(":intwithcat", a->getTraits()["intwithcat"]);
+    qry->bindValue(":intwithchild", a->getTraits()["intwithchild"]);
+      
     //if added to Db then add to vector
     if(qry->exec()){
         animals.insert(animals.end(),a);
