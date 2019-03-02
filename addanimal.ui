@@ -636,7 +636,7 @@
       <widget class="QCheckBox" name="smallAnimalCheckBox">
        <property name="geometry">
         <rect>
-         <x>210</x>
+         <x>220</x>
          <y>30</y>
          <width>111</width>
          <height>23</height>
@@ -679,9 +679,6 @@
        <string>Integration With Children</string>
       </property>
       <widget class="QRadioButton" name="yesChildren">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -692,9 +689,6 @@
        </property>
        <property name="text">
         <string>Yes</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">childrenButtonGroup</string>
@@ -806,6 +800,10 @@
  <connections/>
  <buttongroups>
   <buttongroup name="childrenButtonGroup"/>
-  <buttongroup name="animalButtonGroup"/>
+  <buttongroup name="animalButtonGroup">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
  </buttongroups>
 </ui>
