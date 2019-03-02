@@ -187,7 +187,7 @@ bool Shelter::operator+=(Animal* a) {
     qry->bindValue(":intwithdog", a->getTraits()["intwithdog"]);
     qry->bindValue(":intwithcat", a->getTraits()["intwithcat"]);
     qry->bindValue(":intwithchild", a->getTraits()["intwithchild"]);
-      
+
     //if added to Db then add to vector
     if(qry->exec()){
         animals.insert(animals.end(),a);
@@ -230,7 +230,23 @@ bool Shelter::loadAnimals(){
             int IntWithDog = qry->value(16).toInt();
             int IntWithCat = qry->value(17).toInt();
             int IntWithChild = qry->value(18).toInt();
+
+            //Create QMAP for non phys. traits
             QMap<QString,int> attr;
+            attr.insert("DoC",DoC);
+            attr.insert("Affection", Affection);
+            attr.insert("Cost", Cost);
+            attr.insert("Time", Time);
+            attr.insert("LifeSpan", LifeSpan);
+            attr.insert("Space", Space);
+            attr.insert("Loudness", Loudness);
+            attr.insert("Activeness", Activeness);
+            attr.insert("Obedience", Obedience);
+            attr.insert("Shedding", Shedding);
+            attr.insert("IntWithDog", IntWithDog);
+            attr.insert("IntWithCat", IntWithCat);
+            attr.insert("IntWithChild", IntWithChild);
+            cout<<attr["DoC"]<<endl;
             //Create instances of Animals and add to Vector of Animals
             if (type == "Dog") {
                 Dog* newDog = new Dog(name, colour, age, sex[0], detail,attr);
