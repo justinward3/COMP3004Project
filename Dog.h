@@ -6,13 +6,14 @@
 #include <sstream>
 #include <string>
 #include <QString>
+#include <QDict>
 #include "Animal.h"
 
 using namespace std;
 
 class Dog : public Animal{
     public:
-        Dog(QString, QString, int, QChar, QString);
+        Dog(QString, QString, int, QChar, QString, QDict);
         ~Dog();
 
 
