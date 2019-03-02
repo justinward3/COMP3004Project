@@ -679,6 +679,9 @@
        <string>Integration With Children</string>
       </property>
       <widget class="QRadioButton" name="yesChildren">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -689,6 +692,9 @@
        </property>
        <property name="text">
         <string>Yes</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">childrenButtonGroup</string>

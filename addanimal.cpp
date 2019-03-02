@@ -3,6 +3,8 @@
 #include "viewanimals.h"
 #include "mainwindow.h"
 #include "QMessageBox"
+#include <QPushButton>
+#include <QButtonGroup>
 
 addAnimal::addAnimal(QWidget *parent) :
     QDialog(parent),
@@ -39,11 +41,34 @@ void addAnimal::on_addButton_clicked()
     //local vars for instantiation of new Animal
     QString name = ui->animalName->text();
     QString type = ui->animalType->currentText();
-    QString ageStr = ui->animalAge->text();
-    int age = ui->animalAge->text().toInt();
     QString sex = ui->animalSex->currentText();
     QString colour = ui->animalColour->text();
     QString detail = ui->animalDetail->text();
+
+    QString ageStr = ui->animalAge->text();
+    int age = ui->animalAge->text().toInt();
+    QString lifespanStr = ui->animalLifespan->text();
+    int lifespan = ui->animalLifespan->text().toInt();
+
+    QString difficulty = ui->animalDifficulty->currentText();
+    QString affection = ui->animalAffection->currentText();
+
+    QString costStr = ui->animalCost->text();
+    int cost = ui->animalCost->text().toInt();
+    QString timeStr = ui->animalTime->text();
+    float time = ui->animalTime->text().toFloat();
+
+    QString space = ui->animalSpace->currentText();
+    QString loudness = ui->animalLoudness->currentText();
+    QString activeness = ui->animalActiveness->currentText();
+
+    QString obedience = ui->animalObedience->currentText();
+    QString shedding = ui->animalShedding->currentText();
+
+//    if (ui->childrenButtonGroup->checkedButton()!=0){
+//     printf("OK\n");
+//    }
+
     //Check fields have value
     if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!="") {
         //Create animal based on type
