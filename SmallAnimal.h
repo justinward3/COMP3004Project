@@ -11,7 +11,7 @@ using namespace std;
 
 class SmallAnimal : public Animal{
     public:
-        SmallAnimal(QString, QString, int, QChar, QString);
+        SmallAnimal(QString, QString, int, QChar, QString, QDict);
         ~SmallAnimal();
 
 
