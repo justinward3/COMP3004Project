@@ -19,12 +19,15 @@ addClient::~addClient()
 }
 
 //set view
-void addClient::setView(int view)
+void addClient::setView(int view, Client *client)
 {
     if (view == 1) {
         ui->label->setText("Edit Client");
         ui->addButton->setVisible(false);
         ui->saveButton->setVisible(true);
+
+        ui->clientFName->setText(client->getFname());
+        ui->clientLName->setText(client->getLname());
     }
 }
 
