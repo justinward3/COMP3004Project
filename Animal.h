@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <QString>
+#include <QDict>
 
 using namespace std;
 
