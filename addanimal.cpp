@@ -46,6 +46,24 @@ void addAnimal::setView(int view, Animal *animal)
         ui->animalObedience->setCurrentIndex((animal->getTraits())["obedience"]-1);
         ui->animalShedding->setCurrentIndex((animal->getTraits())["shedding"]-1);
         ui->animalLifespan->setText(QString::number((animal->getTraits())["lifespan"]));
+
+        if (animal->getTraits()["intwithdog"] == 0){
+          ui->dogCheckBox->setChecked(1);
+        }else{
+          ui->dogCheckBox->setChecked(0);
+        }
+        cout << "CAT: " << animal->getTraits()["intwithcat"] << endl;
+        if (animal->getTraits()["intwithcat"] == 0){
+          ui->catCheckBox->setChecked(1);
+        }else{
+          ui->catCheckBox->setChecked(0);
+        }
+        if (animal->getTraits()["intwithchild"] == 0){
+          ui->childCheckBox->setChecked(1);
+        }else{
+          ui->childCheckBox->setChecked(0);
+        }
+
     }
 }
 
@@ -83,6 +101,18 @@ void addAnimal::on_addButton_clicked()
     QString costStr = ui->animalCost->text();
     QString timeStr = ui->animalTime->text();
     QString lifespanStr = ui->animalLifespan->text();
+    int intwithdog = 1;
+    if (ui->dogCheckBox->isChecked()){
+      intwithdog = 0;
+    }
+    int intwithcat = 1;
+    if (ui->catCheckBox->isChecked()){
+      intwithcat = 0;
+    }
+    int intwithchild = 1;
+    if (ui->childCheckBox->isChecked()){
+      intwithchild = 0;
+    }
     /*
     QString space = ui->animalSpace->currentText();
     QString loudness = ui->animalLoudness->currentText();
@@ -108,6 +138,9 @@ void addAnimal::on_addButton_clicked()
         attr.insert("obedience", (ui->animalObedience->currentIndex()+1));
         attr.insert("shedding", (ui->animalShedding->currentIndex()+1));
         attr.insert("lifespan", lifespan);
+        attr.insert("intwithdog", intwithdog);
+        attr.insert("intwithcat", intwithcat);
+        attr.insert("intwithchild", intwithchild);
 
         qDebug() << "DoC: " << attr["doc"] << "\nAffection: " << attr["affection"] << "\nACost: " << attr["cost"]
             << "\nTime: " << attr["time"] << "\nSpace: " << attr["space"] << "\nLoudness: " << attr["loudness"]

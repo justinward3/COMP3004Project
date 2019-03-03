@@ -245,11 +245,11 @@ bool Shelter::loadAnimals(){
             attr.insert("activeness", activeness);
             attr.insert("obedience", obedience);
             attr.insert("shedding", shedding);
-            attr.insert("IntWithDog", IntWithDog);
-            attr.insert("IntWithCat", IntWithCat);
-            attr.insert("IntWithChild", IntWithChild);
+            attr.insert("intwithdog", IntWithDog);
+            attr.insert("intwithcat", IntWithCat);
+            attr.insert("intwithchild", IntWithChild);
 
-            
+
             //Create instances of Animals and add to Vector of Animals
             if (type == "Dog") {
                 Dog* newDog = new Dog(name, colour, age, sex[0], detail,attr);
