@@ -217,6 +217,8 @@ bool Shelter::loadAnimals(){
             int age = qry->value(3).toInt();
             QString detail = qry->value(5).toString();
             QString colour = qry->value(4).toString();
+
+            //Matching parameter/traits/non physical attr.
             int DoC = qry->value(6).toInt();
             int affection = qry->value(7).toInt();
             int cost = qry->value(8).toInt();
@@ -246,7 +248,8 @@ bool Shelter::loadAnimals(){
             attr.insert("IntWithDog", IntWithDog);
             attr.insert("IntWithCat", IntWithCat);
             attr.insert("IntWithChild", IntWithChild);
-            cout<<attr["DoC"]<<endl;
+
+            
             //Create instances of Animals and add to Vector of Animals
             if (type == "Dog") {
                 Dog* newDog = new Dog(name, colour, age, sex[0], detail,attr);

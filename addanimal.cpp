@@ -24,7 +24,9 @@ addAnimal::~addAnimal()
 //set view
 void addAnimal::setView(int view, Animal *animal)
 {
+    //view = 1, then this view will be used for edit
     if (view == 1) {
+        //Populate all fields for view/edit
         ui->label->setText("Edit Animal");
         ui->addButton->setVisible(false);
         ui->saveButton->setVisible(true);
@@ -72,31 +74,30 @@ void addAnimal::on_addButton_clicked()
     QString sex = ui->animalSex->currentText();
     QString colour = ui->animalColour->text();
     QString detail = ui->animalDetail->text();
-
+    QMap<QString,int> attr;
     QString ageStr = ui->animalAge->text();
     int age = ui->animalAge->text().toInt();
-    QString lifespanStr = ui->animalLifespan->text();
     int lifespan = ui->animalLifespan->text().toInt();
-
-    QString difficulty = ui->animalDifficulty->currentText();
-    QString affection = ui->animalAffection->currentText();
-
-    QString costStr = ui->animalCost->text();
     int cost = ui->animalCost->text().toInt();
-    QString timeStr = ui->animalTime->text();
     float time = ui->animalTime->text().toFloat();
-
+    QString costStr = ui->animalCost->text();
+    QString timeStr = ui->animalTime->text();
+    QString lifespanStr = ui->animalLifespan->text();
+    /*
     QString space = ui->animalSpace->currentText();
     QString loudness = ui->animalLoudness->currentText();
     QString activeness = ui->animalActiveness->currentText();
-
     QString obedience = ui->animalObedience->currentText();
     QString shedding = ui->animalShedding->currentText();
+    QString difficulty = ui->animalDifficulty->currentText();
+    QString affection = ui->animalAffection->currentText();
+    */
 
     //Check fields have value
     if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!=""
             && lifespanStr!="" && costStr!="" && timeStr!="") {
-        QMap<QString,int> attr;
+
+        //Populate Matching parameter dictionary
         attr.insert("doc", (ui->animalDifficulty->currentIndex()+1));
         attr.insert("affection", (ui->animalAffection->currentIndex()+1));
         attr.insert("cost", cost);

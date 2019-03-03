@@ -21,11 +21,12 @@ addClient::~addClient()
 //set view
 void addClient::setView(int view, Client *client)
 {
+    //view = 1, then this view will be used for view/edit
     if (view == 1) {
         ui->label->setText("Edit Client");
         ui->addButton->setVisible(false);
         ui->saveButton->setVisible(true);
-
+        ui->label_6->setVisible(false);
         ui->clientFName->setText(client->getFname());
         ui->clientLName->setText(client->getLname());
         ui->clientEmail->setText(client->getEmail());
