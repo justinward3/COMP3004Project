@@ -28,15 +28,22 @@ void addAnimal::setView(int view, Animal *animal)
         ui->label->setText("Edit Animal");
         ui->addButton->setVisible(false);
         ui->saveButton->setVisible(true);
-
         ui->animalName->setText(animal->getName());
         ui->animalSex->setCurrentText(animal->getSex());
-
         QString s = QString::number(animal->getAge());
         ui->animalAge->setText(s);
-
         ui->animalColour->setText(animal->getColour());
         ui->animalDetail->setText(animal->getDetail());
+        ui->animalDifficulty->setCurrentIndex((animal->getTraits())["DoC"]-1);
+        ui->animalAffection->setCurrentIndex((animal->getTraits())["affection"]-1);
+        ui->animalCost->setText(QString::number((animal->getTraits())["cost"]));
+        ui->animalTime->setText(QString::number((animal->getTraits())["time"]));
+        ui->animalSpace->setCurrentIndex((animal->getTraits())["space"]-1);
+        ui->animalLoudness->setCurrentIndex((animal->getTraits())["loudness"]-1);
+        ui->animalActiveness->setCurrentIndex((animal->getTraits())["activeness"]-1);
+        ui->animalObedience->setCurrentIndex((animal->getTraits())["obedience"]-1);
+        ui->animalShedding->setCurrentIndex((animal->getTraits())["shedding"]-1);
+        ui->animalLifespan->setText(QString::number((animal->getTraits())["lifespan"]));
     }
 }
 
@@ -100,12 +107,12 @@ void addAnimal::on_addButton_clicked()
         attr.insert("obedience", (ui->animalObedience->currentIndex()+1));
         attr.insert("shedding", (ui->animalShedding->currentIndex()+1));
         attr.insert("lifespan", lifespan);
-        
-        qDebug() << "DoC: " << attr["doc"] << "\nAffection: " << attr["affection"] << "\nACost: " << attr["cost"] 
-            << "\nTime: " << attr["time"] << "\nSpace: " << attr["space"] << "\nLoudness: " << attr["loudness"] 
-            << "\nActiveness: " << attr["activeness"] << "\nObedience: " << attr["obedience"] 
+
+        qDebug() << "DoC: " << attr["doc"] << "\nAffection: " << attr["affection"] << "\nACost: " << attr["cost"]
+            << "\nTime: " << attr["time"] << "\nSpace: " << attr["space"] << "\nLoudness: " << attr["loudness"]
+            << "\nActiveness: " << attr["activeness"] << "\nObedience: " << attr["obedience"]
             << "\nShedding: " << attr["shedding"] << "\nLifespan: " << attr["lifespan"] << endl;
-        
+
         //Create animal based on type
         if(type == "Dog"){
             animal = new Dog(name,colour,age,sex[0],detail,attr);
