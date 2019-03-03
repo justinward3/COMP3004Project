@@ -100,18 +100,14 @@ void viewAnimals::on_addButton_clicked()
 void viewAnimals::on_detailButton_clicked()
 {
     QItemSelectionModel *select = ui->animalList->selectionModel();
-
-
     if(select->hasSelection()){
         cout<<"hasselection"<<endl;
         qDebug() << animals[select->currentIndex().row()]->getName();
-    }
-
-    this->hide();
-    addAnimal animalAdd;
-    animalAdd.setView(1, animals[select->currentIndex().row()]);
-    animalAdd.setShelter(sh);
-    animalAdd.setModal(true);
-    animalAdd.exec();
+        this->hide();
+        addAnimal animalAdd;
+        animalAdd.setView(1, animals[select->currentIndex().row()]);
+        animalAdd.setShelter(sh);
+        animalAdd.setModal(true);
+        animalAdd.exec();
+  }
 }
-

@@ -82,18 +82,14 @@ void viewClients::on_addButton_clicked()
 void viewClients::on_detailButton_clicked()
 {
     QItemSelectionModel *select = ui->clientList->selectionModel();
-
-
     if(select->hasSelection()){
         cout<<"hasselection"<<endl;
         qDebug() << clients[select->currentIndex().row()]->getFname();
-    }
-
-
-    this->hide();
-    addClient clientAdd;
-    clientAdd.setView(1, clients[select->currentIndex().row()]);
-    clientAdd.setShelter(sh);
-    clientAdd.setModal(true);
-    clientAdd.exec();
+        this->hide();
+        addClient clientAdd;
+        clientAdd.setView(1, clients[select->currentIndex().row()]);
+        clientAdd.setShelter(sh);
+        clientAdd.setModal(true);
+        clientAdd.exec();
+  }
 }
