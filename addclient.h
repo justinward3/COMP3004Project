@@ -18,6 +18,7 @@ public:
     explicit addClient(QWidget *parent = 0);
     void setShelter(Shelter*);
     void setView(int, Client*);
+    void addClientFields(bool);
     ~addClient();
 
 private slots:

@@ -51,7 +51,7 @@
      <string>Back</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="saveButton">
+   <widget class="QPushButton" name="editButton">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -61,10 +61,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>Save</string>
+     <string>Edit</string>
     </property>
    </widget>
-   <zorder>saveButton</zorder>
+   <zorder>editButton</zorder>
    <zorder>addButton</zorder>
    <zorder>backButton</zorder>
   </widget>

@@ -21,6 +21,7 @@ public:
     explicit addAnimal(QWidget *parent = 0);
     void setShelter(Shelter*);
     void setView(int, Animal*);
+    void addAnimalFields(bool);
     ~addAnimal();
 
 private slots:

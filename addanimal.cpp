@@ -12,7 +12,7 @@ addAnimal::addAnimal(QWidget *parent) :
     ui(new Ui::addAnimal)
 {
     ui->setupUi(this);
-    ui->saveButton->setVisible(false);
+    ui->editButton->setVisible(false);
 }
 
 //Deconstructor
@@ -24,16 +24,18 @@ addAnimal::~addAnimal()
 //set view
 void addAnimal::setView(int view, Animal *animal)
 {
-    //view = 1, then this view will be used for edit
+    //view = 1, then this view will be used for view
     if (view == 1) {
         //Populate all fields for view/edit
-        ui->label->setText("Edit Animal");
+        ui->label->setText("View Animal");
         ui->addButton->setVisible(false);
-        ui->saveButton->setVisible(true);
+        ui->editButton->setVisible(true);
+
+        addAnimalFields(false);
+
         ui->animalName->setText(animal->getName());
         ui->animalSex->setCurrentText(animal->getSex());
-        QString s = QString::number(animal->getAge());
-        ui->animalAge->setText(s);
+        ui->animalAge->setText(QString::number(animal->getAge()));
         ui->animalColour->setText(animal->getColour());
         ui->animalDetail->setText(animal->getDetail());
         ui->animalDifficulty->setCurrentIndex((animal->getTraits())["DoC"]-1);
@@ -81,6 +83,29 @@ void addAnimal::on_backButton_clicked()
     animalView.setShelter(sh);
     animalView.setModal(true);
     animalView.exec();
+}
+
+// enable/disable fields on screen
+void addAnimal::addAnimalFields(bool flag) {
+    ui->animalName->setEnabled(flag);
+    ui->animalSex->setEnabled(flag);
+    ui->animalAge->setEnabled(flag);
+    ui->animalColour->setEnabled(flag);
+    ui->animalDetail->setEnabled(flag);
+    ui->animalDifficulty->setEnabled(flag);
+    ui->animalAffection->setEnabled(flag);
+    ui->animalCost->setEnabled(flag);
+    ui->animalTime->setEnabled(flag);
+    ui->animalSpace->setEnabled(flag);
+    ui->animalLoudness->setEnabled(flag);
+    ui->animalActiveness->setEnabled(flag);
+    ui->animalObedience->setEnabled(flag);
+    ui->animalShedding->setEnabled(flag);
+    ui->animalLifespan->setEnabled(flag);
+    ui->animalType->setEnabled(flag);
+    ui->dogCheckBox->setEnabled(flag);
+    ui->catCheckBox->setEnabled(flag);
+    ui->childCheckBox->setEnabled(flag);
 }
 
 //command handler for add button

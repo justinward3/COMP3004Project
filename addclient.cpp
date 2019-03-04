@@ -9,7 +9,7 @@ addClient::addClient(QWidget *parent) :
     ui(new Ui::addClient)
 {
     ui->setupUi(this);
-    ui->saveButton->setVisible(false);
+    ui->editButton->setVisible(false);
 }
 
 //Deconstructor
@@ -23,16 +23,28 @@ void addClient::setView(int view, Client *client)
 {
     //view = 1, then this view will be used for view/edit
     if (view == 1) {
-        ui->label->setText("Edit Client");
+        ui->label->setText("View Client");
         ui->addButton->setVisible(false);
-        ui->saveButton->setVisible(true);
+        ui->editButton->setVisible(true);
         ui->label_6->setVisible(false);
+
+        addClientFields(false);
+
         ui->clientFName->setText(client->getFname());
         ui->clientLName->setText(client->getLname());
         ui->clientEmail->setText(client->getEmail());
         ui->clientPNum->setText(client->getPhoneNumber());
         ui->clientAdd->setText(client->getAddress());
     }
+}
+
+// enable/disable fields
+void addClient::addClientFields(bool flag) {
+    ui->clientFName->setEnabled(flag);
+    ui->clientLName->setEnabled(flag);
+    ui->clientEmail->setEnabled(flag);
+    ui->clientPNum->setEnabled(flag);
+    ui->clientAdd->setEnabled(flag);
 }
 
 //set shelter pointer
