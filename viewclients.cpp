@@ -31,13 +31,11 @@ viewClients::~viewClients()
 }
 //set shelter pointer
 void viewClients::setShelter(Shelter* shelter_ptr){
-    cout << "SetShelter"<<endl;
     sh = shelter_ptr;
     clients = sh->getClients();
 
     //Add clients to table
     for(size_t i=0; i< clients.size();i++){
-        qDebug() << clients[i]->getFname()<<endl;
         QList<QStandardItem*> newRow;
         QStandardItem* fname = new QStandardItem(QString(clients[i]->getFname()));
         QStandardItem* lname = new QStandardItem(QString(clients[i]->getLname()));
@@ -83,8 +81,6 @@ void viewClients::on_detailButton_clicked()
 {
     QItemSelectionModel *select = ui->clientList->selectionModel();
     if(select->hasSelection()){
-        cout<<"hasselection"<<endl;
-        qDebug() << clients[select->currentIndex().row()]->getFname();
         this->hide();
         addClient clientAdd;
         clientAdd.setView(1, clients[select->currentIndex().row()]);

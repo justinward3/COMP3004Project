@@ -34,7 +34,6 @@ viewAnimals::~viewAnimals()
 }
 //set shelter pointer
 void viewAnimals::setShelter(Shelter* shelter_ptr){
-    //cout << "SetShelter"<<endl;
     sh = shelter_ptr;
     animals = sh->getAnimals();
 
@@ -101,8 +100,6 @@ void viewAnimals::on_detailButton_clicked()
 {
     QItemSelectionModel *select = ui->animalList->selectionModel();
     if(select->hasSelection()){
-        cout<<"hasselection"<<endl;
-        qDebug() << animals[select->currentIndex().row()]->getName();
         this->hide();
         addAnimal animalAdd;
         animalAdd.setView(1, animals[select->currentIndex().row()]);

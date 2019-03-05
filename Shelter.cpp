@@ -118,7 +118,7 @@ bool Shelter::operator+=(Staff* s) {
             return true;
         }
     }
-     qDebug()<< qry->lastError().databaseText();
+    qDebug()<< qry->lastError().databaseText();
     delete qry;
     return false;
 }
@@ -296,13 +296,13 @@ bool Shelter::loadUsers(){
             QString add = qry->value(3).toString();
             QString pnum = qry->value(4).toString();
             QString email = qry->value(5).toString();
-            qDebug() << type<< qry->value(1).toString()<<qry->value(3).toString()<<qry->value(4).toString()<<qry->value(5).toString()<<qry->value(6).toString();
+            //qDebug() << type<< qry->value(1).toString()<<qry->value(3).toString()<<qry->value(4).toString()<<qry->value(5).toString()<<qry->value(6).toString();
                   if (type == "Client"){
-                    cout << "Client"<<endl;
+                    //cout << "Client"<<endl;
                     Client* newClient = new Client(fname,lname,add,pnum,email);
                     clients.insert(clients.end(), newClient);
                   }else if (type =="Staff"){
-                    cout << "Staff"<<endl;
+                    //cout << "Staff"<<endl;
                     Staff* newStaff = new Staff(fname,lname,add,pnum,email);
                     staff.insert(staff.end(), newStaff);
                   }
@@ -311,7 +311,7 @@ bool Shelter::loadUsers(){
         status = false;
     }
     for(size_t i=0;i<clients.size();i++){
-        qDebug()<<clients[i]->getFname();
+        //qDebug()<<clients[i]->getFname();
     }
     delete qry;
     return status;
