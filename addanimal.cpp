@@ -54,7 +54,6 @@ void addAnimal::setView(int view, Animal *animal)
         }else{
           ui->dogCheckBox->setChecked(0);
         }
-        cout << "CAT: " << animal->getTraits()["intwithcat"] << endl;
         if (animal->getTraits()["intwithcat"] == 0){
           ui->catCheckBox->setChecked(1);
         }else{
