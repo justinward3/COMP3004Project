@@ -56,12 +56,19 @@ void viewClients::setShelter(Shelter* shelter_ptr){
     ui->clientList->setModel(model);
 }
 
+//set mw pointer
+void viewClients::setMainWindow(QMainWindow *main)
+{
+    mw = main;
+}
+
 //command handler for back button
 void viewClients::on_backButton_clicked()
 {
     this->hide();
     staffWindow staffWindow;
     staffWindow.setShelter(sh);
+    staffWindow.setMainWindow(mw);
     staffWindow.setModal(true);
     staffWindow.exec();
 }
@@ -72,6 +79,7 @@ void viewClients::on_addButton_clicked()
     this->hide();
     addClient clientAdd;
     clientAdd.setShelter(sh);
+    clientAdd.setMainWindow(mw);
     clientAdd.setModal(true);
     clientAdd.exec();
 }
@@ -85,6 +93,7 @@ void viewClients::on_detailButton_clicked()
         addClient clientAdd;
         clientAdd.setView(1, clients[select->currentIndex().row()]);
         clientAdd.setShelter(sh);
+        clientAdd.setMainWindow(mw);
         clientAdd.setModal(true);
         clientAdd.exec();
   }

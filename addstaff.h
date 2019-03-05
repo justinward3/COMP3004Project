@@ -6,6 +6,7 @@
 #include "Staff.h"
 #include "viewclients.h"
 
+
 namespace Ui {
 class addStaff;
 }
@@ -17,6 +18,7 @@ class addStaff : public QDialog
 public:
     explicit addStaff(QWidget *parent = 0);
     void setShelter(Shelter*);
+    void setMainWindow(QMainWindow*);
     ~addStaff();
 
 private slots:
@@ -28,6 +30,7 @@ private:
     Ui::addStaff *ui;
     Shelter* sh;
     Staff* staff;
+    QMainWindow* mw;
 
 };
 

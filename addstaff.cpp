@@ -23,6 +23,14 @@ void addStaff::setShelter(Shelter *shelter_ptr)
     sh = shelter_ptr;
 }
 
+//set mw pointer
+void addStaff::setMainWindow(QMainWindow *main)
+{
+    mw = main;
+}
+
+
+
 //command handler for back button
 void addStaff::on_backButton_clicked()
 {
@@ -30,6 +38,7 @@ void addStaff::on_backButton_clicked()
     //this->deleteLater();
     staffWindow* windowStaff = new staffWindow();
     windowStaff->setShelter(sh);
+    windowStaff->setMainWindow(mw);
     windowStaff->setModal(true);
     windowStaff->exec();
     //delete this;

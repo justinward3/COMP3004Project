@@ -9,6 +9,7 @@
 #include "Cat.h"
 #include "Bird.h"
 #include "SmallAnimal.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class viewAnimals;
@@ -22,6 +23,7 @@ public:
     explicit viewAnimals(QWidget *parent = 0);
     ~viewAnimals();
     void setShelter(Shelter*);
+    void setMainWindow(QMainWindow*);
 
 
 private slots:
@@ -34,6 +36,7 @@ private:
     Shelter* sh;
     QStandardItemModel* model;
     vector<Animal*>  animals;
+    QMainWindow* mw;
 
 };
 

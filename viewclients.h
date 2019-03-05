@@ -23,6 +23,7 @@ public:
     explicit viewClients(QWidget *parent = 0);
     ~viewClients();
     void setShelter(Shelter*);
+    void setMainWindow(QMainWindow*);
 
 
 private slots:
@@ -36,6 +37,7 @@ private:
     Shelter* sh;
     QStandardItemModel* model;
     vector<Client*>  clients;
+    QMainWindow* mw;
 
 };
 

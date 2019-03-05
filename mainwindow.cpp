@@ -30,8 +30,10 @@ void MainWindow::on_staffButton_clicked()
             this->hide();
             staffWindow staffWindow;
             staffWindow.setShelter(shelter);
+            staffWindow.setMainWindow(this);
             staffWindow.setModal(true);
             staffWindow.exec();
+            ui->username->clear();
         }
     }
     else{

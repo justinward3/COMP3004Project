@@ -74,12 +74,19 @@ void viewAnimals::setShelter(Shelter* shelter_ptr){
     ui->animalList->setModel(model);
 }
 
+//set mw pointer
+void viewAnimals::setMainWindow(QMainWindow *main)
+{
+    mw = main;
+}
+
 //command handler for back button
 void viewAnimals::on_backButton_clicked()
 {
     this->hide();
     staffWindow staffWindow;
     staffWindow.setShelter(sh);
+    staffWindow.setMainWindow(mw);
     staffWindow.setModal(true);
     staffWindow.exec();
 }
@@ -90,6 +97,7 @@ void viewAnimals::on_addButton_clicked()
     this->hide();
     addAnimal animalAdd;
     animalAdd.setShelter(sh);
+    animalAdd.setMainWindow(mw);
     animalAdd.setModal(true);
     animalAdd.exec();
 }
@@ -104,6 +112,7 @@ void viewAnimals::on_detailButton_clicked()
         addAnimal animalAdd;
         animalAdd.setView(1, animals[select->currentIndex().row()]);
         animalAdd.setShelter(sh);
+        animalAdd.setMainWindow(mw);
         animalAdd.setModal(true);
         animalAdd.exec();
   }

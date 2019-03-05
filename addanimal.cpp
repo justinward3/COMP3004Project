@@ -74,12 +74,18 @@ void addAnimal::setShelter(Shelter *shelter_ptr)
     sh = shelter_ptr;
 }
 
+//Set main window pointer
+void addAnimal::setMainWindow(QMainWindow* main){
+    mw = main;
+}
+
 //command handler for back button
 void addAnimal::on_backButton_clicked()
 {
     this->hide();
     viewAnimals animalView;
     animalView.setShelter(sh);
+    animalView.setMainWindow(mw);
     animalView.setModal(true);
     animalView.exec();
 }

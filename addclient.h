@@ -17,6 +17,7 @@ class addClient : public QDialog
 public:
     explicit addClient(QWidget *parent = 0);
     void setShelter(Shelter*);
+    void setMainWindow(QMainWindow*);
     void setView(int, Client*);
     void addClientFields(bool);
     ~addClient();
@@ -30,6 +31,8 @@ private:
     Ui::addClient *ui;
     Shelter* sh;
     Client* client;
+    QMainWindow* mw;
+
 
 };
 

@@ -53,12 +53,18 @@ void addClient::setShelter(Shelter *shelter_ptr)
     sh = shelter_ptr;
 }
 
+//set mainwindow pointer
+void addClient::setMainWindow(QMainWindow *main){
+    mw = main;
+}
+
 //command handler for back button
 void addClient::on_backButton_clicked()
 {
     this->hide();
     viewClients viewClients;
     viewClients.setShelter(sh);
+    viewClients.setMainWindow(mw);
     viewClients.setModal(true);
     viewClients.exec();
 }

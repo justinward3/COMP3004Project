@@ -8,6 +8,7 @@
 #include "Cat.h"
 #include "Bird.h"
 #include "SmallAnimal.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class addAnimal;
@@ -20,6 +21,7 @@ class addAnimal : public QDialog
 public:
     explicit addAnimal(QWidget *parent = 0);
     void setShelter(Shelter*);
+    void setMainWindow(QMainWindow*);
     void setView(int, Animal*);
     void addAnimalFields(bool);
     ~addAnimal();
@@ -32,6 +34,7 @@ private:
     Ui::addAnimal *ui;
     Shelter* sh;
     Animal* animal;
+    QMainWindow* mw;
 
 };
 
