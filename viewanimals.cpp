@@ -2,6 +2,7 @@
 #include "ui_viewanimals.h"
 #include "staffwindow.h"
 #include "addanimal.h"
+#include "viewanimal.h"
 #include "mainwindow.h"
 #include "Shelter.h"
 #include <QStandardItemModel>
@@ -103,17 +104,16 @@ void viewAnimals::on_addButton_clicked()
 }
 
 
-
 void viewAnimals::on_detailButton_clicked()
 {
     QItemSelectionModel *select = ui->animalList->selectionModel();
     if(select->hasSelection()){
         this->hide();
-        addAnimal animalAdd;
-        animalAdd.setView(1, animals[select->currentIndex().row()]);
-        animalAdd.setShelter(sh);
-        animalAdd.setMainWindow(mw);
-        animalAdd.setModal(true);
-        animalAdd.exec();
+        viewAnimal animalView;
+        animalView.setAnimal(animals[select->currentIndex().row()],select->currentIndex().row());
+        animalView.setShelter(sh);
+        animalView.setMainWindow(mw);
+        animalView.setModal(true);
+        animalView.exec();
   }
 }

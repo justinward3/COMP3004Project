@@ -22,19 +22,21 @@ public:
     explicit addAnimal(QWidget *parent = 0);
     void setShelter(Shelter*);
     void setMainWindow(QMainWindow*);
-    void setView(int, Animal*);
+    void edit(Animal*, int);
     void addAnimalFields(bool);
     ~addAnimal();
 
 private slots:
     void on_backButton_clicked();
     void on_addButton_clicked();
+    void on_saveButton_clicked();
 
 private:
     Ui::addAnimal *ui;
     Shelter* sh;
     Animal* animal;
     QMainWindow* mw;
+    int pos;
 
 };
 

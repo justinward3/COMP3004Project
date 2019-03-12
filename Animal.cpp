@@ -17,3 +17,4 @@ QString  Animal::getColour() const   { return colour; }
 QChar Animal::getSex() const        {return sex; }
 QMap<QString,int> Animal::getTraits() const    {return traits; }
 QString Animal::getDetail() const     {return detail; }
+

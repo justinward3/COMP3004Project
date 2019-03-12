@@ -8,6 +8,7 @@
 #include <vector>
 #include <string.h>
 #include "QMessageBox"
+#include "qmap.h"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ Shelter::~Shelter() {
 bool Shelter::connect(){
     QDir dir;
     QString DbPath = dir.currentPath();
-    DbPath.append("/cuACSDb");
+    DbPath.append("/cuACSDb2");
     cout<<DbPath.toUtf8().constData()<<endl;
     db=QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(DbPath);
@@ -196,6 +197,116 @@ bool Shelter::operator+=(Animal* a) {
     }
     else{
         delete qry;
+        return false;
+    }
+}
+
+//add Animal function (operator overload)
+bool Shelter::update(Animal* a, QString type, QString name,QString colour,int age, QChar sex, QString detail, QMap<QString,int> attr, int pos){
+    Animal *newAnimal;
+    qry=new QSqlQuery(db);
+    QString s = "UPDATE `Animals` SET `Type`=:type,`Name`=:name,`Age`=:age,`Colour`=:colour,`Sex`=:sex,`Detail`=:detail,`DoC`=:doc,`Affection`=:affection,`Cost`=:cost,`Time`=:time,`LifeSpan`=:lifespan,`Space`=:space,`Loudness`=:loudness,`Activeness`=:activeness,`Obedience`=:obedience,`Shedding`=:shedding,`IntWithDog`=:intwithdog,`IntWithCat`=:intwithcat,`IntWithChild`=:intwithchild WHERE `Type`=:type2 AND `Name`=:name2 AND `Age`=:age2 AND `Colour`=:colour2 AND `Sex`=:sex2 AND `Detail`=:detail2 AND `DoC`=:doc2 AND `Affection`=:affection2 AND `Cost`=:cost2 AND `Time`=:time2 AND `LifeSpan`=:lifespan2 AND `Space`=:space2 AND `Loudness`=:loudness2 AND `Activeness`=:activeness2 AND `Obedience`=:obedience2 AND `Shedding`=:shedding2 AND `IntWithDog`=:intwithdog2 AND `IntWithCat`=:intwithcat2 AND `IntWithChild`=:intwithchild2";
+
+                 //" VALUES (:type,:name,:age,:colour,:sex,:detail,:doc,:affection,:cost,:time,:lifespan,:space,:loudness,:activeness,:obedience,:shedding,:intwithdog,:intwithcat,:intwithchild) ;";
+    //"WHERE (`Type`,`Name`,`Age`,`Colour`,`Sex`,`Detail`,`DoC`,`Affection`,`Cost`,`Time`,`LifeSpan`,`Space`,`Loudness`,`Activeness`,`Obedience`,`Shedding`,`IntWithDog`,`IntWithCat`,`IntWithChild`) VALUES (:type1,:name1,:age1,:colour1,:sex1,:detail1,:doc1,:affection1,:cost1,:time1,:lifespan1,:space1,:loudness1,:activeness1,:obedience1,:shedding1,:intwithdog1,:intwithcat1,:intwithchild1);";
+    qry->prepare(s);
+
+    //SET BIND VALUES FOR VALUES TO BE UPDATED
+
+    qry->bindValue(":type", type);
+    qry->bindValue(":name", name);
+    qry->bindValue(":sex", sex);
+    qry->bindValue(":age", age);
+    qry->bindValue(":colour", colour);
+    qry->bindValue(":detail", detail);
+    qry->bindValue(":doc", attr["doc"]);
+    qry->bindValue(":affection", attr["affection"]);
+    qry->bindValue(":cost", attr["cost"]);
+    qry->bindValue(":time", attr["time"]);
+    qry->bindValue(":lifespan", attr["lifespan"]);
+    qry->bindValue(":space", attr["space"]);
+    qry->bindValue(":loudness", attr["loudness"]);
+    qry->bindValue(":activeness", attr["activeness"]);
+    qry->bindValue(":obedience", attr["obedience"]);
+    qry->bindValue(":shedding", attr["shedding"]);
+    qry->bindValue(":intwithdog", attr["intwithdog"]);
+    qry->bindValue(":intwithcat", attr["intwithcat"]);
+    qry->bindValue(":intwithchild", attr["intwithchild"]);
+
+
+    //SET BIND VALUES OF ANIMAL THAT WILL BE UPDATED
+    //Check subclass of animal and set type bind value
+    if ( dynamic_cast<Dog*>( a ) ){
+       qDebug()<<"DOG";
+       qry->bindValue(":type2", "Dog");
+    }
+    else if ( dynamic_cast<Cat*>( a ) ){
+       qDebug()<<"CAT";
+       qry->bindValue(":type2", "Cat");
+       }
+    else if ( dynamic_cast<Bird*>( a ) ){
+       qDebug()<<"B";
+       qry->bindValue(":type2", "Bird");
+       }
+    else if ( dynamic_cast<SmallAnimal*>( a ) ){
+       qDebug()<<"SA";
+       qry->bindValue(":type2", "Small Animal");
+       }
+
+
+    qry->bindValue(":name2", a->getName());
+    qry->bindValue(":sex2", a->getSex());
+    qry->bindValue(":age2", a->getAge());
+    qry->bindValue(":colour2", a->getColour());
+    qry->bindValue(":detail2", a->getDetail());
+    qry->bindValue(":doc2", a->getTraits()["doc"]);
+    qry->bindValue(":affection2", a->getTraits()["affection"]);
+    qry->bindValue(":cost2", a->getTraits()["cost"]);
+    qry->bindValue(":time2", a->getTraits()["time"]);
+    qry->bindValue(":lifespan2", a->getTraits()["lifespan"]);
+    qry->bindValue(":space2", a->getTraits()["space"]);
+    qry->bindValue(":loudness2", a->getTraits()["loudness"]);
+    qry->bindValue(":activeness2", a->getTraits()["activeness"]);
+    qry->bindValue(":obedience2", a->getTraits()["obedience"]);
+    qry->bindValue(":shedding2", a->getTraits()["shedding"]);
+    qry->bindValue(":intwithdog2", a->getTraits()["intwithdog"]);
+    qry->bindValue(":intwithcat2", a->getTraits()["intwithcat"]);
+    qry->bindValue(":intwithchild2", a->getTraits()["intwithchild"]);
+
+    qDebug() << a->getName();
+    qDebug() << a->getSex();
+    qDebug() << a->getAge();
+    qDebug() << a->getColour();
+    qDebug() << a->getDetail();
+    qDebug() << a->getTraits();
+
+    //if updated in Db then update in vector
+    if(qry->exec()){
+        //qry->finish();
+        //qDebug()<<qry->value(1).toString();
+        delete a;
+        if(type == "Dog"){
+            newAnimal = new Dog(name,colour,age,sex,detail,attr);
+        }
+        else if(type == "Cat"){
+            newAnimal = new Cat(name,colour,age,sex,detail,attr);
+        }
+        else if(type == "Bird"){
+            newAnimal = new Bird(name,colour,age,sex,detail,attr);
+        }
+        else if(type == "Small Animal"){
+            newAnimal = new SmallAnimal(name,colour,age,sex,detail,attr);
+        }
+        animals[pos] = newAnimal;
+        delete qry;
+        return true;
+    }
+    else{
+        //delete qry;
+        qDebug()<<qry->lastQuery();
+        qDebug()<<qry->lastError().nativeErrorCode();
+        qDebug()<<qry->lastError().driverText();
+        qDebug()<<qry->lastError().text();
         return false;
     }
 }

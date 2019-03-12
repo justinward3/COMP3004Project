@@ -26,6 +26,7 @@ class Shelter{
         bool operator+=(Animal*) ;
         vector<Animal*>& getAnimals();
         vector<Staff*>& getStaff();
+        bool update(Animal*,QString, QString,QString,int,QChar,QString, QMap<QString,int>, int pos);
 
     private:
         QSqlDatabase db;

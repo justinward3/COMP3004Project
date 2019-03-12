@@ -13,6 +13,7 @@ addAnimal::addAnimal(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->editButton->setVisible(false);
+    ui->saveButton->setVisible(false);
 }
 
 //Deconstructor
@@ -22,17 +23,15 @@ addAnimal::~addAnimal()
 }
 
 //set view
-void addAnimal::setView(int view, Animal *animal)
+void addAnimal::edit(Animal *a, int i)
 {
-    //view = 1, then this view will be used for view
-    if (view == 1) {
+        animal = a;
+        pos = i;
         //Populate all fields for view/edit
-        ui->label->setText("View Animal");
+        ui->label->setText("Edit Animal");
         ui->addButton->setVisible(false);
-        ui->editButton->setVisible(true);
-
-        addAnimalFields(false);
-
+        ui->editButton->setVisible(false);
+        ui->saveButton->setVisible(true);
         ui->animalName->setText(animal->getName());
         ui->animalSex->setCurrentText(animal->getSex());
         ui->animalAge->setText(QString::number(animal->getAge()));
@@ -66,7 +65,7 @@ void addAnimal::setView(int view, Animal *animal)
         }
 
     }
-}
+
 
 //set shelter pointer
 void addAnimal::setShelter(Shelter *shelter_ptr)
@@ -88,6 +87,74 @@ void addAnimal::on_backButton_clicked()
     animalView.setMainWindow(mw);
     animalView.setModal(true);
     animalView.exec();
+}
+
+void addAnimal::on_saveButton_clicked()
+{
+    //local vars for instantiation of new Animal
+    QString name = ui->animalName->text();
+    QString type = ui->animalType->currentText();
+    QString sex = ui->animalSex->currentText();
+    QString colour = ui->animalColour->text();
+    QString detail = ui->animalDetail->text();
+    QMap<QString,int> attr;
+    QString ageStr = ui->animalAge->text();
+    int age = ui->animalAge->text().toInt();
+    int lifespan = ui->animalLifespan->text().toInt();
+    int cost = ui->animalCost->text().toInt();
+    float time = ui->animalTime->text().toFloat();
+    QString costStr = ui->animalCost->text();
+    QString timeStr = ui->animalTime->text();
+    QString lifespanStr = ui->animalLifespan->text();
+    int intwithdog = 1;
+    if (ui->dogCheckBox->isChecked()){
+      intwithdog = 0;
+    }
+    int intwithcat = 1;
+    if (ui->catCheckBox->isChecked()){
+      intwithcat = 0;
+    }
+    int intwithchild = 1;
+    if (ui->childCheckBox->isChecked()){
+      intwithchild = 0;
+    }
+    /*
+    QString space = ui->animalSpace->currentText();
+    QString loudness = ui->animalLoudness->currentText();
+    QString activeness = ui->animalActiveness->currentText();
+    QString obedience = ui->animalObedience->currentText();
+    QString shedding = ui->animalShedding->currentText();
+    QString difficulty = ui->animalDifficulty->currentText();
+    QString affection = ui->animalAffection->currentText();
+    */
+
+    //Check fields have value
+    if (name!="" && ageStr!="" && colour!="" && sex!="" && colour!="" && detail!=""
+            && lifespanStr!="" && costStr!="" && timeStr!="") {
+
+        //Populate Matching parameter dictionary
+        attr.insert("doc", (ui->animalDifficulty->currentIndex()+1));
+        attr.insert("affection", (ui->animalAffection->currentIndex()+1));
+        attr.insert("cost", cost);
+        attr.insert("time", time);
+        attr.insert("space", (ui->animalSpace->currentIndex()+1));
+        attr.insert("loudness", (ui->animalLoudness->currentIndex()+1));
+        attr.insert("activeness", (ui->animalActiveness->currentIndex()+1));
+        attr.insert("obedience", (ui->animalObedience->currentIndex()+1));
+        attr.insert("shedding", (ui->animalShedding->currentIndex()+1));
+        attr.insert("lifespan", lifespan);
+        attr.insert("intwithdog", intwithdog);
+        attr.insert("intwithcat", intwithcat);
+        attr.insert("intwithchild", intwithchild);
+        if(sh->update(animal,type,name,colour,age,sex[0],detail,attr,pos)){
+                QMessageBox::information(0, "DB Status","Animal updated in DATABASE", QMessageBox::Ok);
+                this->on_backButton_clicked();
+            }
+            else{
+                //pop a failed message
+                QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please contact system admin", QMessageBox::Ok);
+            }
+    }
 }
 
 // enable/disable fields on screen
