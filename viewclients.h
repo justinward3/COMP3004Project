@@ -6,7 +6,7 @@
 #include <QStandardItemModel>
 #include "Client.h"
 #include "staffwindow.h"
-#include "addanimal.h"
+#include "animalAddEditControl.h"
 #include "mainwindow.h"
 #include "addclient.h"
 

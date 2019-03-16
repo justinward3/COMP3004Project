@@ -1,5 +1,5 @@
 #include "staffwindow.h"
-#include "viewanimals.h"
+#include "animalListView.h"
 #include "viewclients.h"
 #include "addstaff.h"
 #include "mainwindow.h"
@@ -30,7 +30,7 @@ void staffWindow::setMainWindow(QMainWindow *main){
 void staffWindow::on_viewAnimalsButton_clicked()
 {
     this->hide();
-    viewAnimals* animalView = new viewAnimals();
+    animalListView* animalView = new animalListView();
     animalView->setShelter(sh);
     animalView->setMainWindow(mw);
     animalView->setModal(true);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addAnimal</class>
- <widget class="QDialog" name="addAnimal">
+ <class>animalDetailView</class>
+ <widget class="QDialog" name="animalDetailView">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -1,5 +1,5 @@
-#ifndef VIEWANIMALS_H
-#define VIEWANIMALS_H
+#ifndef ANIMALLISTVIEW_H
+#define ANIMALLISTVIEW_H
 
 #include <QDialog>
 #include "Shelter.h"
@@ -12,16 +12,16 @@
 #include "mainwindow.h"
 
 namespace Ui {
-class viewAnimals;
+class animalListView;
 }
 
-class viewAnimals : public QDialog
+class animalListView : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit viewAnimals(QWidget *parent = 0);
-    ~viewAnimals();
+    explicit animalListView(QWidget *parent = 0);
+    ~animalListView();
     void setShelter(Shelter*);
     void setMainWindow(QMainWindow*);
     void setUserView();
@@ -33,7 +33,7 @@ private slots:
     void on_detailButton_clicked();
 
 private:
-    Ui::viewAnimals *ui;
+    Ui::animalListView *ui;
     Shelter* sh;
     QStandardItemModel* model;
     QMainWindow* mw;
@@ -41,4 +41,4 @@ private:
 
 };
 
-#endif // VIEWANIMALS_H
+#endif // ANIMALLISTVIEW_H

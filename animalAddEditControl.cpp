@@ -1,15 +1,15 @@
-#include "addanimal.h"
-#include "ui_addanimal.h"
-#include "viewanimals.h"
+#include "animalAddEditControl.h"
+#include "ui_animalDetailView.h"
+#include "animalListView.h"
 #include "mainwindow.h"
 #include "QMessageBox"
 #include <QPushButton>
 #include <QButtonGroup>
 #include <QString>
 
-addAnimal::addAnimal(QWidget *parent) :
+animalAddEditControl::animalAddEditControl(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::addAnimal)
+    ui(new Ui::animalDetailView)
 {
     ui->setupUi(this);
     ui->editButton->setVisible(false);
@@ -17,13 +17,13 @@ addAnimal::addAnimal(QWidget *parent) :
 }
 
 //Deconstructor
-addAnimal::~addAnimal()
+animalAddEditControl::~animalAddEditControl()
 {
     delete ui;
 }
 
 //set view
-void addAnimal::edit(Animal *a, int i)
+void animalAddEditControl::edit(Animal *a, int i)
 {
         animal = a;
         pos = i;
@@ -68,28 +68,28 @@ void addAnimal::edit(Animal *a, int i)
 
 
 //set shelter pointer
-void addAnimal::setShelter(Shelter *shelter_ptr)
+void animalAddEditControl::setShelter(Shelter *shelter_ptr)
 {
     sh = shelter_ptr;
 }
 
 //Set main window pointer
-void addAnimal::setMainWindow(QMainWindow* main){
+void animalAddEditControl::setMainWindow(QMainWindow* main){
     mw = main;
 }
 
 //command handler for back button
-void addAnimal::on_backButton_clicked()
+void animalAddEditControl::on_backButton_clicked()
 {
     this->hide();
-    viewAnimals animalView;
+    animalListView animalView;
     animalView.setShelter(sh);
     animalView.setMainWindow(mw);
     animalView.setModal(true);
     animalView.exec();
 }
 
-void addAnimal::on_saveButton_clicked()
+void animalAddEditControl::on_saveButton_clicked()
 {
     //local vars for instantiation of new Animal
     QString name = ui->animalName->text();
@@ -159,7 +159,7 @@ void addAnimal::on_saveButton_clicked()
 }
 
 // enable/disable fields on screen
-void addAnimal::addAnimalFields(bool flag) {
+void animalAddEditControl::animalAddEditControlFields(bool flag) {
     ui->animalName->setEnabled(flag);
     ui->animalSex->setEnabled(flag);
     ui->animalAge->setEnabled(flag);
@@ -182,7 +182,7 @@ void addAnimal::addAnimalFields(bool flag) {
 }
 
 //command handler for add button
-void addAnimal::on_addButton_clicked()
+void animalAddEditControl::on_addButton_clicked()
 {
     //local vars for instantiation of new Animal
     QString name = ui->animalName->text();

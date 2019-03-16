@@ -1,15 +1,16 @@
-#include "viewanimals.h"
-#include "ui_viewanimals.h"
+#include "animalListView.h"
+#include "ui_animalListView.h"
 #include "staffwindow.h"
-#include "addanimal.h"
-#include "viewanimal.h"
+#include "clientwindow.h"
+#include "animalAddEditControl.h"
+#include "animalViewControl.h"
 #include "mainwindow.h"
 #include "Shelter.h"
 #include <QStandardItemModel>
 
-viewAnimals::viewAnimals(QWidget *parent):
+animalListView::animalListView(QWidget *parent):
     QDialog(parent),
-    ui(new Ui::viewAnimals)
+    ui(new Ui::animalListView)
 {
     ui->setupUi(this);
     //Set up table and ui
@@ -29,13 +30,13 @@ viewAnimals::viewAnimals(QWidget *parent):
     userView = false;
 }
 
-viewAnimals::~viewAnimals()
+animalListView::~animalListView()
 {
     delete model;
     delete ui;
 }
 //set shelter pointer
-void viewAnimals::setShelter(Shelter* shelter_ptr){
+void animalListView::setShelter(Shelter* shelter_ptr){
     sh = shelter_ptr;
 
     //Add sh->getAnimals() to table
@@ -76,39 +77,48 @@ void viewAnimals::setShelter(Shelter* shelter_ptr){
 }
 
 //set mw pointer
-void viewAnimals::setMainWindow(QMainWindow *main)
+void animalListView::setMainWindow(QMainWindow *main)
 {
     mw = main;
 }
 
 //command handler for back button
-void viewAnimals::on_backButton_clicked()
+void animalListView::on_backButton_clicked()
 {
     this->hide();
-    staffWindow staffWindow;
-    staffWindow.setShelter(sh);
-    staffWindow.setMainWindow(mw);
-    staffWindow.setModal(true);
-    staffWindow.exec();
+    if(userView){
+        clientWindow clientWindow;
+        clientWindow.setShelter(sh);
+        clientWindow.setMainWindow(mw);
+        clientWindow.setModal(true);
+        clientWindow.exec();
+    }
+    else{
+        staffWindow staffWindow;
+        staffWindow.setShelter(sh);
+        staffWindow.setMainWindow(mw);
+        staffWindow.setModal(true);
+        staffWindow.exec();
+    }
 }
 
 //command handler for add button
-void viewAnimals::on_addButton_clicked()
+void animalListView::on_addButton_clicked()
 {
     this->hide();
-    addAnimal animalAdd;
+    animalAddEditControl animalAdd;
     animalAdd.setShelter(sh);
     animalAdd.setMainWindow(mw);
     animalAdd.setModal(true);
     animalAdd.exec();
 }
 
-void viewAnimals::on_detailButton_clicked()
+void animalListView::on_detailButton_clicked()
 {
     QItemSelectionModel *select = ui->animalList->selectionModel();
     if(select->hasSelection()){
         this->hide();
-        viewAnimal animalView;
+        animalViewControl animalView;
         animalView.setAnimal(sh->getAnimals()[select->currentIndex().row()],select->currentIndex().row());
         animalView.setShelter(sh);
         if(userView){
@@ -120,7 +130,7 @@ void viewAnimals::on_detailButton_clicked()
   }
 }
 
-void viewAnimals::setUserView(){
+void animalListView::setUserView(){
     ui->addButton->setVisible(false);
     userView = true;
 }

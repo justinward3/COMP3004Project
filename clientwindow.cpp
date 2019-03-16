@@ -1,6 +1,6 @@
 #include "clientwindow.h"
 #include "ui_menu.h"
-#include "viewanimals.h"
+#include "animalListView.h"
 #include "viewclients.h"
 #include "addclient.h"
 #include "mainwindow.h"
@@ -35,7 +35,7 @@ void clientWindow::setMainWindow(QMainWindow *main){
 void clientWindow::on_viewAnimalsButton_clicked()
 {
     this->hide();
-    viewAnimals* animalView = new viewAnimals();
+    animalListView* animalView = new animalListView();
     animalView->setShelter(sh);
     animalView->setMainWindow(mw);
     animalView->setUserView();

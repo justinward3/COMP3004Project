@@ -1,6 +1,6 @@
 #include "addclient.h"
 #include "ui_addclient.h"
-#include "viewanimals.h"
+#include "animalListView.h"
 #include "mainwindow.h"
 #include "QMessageBox"
 

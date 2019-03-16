@@ -27,8 +27,6 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     staffwindow.cpp \
-    addanimal.cpp \
-    viewanimals.cpp \
     Animal.cpp \
     Bird.cpp \
     Cat.cpp \
@@ -41,14 +39,14 @@ SOURCES += \
     viewclients.cpp \
     addclient.cpp \
     addstaff.cpp \
-    viewanimal.cpp \
-    clientwindow.cpp
+    clientwindow.cpp \
+    animalAddEditControl.cpp \
+    animalViewControl.cpp \
+    animalListView.cpp
 
 HEADERS += \
         mainwindow.h \
     staffwindow.h \
-    viewanimals.h \
-    addanimal.h \
     Animal.h \
     Cat.h \
     Client.h \
@@ -61,14 +59,16 @@ HEADERS += \
     viewclients.h \
     addclient.h \
     addstaff.h \
-    viewanimal.h \
-    clientwindow.h
+    clientwindow.h \
+    animalAddEditControl.h \
+    animalViewControl.h \
+    animalListView.h
 
 FORMS += \
         mainwindow.ui \
-    viewanimals.ui \
-    addanimal.ui \
     viewclients.ui \
     addclient.ui \
     addstaff.ui \
-    menu.ui
+    menu.ui \
+    animalDetailView.ui \
+    animalListView.ui

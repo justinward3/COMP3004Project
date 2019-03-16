@@ -1,5 +1,5 @@
-#ifndef ADDANIMAL_H
-#define ADDANIMAL_H
+#ifndef ANIMALVIEWCONTROL_H
+#define ANIMALVIEWCONTROL_H
 
 #include <QDialog>
 #include "Shelter.h"
@@ -9,35 +9,37 @@
 #include "Bird.h"
 #include "SmallAnimal.h"
 #include "mainwindow.h"
+#include "ui_animalDetailView.h"
 
 namespace Ui {
-class addAnimal;
+class animalViewControl;
 }
 
-class addAnimal : public QDialog
+class animalViewControl : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit addAnimal(QWidget *parent = 0);
+    explicit animalViewControl(QWidget *parent = 0);
     void setShelter(Shelter*);
+    void setAnimal(Animal*,int);
     void setMainWindow(QMainWindow*);
-    void edit(Animal*, int);
-    void addAnimalFields(bool);
-    ~addAnimal();
+    void setUserView();
+    ~animalViewControl();
 
 private slots:
     void on_backButton_clicked();
-    void on_addButton_clicked();
+    void on_editButton_clicked();
     void on_saveButton_clicked();
 
 private:
-    Ui::addAnimal *ui;
+    Ui::animalDetailView *ui;
     Shelter* sh;
     Animal* animal;
     QMainWindow* mw;
     int pos;
+    bool userView;
 
 };
 
-#endif // ADDANIMAL_H
+#endif // ANIMALVIEWCONTROL_H

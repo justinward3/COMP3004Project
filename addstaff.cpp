@@ -1,6 +1,6 @@
 #include "addstaff.h"
 #include "ui_addstaff.h"
-#include "viewanimals.h"
+#include "animalListView.h"
 #include "mainwindow.h"
 #include "QMessageBox"
 

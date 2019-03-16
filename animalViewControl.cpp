@@ -1,16 +1,15 @@
-#include "viewanimal.h"
-#include "ui_addanimal.h"
-#include "viewanimals.h"
+#include "animalViewControl.h"
+#include "animalListView.h"
 #include "mainwindow.h"
 #include "QMessageBox"
 #include <QPushButton>
 #include <QButtonGroup>
 #include <QString>
-#include "addanimal.h"
+#include "animalAddEditControl.h"
 
-viewAnimal::viewAnimal(QWidget *parent) :
+animalViewControl::animalViewControl(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::addAnimal)
+    ui(new Ui::animalDetailView)
 {
     ui->setupUi(this);
     //disable buttons and fields
@@ -35,27 +34,28 @@ viewAnimal::viewAnimal(QWidget *parent) :
     ui->dogCheckBox->setEnabled(false);
     ui->catCheckBox->setEnabled(false);
     ui->childCheckBox->setEnabled(false);
+    userView = true;
 }
 
 //Deconstructor
-viewAnimal::~viewAnimal()
+animalViewControl::~animalViewControl()
 {
     delete ui;
 }
 
 //set shelter pointer
-void viewAnimal::setShelter(Shelter *shelter_ptr)
+void animalViewControl::setShelter(Shelter *shelter_ptr)
 {
     sh = shelter_ptr;
 }
 
 //Set main window pointer
-void viewAnimal::setMainWindow(QMainWindow* main){
+void animalViewControl::setMainWindow(QMainWindow* main){
     mw = main;
 }
 
 //set view
-void viewAnimal::setAnimal(Animal *a, int i)
+void animalViewControl::setAnimal(Animal *a, int i)
 {
         animal = a;
         pos = i;
@@ -98,20 +98,23 @@ void viewAnimal::setAnimal(Animal *a, int i)
 }
 
 //command handler for back button
-void viewAnimal::on_backButton_clicked()
+void animalViewControl::on_backButton_clicked()
 {
     this->hide();
-    viewAnimals animalView;
+    animalListView animalView;
     animalView.setShelter(sh);
     animalView.setMainWindow(mw);
+    if(userView){
+        animalView.setUserView();
+    }
     animalView.setModal(true);
     animalView.exec();
 }
 
-void viewAnimal::on_editButton_clicked()
+void animalViewControl::on_editButton_clicked()
 {
     this->hide();
-    addAnimal animalAdd;
+    animalAddEditControl animalAdd;
     animalAdd.setShelter(sh);
     animalAdd.edit(animal,pos);
     animalAdd.setMainWindow(mw);
@@ -119,12 +122,13 @@ void viewAnimal::on_editButton_clicked()
     animalAdd.exec();
 }
 
-void viewAnimal::on_saveButton_clicked()
+void animalViewControl::on_saveButton_clicked()
 {
 //do nothing
 }
 
-void viewAnimal::setUserView(){
+void animalViewControl::setUserView(){
     ui->editButton->setVisible(false);
     ui->saveButton->setVisible(false);
+    userView = true;
 }
