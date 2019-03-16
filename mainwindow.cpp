@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "staffwindow.h"
+#include "clientwindow.h"
 #include "QMessageBox"
 #include <QtSql>
 #include <QDebug>
@@ -34,6 +35,34 @@ void MainWindow::on_staffButton_clicked()
             staffWindow.setModal(true);
             staffWindow.exec();
             ui->username->clear();
+        }
+        else{
+            //pop message for Db failure
+            QMessageBox::critical(0, "Invalid Login","Invalid Login, please check your username.", QMessageBox::Ok);
+        }
+    }
+    else{
+        //pop message for Db failure
+        QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please contact system admin", QMessageBox::Ok);
+    }
+}
+
+void MainWindow::on_clientButton_clicked()
+{
+    //check if connected to Db
+    if(connected){
+        if(shelter->getClient(ui->username->text())){
+            this->hide();
+            clientWindow clientWindow;
+            clientWindow.setShelter(shelter);
+            clientWindow.setMainWindow(this);
+            clientWindow.setModal(true);
+            clientWindow.exec();
+            ui->username->clear();
+        }
+        else{
+            //pop message for Db failure
+            QMessageBox::critical(0, "Invalid Login","Invalid Login, please check your username.", QMessageBox::Ok);
         }
     }
     else{

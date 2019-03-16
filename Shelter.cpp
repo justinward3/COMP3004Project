@@ -188,11 +188,12 @@ bool Shelter::operator+=(Animal* a) {
     qry->bindValue(":intwithdog", a->getTraits()["intwithdog"]);
     qry->bindValue(":intwithcat", a->getTraits()["intwithcat"]);
     qry->bindValue(":intwithchild", a->getTraits()["intwithchild"]);
-    qry->bindValue(":id", ++lastId);
-    qDebug()<<"id of new animal : "<<lastId;
+    qry->bindValue(":id", a->getId());
+    qDebug()<<"id of new animal : "<<a->getId();
     //if added to Db then add to vector
     if(qry->exec()){
-        a->setId(lastId);
+        //if added succesfully increment lastId
+        lastId++;
         animals.insert(animals.end(),a);
         delete qry;
         return true;
@@ -208,9 +209,6 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     Animal *newAnimal;
     qry=new QSqlQuery(db);
     QString s = "UPDATE `Animals` SET `Type`=:type,`Name`=:name,`Age`=:age,`Colour`=:colour,`Sex`=:sex,`Detail`=:detail,`DoC`=:doc,`Affection`=:affection,`Cost`=:cost,`Time`=:time,`LifeSpan`=:lifespan,`Space`=:space,`Loudness`=:loudness,`Activeness`=:activeness,`Obedience`=:obedience,`Shedding`=:shedding,`IntWithDog`=:intwithdog,`IntWithCat`=:intwithcat,`IntWithChild`=:intwithchild WHERE `id`=:id ";
-
-                 //" VALUES (:type,:name,:age,:colour,:sex,:detail,:doc,:affection,:cost,:time,:lifespan,:space,:loudness,:activeness,:obedience,:shedding,:intwithdog,:intwithcat,:intwithchild) ;";
-    //"WHERE (`Type`,`Name`,`Age`,`Colour`,`Sex`,`Detail`,`DoC`,`Affection`,`Cost`,`Time`,`LifeSpan`,`Space`,`Loudness`,`Activeness`,`Obedience`,`Shedding`,`IntWithDog`,`IntWithCat`,`IntWithChild`) VALUES (:type1,:name1,:age1,:colour1,:sex1,:detail1,:doc1,:affection1,:cost1,:time1,:lifespan1,:space1,:loudness1,:activeness1,:obedience1,:shedding1,:intwithdog1,:intwithcat1,:intwithchild1);";
     qry->prepare(s);
 
     //SET BIND VALUES FOR VALUES TO BE UPDATED
@@ -236,46 +234,7 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     qry->bindValue(":intwithchild", attr["intwithchild"]);
     qry->bindValue(":id", a->getId());
 
-
-    //SET BIND VALUES OF ANIMAL THAT WILL BE UPDATED
-    //Check subclass of animal and set type bind value
-    if ( dynamic_cast<Dog*>( a ) ){
-       qDebug()<<"DOG";
-       qry->bindValue(":type2", "Dog");
-    }
-    else if ( dynamic_cast<Cat*>( a ) ){
-       qDebug()<<"CAT";
-       qry->bindValue(":type2", "Cat");
-       }
-    else if ( dynamic_cast<Bird*>( a ) ){
-       qDebug()<<"B";
-       qry->bindValue(":type2", "Bird");
-       }
-    else if ( dynamic_cast<SmallAnimal*>( a ) ){
-       qDebug()<<"SA";
-       qry->bindValue(":type2", "Small Animal");
-       }
-
-
-    qry->bindValue(":name2", a->getName());
-    qry->bindValue(":sex2", a->getSex());
-    qry->bindValue(":age2", a->getAge());
-    qry->bindValue(":colour2", a->getColour());
-    qry->bindValue(":detail2", a->getDetail());
-    qry->bindValue(":doc2", a->getTraits()["doc"]);
-    qry->bindValue(":affection2", a->getTraits()["affection"]);
-    qry->bindValue(":cost2", a->getTraits()["cost"]);
-    qry->bindValue(":time2", a->getTraits()["time"]);
-    qry->bindValue(":lifespan2", a->getTraits()["lifespan"]);
-    qry->bindValue(":space2", a->getTraits()["space"]);
-    qry->bindValue(":loudness2", a->getTraits()["loudness"]);
-    qry->bindValue(":activeness2", a->getTraits()["activeness"]);
-    qry->bindValue(":obedience2", a->getTraits()["obedience"]);
-    qry->bindValue(":shedding2", a->getTraits()["shedding"]);
-    qry->bindValue(":intwithdog2", a->getTraits()["intwithdog"]);
-    qry->bindValue(":intwithcat2", a->getTraits()["intwithcat"]);
-    qry->bindValue(":intwithchild2", a->getTraits()["intwithchild"]);
-
+    qDebug() << "ID: " << a->getId();
     qDebug() << a->getName();
     qDebug() << a->getSex();
     qDebug() << a->getAge();
@@ -289,16 +248,16 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
         //qDebug()<<qry->value(1).toString();
         delete a;
         if(type == "Dog"){
-            newAnimal = new Dog(name,colour,age,sex,detail,attr);
+            newAnimal = new Dog(name,colour,age,sex,detail,attr,++lastId);
         }
         else if(type == "Cat"){
-            newAnimal = new Cat(name,colour,age,sex,detail,attr);
+            newAnimal = new Cat(name,colour,age,sex,detail,attr,++lastId);
         }
         else if(type == "Bird"){
-            newAnimal = new Bird(name,colour,age,sex,detail,attr);
+            newAnimal = new Bird(name,colour,age,sex,detail,attr,++lastId);
         }
         else if(type == "Small Animal"){
-            newAnimal = new SmallAnimal(name,colour,age,sex,detail,attr);
+            newAnimal = new SmallAnimal(name,colour,age,sex,detail,attr,++lastId);
         }
         animals[pos] = newAnimal;
         delete qry;
@@ -372,28 +331,23 @@ bool Shelter::loadAnimals(){
 
             //Create instances of Animals and add to Vector of Animals
             if (type == "Dog") {
-                Dog* newDog = new Dog(name, colour, age, sex[0], detail,attr);
-                newDog->setId(id);
+                Dog* newDog = new Dog(name, colour, age, sex[0], detail,attr,id);
                 animals.insert(animals.end(), newDog);
 
             }
             else if (type == "Cat") {
-                Cat* newCat = new Cat(name, colour, age, sex[0], detail,attr);
-                newCat->setId(id);
+                Cat* newCat = new Cat(name, colour, age, sex[0], detail,attr,id);
                 animals.insert(animals.end(), newCat);
 
             }
             else if (type == "Bird") {
-                Bird* newBird = new Bird(name, colour, age, sex[0], detail,attr);
-                newBird->setId(id);
+                Bird* newBird = new Bird(name, colour, age, sex[0], detail,attr,id);
                 animals.insert(animals.end(), newBird);
 
             }
             else if (type == "Small Animal") {
-                SmallAnimal* newSmallAnimal = new SmallAnimal(name, colour, age, sex[0], detail,attr);
-                newSmallAnimal->setId(id);
+                SmallAnimal* newSmallAnimal = new SmallAnimal(name, colour, age, sex[0], detail,attr,id);
                 animals.insert(animals.end(), newSmallAnimal);
-
             }
         }
     }
@@ -440,6 +394,8 @@ bool Shelter::loadUsers(){
     delete qry;
     return status;
 }
+
+int Shelter::getLastId(){return lastId;}
 
 //return vector of animals
 vector<Animal*>& Shelter::getAnimals() {return animals; }

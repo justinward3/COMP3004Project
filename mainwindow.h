@@ -23,6 +23,8 @@ public:
 private slots:
     void on_staffButton_clicked();
 
+    void on_clientButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     bool connected;

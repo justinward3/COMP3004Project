@@ -24,6 +24,7 @@ public:
     void setShelter(Shelter*);
     void setAnimal(Animal*,int);
     void setMainWindow(QMainWindow*);
+    void setUserView();
     ~viewAnimal();
 
 private slots:

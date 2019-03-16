@@ -19,11 +19,10 @@ class Animal {
       QChar sex;
       QString detail;
       QMap<QString,int> traits;
-    private:
       int id = -1;
 
     public:
-        Animal(QString, QString, int, QChar, QString, QMap<QString,int>);
+        Animal(int,QString, QString, int, QChar, QString, QMap<QString,int>);
         virtual ~Animal() = 0;
         QString getName() const;
         QString getColour() const;
@@ -32,7 +31,6 @@ class Animal {
         QChar getSex() const;
         QMap<QString,int> getTraits() const;
         QString getDetail() const;
-        void setId(int);
 
 
 };

@@ -11,7 +11,7 @@ using namespace std;
 
 class Dog : public Animal{
     public:
-        Dog(QString, QString, int, QChar, QString, QMap<QString,int>);
+        Dog(QString, QString, int, QChar, QString, QMap<QString,int>,int);
         ~Dog();
 
 

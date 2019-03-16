@@ -119,8 +119,12 @@ void viewAnimal::on_editButton_clicked()
     animalAdd.exec();
 }
 
-
 void viewAnimal::on_saveButton_clicked()
 {
 //do nothing
+}
+
+void viewAnimal::setUserView(){
+    ui->editButton->setVisible(false);
+    ui->saveButton->setVisible(false);
 }

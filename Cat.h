@@ -12,7 +12,7 @@ using namespace std;
 class Cat : public Animal{
 
     public:
-        Cat(QString, QString, int, QChar, QString, QMap<QString,int>);
+        Cat(QString, QString, int, QChar, QString, QMap<QString,int>, int);
         ~Cat();
 
 

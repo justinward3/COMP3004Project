@@ -147,6 +147,7 @@ void addAnimal::on_saveButton_clicked()
         attr.insert("intwithcat", intwithcat);
         attr.insert("intwithchild", intwithchild);
         if(sh->update(animal,type,name,colour,age,sex[0],detail,attr,pos)){
+
                 QMessageBox::information(0, "DB Status","Animal updated in DATABASE", QMessageBox::Ok);
                 this->on_backButton_clicked();
             }
@@ -244,18 +245,20 @@ void addAnimal::on_addButton_clicked()
             << "\nActiveness: " << attr["activeness"] << "\nObedience: " << attr["obedience"]
             << "\nShedding: " << attr["shedding"] << "\nLifespan: " << attr["lifespan"] << endl;
 
+        int newAnimalId = sh->getLastId();
+        newAnimalId++;
         //Create animal based on type
         if(type == "Dog"){
-            animal = new Dog(name,colour,age,sex[0],detail,attr);
+            animal = new Dog(name,colour,age,sex[0],detail,attr,newAnimalId);
         }
         else if(type == "Cat"){
-            animal = new Cat(name,colour,age,sex[0],detail,attr);
+            animal = new Cat(name,colour,age,sex[0],detail,attr,newAnimalId);
         }
         else if(type == "Bird"){
-            animal = new Bird(name,colour,age,sex[0],detail,attr);
+            animal = new Bird(name,colour,age,sex[0],detail,attr,newAnimalId);
         }
         else if(type == "Small Animal"){
-            animal = new SmallAnimal(name,colour,age,sex[0],detail,attr);
+            animal = new SmallAnimal(name,colour,age,sex[0],detail,attr,newAnimalId);
         }
         //If successfully added to Shelter, pop a success message and go back
         if(sh->operator +=(animal)){

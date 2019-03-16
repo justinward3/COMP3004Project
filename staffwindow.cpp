@@ -1,5 +1,4 @@
 #include "staffwindow.h"
-#include "ui_staffwindow.h"
 #include "viewanimals.h"
 #include "viewclients.h"
 #include "addstaff.h"
@@ -7,7 +6,7 @@
 
 staffWindow::staffWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::staffWindow)
+    ui(new Ui::menu)
 {
     ui->setupUi(this);
 }

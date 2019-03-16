@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add Animal</string>
+   <string>Add Client</string>
   </property>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">

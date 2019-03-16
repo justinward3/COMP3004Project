@@ -1,6 +1,6 @@
 #include "Animal.h"
 
-Animal::Animal(QString na, QString col, int a, QChar s, QString d, QMap<QString,int> dict) {
+Animal::Animal(int i, QString na, QString col, int a, QChar s, QString d, QMap<QString,int> dict) {
     name = na;
     age = a;
     colour = col;
@@ -8,6 +8,7 @@ Animal::Animal(QString na, QString col, int a, QChar s, QString d, QMap<QString,
     detail = d;
     //matching parameter/traits dictionary
     traits = dict;
+    id = i;
 }
 Animal::~Animal(){}
 
@@ -18,4 +19,3 @@ QChar Animal::getSex() const        {return sex; }
 QMap<QString,int> Animal::getTraits() const    {return traits; }
 QString Animal::getDetail() const     {return detail; }
 int Animal::getId() const             {return id; }
-void Animal::setId(int i)             {id=i; }

@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = cuACS1.0.0
-DISTDIR = /home/student/Desktop/3004/3004/.tmp/cuACS1.0.0
+DISTDIR = /home/student/Desktop/COMP3004/3004/.tmp/cuACS1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Core -lGL -lpthread 
@@ -67,14 +67,16 @@ SOURCES       = main.cpp \
 		viewclients.cpp \
 		addclient.cpp \
 		addstaff.cpp \
-		viewanimal.cpp moc_mainwindow.cpp \
+		viewanimal.cpp \
+		clientwindow.cpp moc_mainwindow.cpp \
 		moc_staffwindow.cpp \
 		moc_viewanimals.cpp \
 		moc_addanimal.cpp \
 		moc_viewclients.cpp \
 		moc_addclient.cpp \
 		moc_addstaff.cpp \
-		moc_viewanimal.cpp
+		moc_viewanimal.cpp \
+		moc_clientwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		staffwindow.o \
@@ -93,6 +95,7 @@ OBJECTS       = main.o \
 		addclient.o \
 		addstaff.o \
 		viewanimal.o \
+		clientwindow.o \
 		moc_mainwindow.o \
 		moc_staffwindow.o \
 		moc_viewanimals.o \
@@ -100,7 +103,8 @@ OBJECTS       = main.o \
 		moc_viewclients.o \
 		moc_addclient.o \
 		moc_addstaff.o \
-		moc_viewanimal.o
+		moc_viewanimal.o \
+		moc_clientwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -206,7 +210,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		viewclients.h \
 		addclient.h \
 		addstaff.h \
-		viewanimal.h main.cpp \
+		viewanimal.h \
+		clientwindow.h main.cpp \
 		mainwindow.cpp \
 		staffwindow.cpp \
 		addanimal.cpp \
@@ -223,7 +228,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		viewclients.cpp \
 		addclient.cpp \
 		addstaff.cpp \
-		viewanimal.cpp
+		viewanimal.cpp \
+		clientwindow.cpp
 QMAKE_TARGET  = cuACS
 DESTDIR       = 
 TARGET        = cuACS
@@ -232,7 +238,7 @@ TARGET        = cuACS
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_staffwindow.h ui_viewanimals.h ui_addanimal.h ui_viewclients.h ui_addclient.h ui_addstaff.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_viewanimals.h ui_addanimal.h ui_viewclients.h ui_addclient.h ui_addstaff.h ui_menu.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: cuACS.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -439,9 +445,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h staffwindow.h viewanimals.h addanimal.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h viewclients.h addclient.h addstaff.h viewanimal.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp staffwindow.cpp addanimal.cpp viewanimals.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp viewclients.cpp addclient.cpp addstaff.cpp viewanimal.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui staffwindow.ui viewanimals.ui addanimal.ui viewclients.ui addclient.ui addstaff.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h staffwindow.h viewanimals.h addanimal.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h viewclients.h addclient.h addstaff.h viewanimal.h clientwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp staffwindow.cpp addanimal.cpp viewanimals.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp viewclients.cpp addclient.cpp addstaff.cpp viewanimal.cpp clientwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui viewanimals.ui addanimal.ui viewclients.ui addclient.ui addstaff.ui menu.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -473,9 +479,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_staffwindow.cpp moc_viewanimals.cpp moc_addanimal.cpp moc_viewclients.cpp moc_addclient.cpp moc_addstaff.cpp moc_viewanimal.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_staffwindow.cpp moc_viewanimals.cpp moc_addanimal.cpp moc_viewclients.cpp moc_addclient.cpp moc_addstaff.cpp moc_viewanimal.cpp moc_clientwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_staffwindow.cpp moc_viewanimals.cpp moc_addanimal.cpp moc_viewclients.cpp moc_addclient.cpp moc_addstaff.cpp moc_viewanimal.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_staffwindow.cpp moc_viewanimals.cpp moc_addanimal.cpp moc_viewclients.cpp moc_addclient.cpp moc_addstaff.cpp moc_viewanimal.cpp moc_clientwindow.cpp
 moc_mainwindow.cpp: staffwindow.h \
 		Shelter.h \
 		Staff.h \
@@ -487,10 +493,11 @@ moc_mainwindow.cpp: staffwindow.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
+		ui_menu.h \
 		mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_staffwindow.cpp: Shelter.h \
 		Staff.h \
@@ -503,10 +510,11 @@ moc_staffwindow.cpp: Shelter.h \
 		SmallAnimal.h \
 		mainwindow.h \
 		staffwindow.h \
+		ui_menu.h \
 		staffwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include staffwindow.h -o moc_staffwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include staffwindow.h -o moc_staffwindow.cpp
 
 moc_viewanimals.cpp: Shelter.h \
 		Staff.h \
@@ -519,10 +527,11 @@ moc_viewanimals.cpp: Shelter.h \
 		SmallAnimal.h \
 		mainwindow.h \
 		staffwindow.h \
+		ui_menu.h \
 		viewanimals.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include viewanimals.h -o moc_viewanimals.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include viewanimals.h -o moc_viewanimals.cpp
 
 moc_addanimal.cpp: Shelter.h \
 		Staff.h \
@@ -535,10 +544,11 @@ moc_addanimal.cpp: Shelter.h \
 		SmallAnimal.h \
 		mainwindow.h \
 		staffwindow.h \
+		ui_menu.h \
 		addanimal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include addanimal.h -o moc_addanimal.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include addanimal.h -o moc_addanimal.cpp
 
 moc_viewclients.cpp: Shelter.h \
 		Staff.h \
@@ -551,13 +561,14 @@ moc_viewclients.cpp: Shelter.h \
 		SmallAnimal.h \
 		staffwindow.h \
 		mainwindow.h \
+		ui_menu.h \
 		addanimal.h \
 		addclient.h \
 		viewclients.h \
 		viewclients.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include viewclients.h -o moc_viewclients.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include viewclients.h -o moc_viewclients.cpp
 
 moc_addclient.cpp: Shelter.h \
 		Staff.h \
@@ -571,12 +582,13 @@ moc_addclient.cpp: Shelter.h \
 		viewclients.h \
 		staffwindow.h \
 		mainwindow.h \
+		ui_menu.h \
 		addanimal.h \
 		addclient.h \
 		addclient.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include addclient.h -o moc_addclient.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include addclient.h -o moc_addclient.cpp
 
 moc_addstaff.cpp: Shelter.h \
 		Staff.h \
@@ -590,12 +602,13 @@ moc_addstaff.cpp: Shelter.h \
 		viewclients.h \
 		staffwindow.h \
 		mainwindow.h \
+		ui_menu.h \
 		addanimal.h \
 		addclient.h \
 		addstaff.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include addstaff.h -o moc_addstaff.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include addstaff.h -o moc_addstaff.cpp
 
 moc_viewanimal.cpp: Shelter.h \
 		Staff.h \
@@ -608,24 +621,38 @@ moc_viewanimal.cpp: Shelter.h \
 		SmallAnimal.h \
 		mainwindow.h \
 		staffwindow.h \
+		ui_menu.h \
 		ui_addanimal.h \
 		viewanimal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include viewanimal.h -o moc_viewanimal.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include viewanimal.h -o moc_viewanimal.cpp
+
+moc_clientwindow.cpp: Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		mainwindow.h \
+		staffwindow.h \
+		ui_menu.h \
+		clientwindow.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include clientwindow.h -o moc_clientwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_staffwindow.h ui_viewanimals.h ui_addanimal.h ui_viewclients.h ui_addclient.h ui_addstaff.h
+compiler_uic_make_all: ui_mainwindow.h ui_viewanimals.h ui_addanimal.h ui_viewclients.h ui_addclient.h ui_addstaff.h ui_menu.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_staffwindow.h ui_viewanimals.h ui_addanimal.h ui_viewclients.h ui_addclient.h ui_addstaff.h
+	-$(DEL_FILE) ui_mainwindow.h ui_viewanimals.h ui_addanimal.h ui_viewclients.h ui_addclient.h ui_addstaff.h ui_menu.h
 ui_mainwindow.h: mainwindow.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
-
-ui_staffwindow.h: staffwindow.ui \
-		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic staffwindow.ui -o ui_staffwindow.h
 
 ui_viewanimals.h: viewanimals.ui \
 		/usr/lib/qt5/bin/uic
@@ -647,6 +674,10 @@ ui_addstaff.h: addstaff.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic addstaff.ui -o ui_addstaff.h
 
+ui_menu.h: menu.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic menu.ui -o ui_menu.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -667,7 +698,8 @@ main.o: main.cpp mainwindow.h \
 		Dog.h \
 		Cat.h \
 		Bird.h \
-		SmallAnimal.h
+		SmallAnimal.h \
+		ui_menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
@@ -681,7 +713,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		ui_mainwindow.h
+		ui_menu.h \
+		ui_mainwindow.h \
+		clientwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 staffwindow.o: staffwindow.cpp staffwindow.h \
@@ -695,7 +729,7 @@ staffwindow.o: staffwindow.cpp staffwindow.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		ui_staffwindow.h \
+		ui_menu.h \
 		viewanimals.h \
 		viewclients.h \
 		addanimal.h \
@@ -715,6 +749,7 @@ addanimal.o: addanimal.cpp addanimal.h \
 		SmallAnimal.h \
 		mainwindow.h \
 		staffwindow.h \
+		ui_menu.h \
 		ui_addanimal.h \
 		viewanimals.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addanimal.o addanimal.cpp
@@ -731,6 +766,7 @@ viewanimals.o: viewanimals.cpp viewanimals.h \
 		SmallAnimal.h \
 		mainwindow.h \
 		staffwindow.h \
+		ui_menu.h \
 		ui_viewanimals.h \
 		addanimal.h \
 		viewanimal.h \
@@ -790,6 +826,7 @@ viewclients.o: viewclients.cpp viewclients.h \
 		SmallAnimal.h \
 		staffwindow.h \
 		mainwindow.h \
+		ui_menu.h \
 		addanimal.h \
 		addclient.h \
 		ui_viewclients.h
@@ -808,6 +845,7 @@ addclient.o: addclient.cpp addclient.h \
 		viewclients.h \
 		staffwindow.h \
 		mainwindow.h \
+		ui_menu.h \
 		addanimal.h \
 		ui_addclient.h \
 		viewanimals.h
@@ -826,6 +864,7 @@ addstaff.o: addstaff.cpp addstaff.h \
 		viewclients.h \
 		staffwindow.h \
 		mainwindow.h \
+		ui_menu.h \
 		addanimal.h \
 		addclient.h \
 		ui_addstaff.h \
@@ -844,9 +883,30 @@ viewanimal.o: viewanimal.cpp viewanimal.h \
 		SmallAnimal.h \
 		mainwindow.h \
 		staffwindow.h \
+		ui_menu.h \
 		ui_addanimal.h \
-		viewanimals.h
+		viewanimals.h \
+		addanimal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o viewanimal.o viewanimal.cpp
+
+clientwindow.o: clientwindow.cpp clientwindow.h \
+		Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		mainwindow.h \
+		staffwindow.h \
+		ui_menu.h \
+		viewanimals.h \
+		viewclients.h \
+		addanimal.h \
+		addclient.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientwindow.o clientwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -871,6 +931,9 @@ moc_addstaff.o: moc_addstaff.cpp
 
 moc_viewanimal.o: moc_viewanimal.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_viewanimal.o moc_viewanimal.cpp
+
+moc_clientwindow.o: moc_clientwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientwindow.o moc_clientwindow.cpp
 
 ####### Install
 

@@ -24,6 +24,7 @@ public:
     ~viewAnimals();
     void setShelter(Shelter*);
     void setMainWindow(QMainWindow*);
+    void setUserView();
 
 
 private slots:
@@ -35,8 +36,8 @@ private:
     Ui::viewAnimals *ui;
     Shelter* sh;
     QStandardItemModel* model;
-    vector<Animal*>  animals;
     QMainWindow* mw;
+    bool userView;
 
 };
 

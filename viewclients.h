@@ -24,12 +24,12 @@ public:
     ~viewClients();
     void setShelter(Shelter*);
     void setMainWindow(QMainWindow*);
+    void setUserView();
 
 
 private slots:
     void on_backButton_clicked();
     void on_addButton_clicked();
-
     void on_detailButton_clicked();
 
 private:
