@@ -48,6 +48,7 @@ void clientEditControl::edit(Client *c){
         //populate matching prefs also
         qDebug()<<client->getMatchingPrefs();
         QMap<QString,int> temp = client->getMatchingPrefs();
+        ui->aType->setCurrentIndex(temp[keys[0]]-1);
         ui->aActive->setCurrentIndex(temp[keys[1]]-1);
         ui->aAffection->setCurrentIndex(temp[keys[2]]-1);
         ui->aAge->setCurrentIndex(temp[keys[3]]-1);
@@ -70,14 +71,43 @@ void clientEditControl::edit(Client *c){
         ui->aSize->setCurrentIndex(temp[keys[18]]-1);
         ui->aSpace->setCurrentIndex(temp[keys[19]]-1);
         ui->aTime->setCurrentIndex(temp[keys[20]]-1);
-        ui->aType->setCurrentIndex(temp[keys[21]]-1);
     }
 
 }
 
 void clientEditControl::on_saveButton_clicked()
 {
-    qDebug()<<"We in trouble now boys!";
+        qDebug()<<"We in trouble now boys!";
+        QString newname = ui->clientFName->getText();
+        QString newLname = ui->clientLName->getText();
+        QString newEmail = ui->clientEmail->getText();
+        QString newPNum = ui->clientPNum->getText();
+        QString newAdd = ui->clientAdd->getText();
+        QMap<QString,int> temp = new QMap<QString,int>();
+        temp.insert(keys[0],ui->aType->currentIndex()+1);
+        temp.insert(keys[1],ui->aActive->currentIndex()+1);
+        temp.insert(keys[2],ui->aAffection->currentIndex()+1);
+        temp.insert(keys[3],ui->aAge->currentIndex()+1);
+        temp.insert(keys[4],ui->aCats->currentIndex()+1);
+        temp.insert(keys[5],ui->aCatsFuture->currentIndex()+1);
+        temp.insert(keys[6],ui->aChildren->currentIndex()+1);
+        temp.insert(keys[7],ui->aChildrenFuture->currentIndex()+1);
+        temp.insert(keys[8],ui->aColour->currentIndex()+1);
+        temp.insert(keys[9],ui->aCost->currentIndex()+1);
+        temp.insert(keys[10],ui->aDogs->currentIndex()+1);
+        temp.insert(keys[11],ui->aDogsFuture->currentIndex()+1);
+        temp.insert(keys[12],ui->aExperience->currentIndex()+1);
+        temp.insert(keys[13],ui->aHome->currentIndex()+1);
+        temp.insert(keys[14],ui->aLifespan->currentIndex()+1);
+        temp.insert(keys[15],ui->aNoise->currentIndex()+1);
+        temp.insert(keys[16],ui->aObedient->currentIndex()+1);
+        temp.insert(keys[17],ui->aOlder->currentIndex()+1);
+        temp.insert(keys[18],ui->aSex->currentIndex()+1);
+        temp.insert(keys[19],ui->aShedding->currentIndex()+1);
+        temp.insert(keys[20],ui->aSize->currentIndex()+1);
+        temp.insert(keys[21],ui->aSpace->currentIndex()+1);
+        temp.insert(keys[22],ui->aTime->currentIndex()+1);
+        qDebug()<<temp;
 }
 
 //set mainwindow pointer
