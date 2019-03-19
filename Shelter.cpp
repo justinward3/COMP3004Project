@@ -204,7 +204,7 @@ bool Shelter::operator+=(Animal* a) {
     }
 }
 
-//add Animal function (operator overload)
+//update Animal function
 bool Shelter::update(Animal* a, QString type, QString name,QString colour,int age, QChar sex, QString detail, QMap<QString,int> attr, int pos){
     Animal *newAnimal;
     qry=new QSqlQuery(db);
@@ -273,6 +273,56 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     }
 }
 
+
+
+//update Client function
+bool Shelter::update(Client* c, Client* newc){
+    qry=new QSqlQuery(db);
+    size_t pos=-1;
+    for (size_t i=0; i<clients.size();i++){
+        if(clients[i] == c){
+            qDebug()<<clients[i]->getFname();
+            pos= i;
+        }
+    }
+    QString s = "UPDATE ClientPrefs SET email=:email, active=:active, affection=:affection, age=:age, cats=:cats, catsfuture=:catsfuture, children=:children, childrenfuture=:childrenfuture, colour=:colour, cost=:cost, dogs=:dogs, dogsfuture=:dogsfuture, experience=:experience, home=:home, lifespan=:lifespan, noise=:noise, obedient=:obedient, older=:older, sex=:sex, shedding=:shedding, size=:size, space=:space, time=:time ,type=:type WHERE email=:prevemail;";
+    QStringList keys = {"type","active","affection","age","cats","catsfuture","children","childrenfuture","colour","cost","dogs","dogsfuture","experience","home","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
+    qry->prepare(s);
+    for(int i=0; i<keys.length();i++){
+        qry->bindValue(":"+keys[i],newc->getMatchingPrefs()[keys[i]]);
+    }
+    qry->bindValue(":email",newc->getEmail());
+    qry->bindValue(":prevemail",c->getEmail());
+    qDebug()<<qry->lastQuery();
+    qDebug()<<qry->boundValues();
+    if(qry->exec()){
+        qry->finish();
+        s = "UPDATE Users SET EmailAddress=:email, FirstName=:fname, LastName=:lname, Address=:addr, PhoneNumber=:Pnum WHERE EmailAddress=:prevemail;";
+        qry->prepare(s);
+        qDebug()<<newc->getEmail();
+        qDebug()<<newc->getFname();
+        qDebug()<<newc->getLname();
+        qDebug()<<newc->getAddress();
+        qDebug()<<newc->getPhoneNumber();
+        qry->bindValue(":fname",newc->getFname());
+        qry->bindValue(":lname",newc->getLname());
+        qry->bindValue(":addr",newc->getAddress());
+        qry->bindValue(":Pnum",newc->getPhoneNumber());
+        qry->bindValue(":email",newc->getEmail());
+        qry->bindValue(":prevemail",c->getEmail());
+        if(qry->exec()){
+            //qDebug()<<qry->lastError();
+            delete c;
+            clients[pos]=newc;
+            delete qry;
+            return true;
+        }
+    }
+    //qDebug()<<qry->lastError();
+    delete qry;
+    delete newc;
+    return false;
+}
 
 
 bool Shelter::loadAnimals(){
@@ -413,7 +463,9 @@ bool Shelter::loadClientData(){
                 prefs.insert(keys[i],qry->value(i+1).toInt());
             }
             //qDebug()<<prefs;
-            getClient(email)->setPrefs(prefs);
+            if(getClient(email)!=0){
+                getClient(email)->setPrefs(prefs);
+            }
         }
     }else{
         status = false;

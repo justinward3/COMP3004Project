@@ -27,10 +27,9 @@ void MainWindow::on_staffButton_clicked()
 {
     //check if connected to Db
     if(connected){
-        Staff* staff = shelter->getOneStaff(ui->username->text());
         if(shelter->getOneStaff(ui->username->text())){
             this->hide();
-            currUser = staff;
+            currUserName = ui->username->text();
             staffWindow staffWindow;
             staffWindow.setShelter(shelter);
             staffWindow.setMainWindow(this);
@@ -49,18 +48,21 @@ void MainWindow::on_staffButton_clicked()
     }
 }
 
-User* MainWindow::getCurrUser(){
-    return currUser;
+QString MainWindow::getCurrUserName(){
+    return currUserName;
+}
+
+void MainWindow::updateCurrUserName(QString s){
+    currUserName =s;
 }
 
 void MainWindow::on_clientButton_clicked()
 {
     //check if connected to Db
     if(connected){
-        Client* client = shelter->getClient(ui->username->text());
         if(shelter->getClient(ui->username->text())){
             this->hide();
-            currUser = client;
+            currUserName = ui->username->text();
             clientWindow clientWindow;
             clientWindow.setShelter(shelter);
             clientWindow.setMainWindow(this);

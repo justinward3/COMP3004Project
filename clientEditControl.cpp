@@ -77,13 +77,14 @@ void clientEditControl::edit(Client *c){
 
 void clientEditControl::on_saveButton_clicked()
 {
+        QStringList keys = {"type","active","affection","age","cats","catsfuture","children","childrenfuture","colour","cost","dogs","dogsfuture","experience","home","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
         qDebug()<<"We in trouble now boys!";
-        QString newname = ui->clientFName->getText();
-        QString newLname = ui->clientLName->getText();
-        QString newEmail = ui->clientEmail->getText();
-        QString newPNum = ui->clientPNum->getText();
-        QString newAdd = ui->clientAdd->getText();
-        QMap<QString,int> temp = new QMap<QString,int>();
+        QString newname = ui->clientFName->text();
+        QString newLname = ui->clientLName->text();
+        QString newEmail = ui->clientEmail->text();
+        QString newPNum = ui->clientPNum->text();
+        QString newAdd = ui->clientAdd->text();
+        QMap<QString,int> temp;
         temp.insert(keys[0],ui->aType->currentIndex()+1);
         temp.insert(keys[1],ui->aActive->currentIndex()+1);
         temp.insert(keys[2],ui->aAffection->currentIndex()+1);
@@ -108,6 +109,15 @@ void clientEditControl::on_saveButton_clicked()
         temp.insert(keys[21],ui->aSpace->currentIndex()+1);
         temp.insert(keys[22],ui->aTime->currentIndex()+1);
         qDebug()<<temp;
+        if(sh->update(client,new Client(newname,newLname,newAdd,newPNum,newEmail,temp))){
+            mw->updateCurrUserName(newEmail);
+            QMessageBox::information(0, "DB Status","Profile updated in DATABASE", QMessageBox::Ok);
+            this->on_backButton_clicked();
+        }
+        else{
+            //pop a failed message
+            QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please contact system admin", QMessageBox::Ok);
+        }
 }
 
 //set mainwindow pointer

@@ -12,6 +12,7 @@ clientWindow::clientWindow(QWidget *parent) :
     ui->addStaffButton->setVisible(false);
     ui->viewClientsButton->setVisible(false);
     ui->acmButton->setVisible(false);
+    this->setWindowTitle("cuACS Client Portal");
 }
 
 clientWindow::~clientWindow()
@@ -27,7 +28,7 @@ void clientWindow::setShelter(Shelter *shelter_ptr){
 //set main pointer
 void clientWindow::setMainWindow(MainWindow *main){
     mw = main;
-    client = sh->getClient(mw->getCurrUser()->getEmail());
+    client = sh->getClient(mw->getCurrUserName());
 }
 
 //command handler for viewAnimals button

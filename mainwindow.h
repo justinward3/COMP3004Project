@@ -18,7 +18,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Shelter* shelter;
-    User* getCurrUser();
+    QString getCurrUserName();
+    void updateCurrUserName(QString);
 
 private slots:
     void on_staffButton_clicked();
@@ -28,7 +29,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     bool connected;
-    User* currUser;
+    QString currUserName;
 };
 
 #endif // MAINWINDOW_H
