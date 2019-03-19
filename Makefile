@@ -488,8 +488,7 @@ moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_staffwindow.cpp moc_viewclients.cpp moc_addstaff.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_animalListView.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_staffwindow.cpp moc_viewclients.cpp moc_addstaff.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_animalListView.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp
-moc_mainwindow.cpp: staffwindow.h \
-		Shelter.h \
+moc_mainwindow.cpp: Shelter.h \
 		Staff.h \
 		User.h \
 		Client.h \
@@ -498,8 +497,6 @@ moc_mainwindow.cpp: staffwindow.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		mainwindow.h \
-		ui_menu.h \
 		mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -515,7 +512,6 @@ moc_staffwindow.cpp: Shelter.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		staffwindow.h \
 		ui_menu.h \
 		staffwindow.h \
 		moc_predefs.h \
@@ -578,7 +574,6 @@ moc_clientwindow.cpp: Shelter.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		staffwindow.h \
 		ui_menu.h \
 		clientwindow.h \
 		moc_predefs.h \
@@ -595,8 +590,6 @@ moc_animalAddEditControl.cpp: Shelter.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		staffwindow.h \
-		ui_menu.h \
 		ui_animalDetailView.h \
 		animalAddEditControl.h \
 		moc_predefs.h \
@@ -613,8 +606,6 @@ moc_animalViewControl.cpp: Shelter.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		staffwindow.h \
-		ui_menu.h \
 		ui_animalDetailView.h \
 		animalViewControl.h \
 		moc_predefs.h \
@@ -631,8 +622,6 @@ moc_animalListView.cpp: Shelter.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		staffwindow.h \
-		ui_menu.h \
 		animalListView.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -728,7 +717,6 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 main.o: main.cpp mainwindow.h \
-		staffwindow.h \
 		Shelter.h \
 		Staff.h \
 		User.h \
@@ -737,12 +725,10 @@ main.o: main.cpp mainwindow.h \
 		Dog.h \
 		Cat.h \
 		Bird.h \
-		SmallAnimal.h \
-		ui_menu.h
+		SmallAnimal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
-		staffwindow.h \
 		Shelter.h \
 		Staff.h \
 		User.h \
@@ -752,8 +738,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		ui_menu.h \
 		ui_mainwindow.h \
+		staffwindow.h \
+		ui_menu.h \
 		clientwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
@@ -875,10 +862,10 @@ clientwindow.o: clientwindow.cpp clientwindow.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		staffwindow.h \
 		ui_menu.h \
 		animalListView.h \
 		viewclients.h \
+		staffwindow.h \
 		animalAddEditControl.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
@@ -897,8 +884,6 @@ animalAddEditControl.o: animalAddEditControl.cpp animalAddEditControl.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		staffwindow.h \
-		ui_menu.h \
 		ui_animalDetailView.h \
 		animalListView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animalAddEditControl.o animalAddEditControl.cpp
@@ -914,8 +899,6 @@ animalViewControl.o: animalViewControl.cpp animalViewControl.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
-		staffwindow.h \
-		ui_menu.h \
 		ui_animalDetailView.h \
 		animalListView.h \
 		animalAddEditControl.h
@@ -932,9 +915,9 @@ animalListView.o: animalListView.cpp animalListView.h \
 		Bird.h \
 		SmallAnimal.h \
 		mainwindow.h \
+		ui_animalListView.h \
 		staffwindow.h \
 		ui_menu.h \
-		ui_animalListView.h \
 		clientwindow.h \
 		animalAddEditControl.h \
 		ui_animalDetailView.h \
@@ -959,7 +942,6 @@ clientAddViewControl.o: clientAddViewControl.cpp clientAddViewControl.h \
 		ui_animalDetailView.h \
 		clientwindow.h \
 		ui_clientDetailView.h \
-		ui_addclient.h \
 		animalListView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientAddViewControl.o clientAddViewControl.cpp
 
