@@ -2,6 +2,7 @@
 #define USER_H
 #include <string>
 #include <QString>
+#include <QMap>
 
 using namespace std;
 
@@ -9,7 +10,6 @@ class User {
 
     public:
         User(QString, QString, QString, QString, QString);
-        User(QString, QString, QString, QString);
         QString getFname() const;
         QString getLname() const;
         QString getAddress() const;

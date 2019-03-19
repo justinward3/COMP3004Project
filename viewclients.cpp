@@ -57,7 +57,7 @@ void viewClients::setShelter(Shelter* shelter_ptr){
 }
 
 //set mw pointer
-void viewClients::setMainWindow(QMainWindow *main)
+void viewClients::setMainWindow(MainWindow *main)
 {
     mw = main;
 }
@@ -77,7 +77,7 @@ void viewClients::on_backButton_clicked()
 void viewClients::on_addButton_clicked()
 {
     this->hide();
-    addClient clientAdd;
+    clientAddViewControl clientAdd;
     clientAdd.setShelter(sh);
     clientAdd.setMainWindow(mw);
     clientAdd.setModal(true);
@@ -90,7 +90,7 @@ void viewClients::on_detailButton_clicked()
     QItemSelectionModel *select = ui->clientList->selectionModel();
     if(select->hasSelection()){
         this->hide();
-        addClient clientAdd;
+        clientAddViewControl clientAdd;
         clientAdd.setView(1, clients[select->currentIndex().row()]);
         clientAdd.setShelter(sh);
         clientAdd.setMainWindow(mw);

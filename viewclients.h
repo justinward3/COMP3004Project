@@ -8,7 +8,7 @@
 #include "staffwindow.h"
 #include "animalAddEditControl.h"
 #include "mainwindow.h"
-#include "addclient.h"
+#include "clientAddViewControl.h"
 
 
 namespace Ui {
@@ -23,7 +23,7 @@ public:
     explicit viewClients(QWidget *parent = 0);
     ~viewClients();
     void setShelter(Shelter*);
-    void setMainWindow(QMainWindow*);
+    void setMainWindow(MainWindow*);
     void setUserView();
 
 
@@ -37,7 +37,7 @@ private:
     Shelter* sh;
     QStandardItemModel* model;
     vector<Client*>  clients;
-    QMainWindow* mw;
+    MainWindow* mw;
 
 };
 

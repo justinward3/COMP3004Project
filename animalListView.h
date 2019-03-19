@@ -23,7 +23,7 @@ public:
     explicit animalListView(QWidget *parent = 0);
     ~animalListView();
     void setShelter(Shelter*);
-    void setMainWindow(QMainWindow*);
+    void setMainWindow(MainWindow*);
     void setUserView();
 
 
@@ -36,8 +36,8 @@ private:
     Ui::animalListView *ui;
     Shelter* sh;
     QStandardItemModel* model;
-    QMainWindow* mw;
-    bool userView;
+    MainWindow* mw;
+    bool clientView;
 
 };
 

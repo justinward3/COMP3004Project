@@ -22,7 +22,7 @@ void staffWindow::setShelter(Shelter *shelter_ptr){
 }
 
 //set main pointer
-void staffWindow::setMainWindow(QMainWindow *main){
+void staffWindow::setMainWindow(MainWindow *main){
     mw = main;
 }
 

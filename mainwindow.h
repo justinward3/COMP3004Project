@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QDialog>
-#include "staffwindow.h"
 #include <QtSql>
 #include "Shelter.h"
 
@@ -19,6 +18,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     Shelter* shelter;
+    User* getCurrUser();
 
 private slots:
     void on_staffButton_clicked();
@@ -28,6 +28,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     bool connected;
+    User* currUser;
 };
 
 #endif // MAINWINDOW_H

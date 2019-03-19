@@ -273,6 +273,8 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     }
 }
 
+
+
 bool Shelter::loadAnimals(){
     bool status;
     //prepare Sql Query to load animals
@@ -388,13 +390,37 @@ bool Shelter::loadUsers(){
     }else{
         status = false;
     }
-    for(size_t i=0;i<clients.size();i++){
-        //qDebug()<<clients[i]->getFname();
+    delete qry;
+    if(status){
+        status = status && loadClientData();
+    }
+    return status;
+}
+
+bool Shelter::loadClientData(){
+    QStringList keys = {"type","active","affection","age","cats","catsfuture","children","childrenfuture","colour","cost","dogs","dogsfuture","experience","home","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
+    //prepare Sql Query to load Client Data
+    qry=new QSqlQuery(db);
+    qry->prepare("SELECT * FROM ClientPrefs");
+    bool status;
+    if(qry->exec()){
+        status=true;
+        while (qry->next()) {
+            QMap<QString,int> prefs;
+            status = true;
+            QString email = qry->value(0).toString();
+            for(int i=0;i<keys.length();i++){
+                prefs.insert(keys[i],qry->value(i+1).toInt());
+            }
+            //qDebug()<<prefs;
+            getClient(email)->setPrefs(prefs);
+        }
+    }else{
+        status = false;
     }
     delete qry;
     return status;
 }
-
 int Shelter::getLastId(){return lastId;}
 
 //return vector of animals

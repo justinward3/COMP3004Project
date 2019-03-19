@@ -4,6 +4,8 @@
 #include <QDialog>
 #include "Shelter.h"
 #include "mainwindow.h"
+#include "ui_menu.h"
+
 
 namespace Ui {
 class clientWindow;
@@ -16,19 +18,21 @@ class clientWindow : public QDialog
 public:
     clientWindow(QWidget *parent = 0);\
     void setShelter(Shelter*);
-    void setMainWindow(QMainWindow*);
+    void setMainWindow(MainWindow*);
+    void setClient(Client*);
     ~clientWindow();
 
 
 private slots:
     void on_viewAnimalsButton_clicked();
-
+    void on_editProfileButton_clicked();
     void on_logOut_clicked();
 
 private:
     Ui::menu *ui;
     Shelter* sh;
-    QMainWindow* mw;
+    MainWindow* mw;
+    Client* client;
 };
 
 #endif // CLIENTWINDOW_H

@@ -5,9 +5,6 @@ using namespace std;
 User::User(QString fname, QString lname, QString add, QString pnum, QString email) :
         firstName(fname), lastName(lname), address(add), phoneNumber(pnum) ,emailAddress(email){ }
 
-User::User(QString fname, QString lname, QString add, QString pnum) :
-                firstName(fname), lastName(lname), address(add), phoneNumber(pnum), emailAddress(firstName +"."+lastName+"@gmail.com"){ }
-
 QString User::getFname() const        { return firstName; }
 QString User::getLname() const        { return lastName; }
 QString User::getAddress() const      { return address; }

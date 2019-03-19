@@ -24,7 +24,7 @@ void addStaff::setShelter(Shelter *shelter_ptr)
 }
 
 //set mw pointer
-void addStaff::setMainWindow(QMainWindow *main)
+void addStaff::setMainWindow(MainWindow *main)
 {
     mw = main;
 }

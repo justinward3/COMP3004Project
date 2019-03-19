@@ -17,7 +17,7 @@ class staffWindow : public QDialog
 public:
     staffWindow(QWidget *parent = 0);
     void setShelter(Shelter*);
-    void setMainWindow(QMainWindow*);
+    void setMainWindow(MainWindow*);
     ~staffWindow();
 
 
@@ -33,7 +33,7 @@ private slots:
 private:
     Ui::menu *ui;
     Shelter* sh;
-    QMainWindow* mw;
+    MainWindow* mw;
 };
 
 #endif // STAFFWINDOW_H

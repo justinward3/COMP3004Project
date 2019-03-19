@@ -18,7 +18,7 @@ class addStaff : public QDialog
 public:
     explicit addStaff(QWidget *parent = 0);
     void setShelter(Shelter*);
-    void setMainWindow(QMainWindow*);
+    void setMainWindow(MainWindow*);
     ~addStaff();
 
 private slots:
@@ -30,7 +30,7 @@ private:
     Ui::addStaff *ui;
     Shelter* sh;
     Staff* staff;
-    QMainWindow* mw;
+    MainWindow* mw;
 
 };
 

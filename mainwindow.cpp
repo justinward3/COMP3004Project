@@ -27,8 +27,10 @@ void MainWindow::on_staffButton_clicked()
 {
     //check if connected to Db
     if(connected){
+        Staff* staff = shelter->getOneStaff(ui->username->text());
         if(shelter->getOneStaff(ui->username->text())){
             this->hide();
+            currUser = staff;
             staffWindow staffWindow;
             staffWindow.setShelter(shelter);
             staffWindow.setMainWindow(this);
@@ -47,12 +49,18 @@ void MainWindow::on_staffButton_clicked()
     }
 }
 
+User* MainWindow::getCurrUser(){
+    return currUser;
+}
+
 void MainWindow::on_clientButton_clicked()
 {
     //check if connected to Db
     if(connected){
+        Client* client = shelter->getClient(ui->username->text());
         if(shelter->getClient(ui->username->text())){
             this->hide();
+            currUser = client;
             clientWindow clientWindow;
             clientWindow.setShelter(shelter);
             clientWindow.setMainWindow(this);

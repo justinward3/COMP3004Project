@@ -34,7 +34,7 @@ animalViewControl::animalViewControl(QWidget *parent) :
     ui->dogCheckBox->setEnabled(false);
     ui->catCheckBox->setEnabled(false);
     ui->childCheckBox->setEnabled(false);
-    userView = true;
+    clientView = true;
 }
 
 //Deconstructor
@@ -50,7 +50,7 @@ void animalViewControl::setShelter(Shelter *shelter_ptr)
 }
 
 //Set main window pointer
-void animalViewControl::setMainWindow(QMainWindow* main){
+void animalViewControl::setMainWindow(MainWindow* main){
     mw = main;
 }
 
@@ -104,7 +104,7 @@ void animalViewControl::on_backButton_clicked()
     animalListView animalView;
     animalView.setShelter(sh);
     animalView.setMainWindow(mw);
-    if(userView){
+    if(clientView){
         animalView.setUserView();
     }
     animalView.setModal(true);
@@ -130,5 +130,5 @@ void animalViewControl::on_saveButton_clicked()
 void animalViewControl::setUserView(){
     ui->editButton->setVisible(false);
     ui->saveButton->setVisible(false);
-    userView = true;
+    clientView = true;
 }

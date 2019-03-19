@@ -74,7 +74,7 @@ void animalAddEditControl::setShelter(Shelter *shelter_ptr)
 }
 
 //Set main window pointer
-void animalAddEditControl::setMainWindow(QMainWindow* main){
+void animalAddEditControl::setMainWindow(MainWindow* main){
     mw = main;
 }
 

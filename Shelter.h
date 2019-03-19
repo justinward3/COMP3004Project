@@ -38,6 +38,7 @@ class Shelter{
         QSqlQueryModel* model;
         bool loadAnimals();
         bool loadUsers();
+        bool loadClientData();
         int lastId = 0;
 };
 

@@ -1,9 +1,7 @@
 #include "clientwindow.h"
-#include "ui_menu.h"
 #include "animalListView.h"
 #include "viewclients.h"
-#include "addclient.h"
-#include "mainwindow.h"
+#include "clientEditControl.h"
 
 clientWindow::clientWindow(QWidget *parent) :
     QDialog(parent),
@@ -27,8 +25,9 @@ void clientWindow::setShelter(Shelter *shelter_ptr){
 }
 
 //set main pointer
-void clientWindow::setMainWindow(QMainWindow *main){
+void clientWindow::setMainWindow(MainWindow *main){
     mw = main;
+    client = sh->getClient(mw->getCurrUser()->getEmail());
 }
 
 //command handler for viewAnimals button
@@ -42,6 +41,17 @@ void clientWindow::on_viewAnimalsButton_clicked()
     animalView->setModal(true);
     animalView->deleteLater();
     animalView->exec();
+}
+
+void clientWindow::on_editProfileButton_clicked()
+{
+    this->hide();
+    clientEditControl clientEdit;
+    clientEdit.setShelter(sh);
+    clientEdit.edit(client);
+    clientEdit.setMainWindow(mw);
+    clientEdit.setModal(true);
+    clientEdit.exec();
 }
 
 void clientWindow::on_logOut_clicked()

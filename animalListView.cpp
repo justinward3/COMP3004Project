@@ -27,7 +27,7 @@ animalListView::animalListView(QWidget *parent):
     ui->animalList->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->animalList->setSelectionMode( QAbstractItemView::SingleSelection );
     ui->animalList->setSelectionBehavior(QAbstractItemView::SelectRows);
-    userView = false;
+    clientView = false;
 }
 
 animalListView::~animalListView()
@@ -77,7 +77,7 @@ void animalListView::setShelter(Shelter* shelter_ptr){
 }
 
 //set mw pointer
-void animalListView::setMainWindow(QMainWindow *main)
+void animalListView::setMainWindow(MainWindow *main)
 {
     mw = main;
 }
@@ -86,7 +86,7 @@ void animalListView::setMainWindow(QMainWindow *main)
 void animalListView::on_backButton_clicked()
 {
     this->hide();
-    if(userView){
+    if(clientView){
         clientWindow clientWindow;
         clientWindow.setShelter(sh);
         clientWindow.setMainWindow(mw);
@@ -121,7 +121,7 @@ void animalListView::on_detailButton_clicked()
         animalViewControl animalView;
         animalView.setAnimal(sh->getAnimals()[select->currentIndex().row()],select->currentIndex().row());
         animalView.setShelter(sh);
-        if(userView){
+        if(clientView){
             animalView.setUserView();
         }
         animalView.setMainWindow(mw);
@@ -132,5 +132,5 @@ void animalListView::on_detailButton_clicked()
 
 void animalListView::setUserView(){
     ui->addButton->setVisible(false);
-    userView = true;
+    clientView = true;
 }

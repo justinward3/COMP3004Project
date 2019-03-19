@@ -22,7 +22,7 @@ class animalAddEditControl : public QDialog
 public:
     explicit animalAddEditControl(QWidget *parent = 0);
     void setShelter(Shelter*);
-    void setMainWindow(QMainWindow*);
+    void setMainWindow(MainWindow*);
     void edit(Animal*, int);
     void animalAddEditControlFields(bool);
     ~animalAddEditControl();
@@ -36,7 +36,7 @@ private:
     Ui::animalDetailView *ui;
     Shelter* sh;
     Animal* animal;
-    QMainWindow* mw;
+    MainWindow* mw;
     int pos;
 
 };
