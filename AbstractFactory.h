@@ -6,8 +6,8 @@ using namespace std;
 class AbstractFactory {
 
   public:
-    AnimalFactory* getAnimalFactory();
-    UserFactory* getUserFactory();
+    virtual Animal createAnimal() = 0;
+    virtual User createUser() = 0;
 
 };
 
