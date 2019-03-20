@@ -8,7 +8,7 @@
 #include "Cat.h"
 #include "Bird.h"
 #include "SmallAnimal.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "ui_animalDetailView.h"
 
 namespace Ui {

@@ -51,7 +51,6 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		mainwindow.cpp \
 		staffwindow.cpp \
 		Animal.cpp \
 		Bird.cpp \
@@ -62,27 +61,27 @@ SOURCES       = main.cpp \
 		SmallAnimal.cpp \
 		Staff.cpp \
 		User.cpp \
-		viewclients.cpp \
-		addstaff.cpp \
 		clientwindow.cpp \
 		animalAddEditControl.cpp \
 		animalViewControl.cpp \
-		animalListView.cpp \
 		clientAddViewControl.cpp \
 		clientEditControl.cpp \
 		AnimalFactory.cpp \
-		UserFactory.cpp moc_mainwindow.cpp \
-		moc_staffwindow.cpp \
-		moc_viewclients.cpp \
-		moc_addstaff.cpp \
+		UserFactory.cpp \
+		addStaffControl.cpp \
+		clientListControl.cpp \
+		animalListControl.cpp \
+		mainWindow.cpp moc_staffwindow.cpp \
 		moc_clientwindow.cpp \
 		moc_animalAddEditControl.cpp \
 		moc_animalViewControl.cpp \
 		moc_animalListView.cpp \
 		moc_clientAddViewControl.cpp \
-		moc_clientEditControl.cpp
+		moc_clientEditControl.cpp \
+		moc_addStaffControl.cpp \
+		moc_clientListControl.cpp \
+		moc_mainWindow.cpp
 OBJECTS       = main.o \
-		mainwindow.o \
 		staffwindow.o \
 		Animal.o \
 		Bird.o \
@@ -93,26 +92,27 @@ OBJECTS       = main.o \
 		SmallAnimal.o \
 		Staff.o \
 		User.o \
-		viewclients.o \
-		addstaff.o \
 		clientwindow.o \
 		animalAddEditControl.o \
 		animalViewControl.o \
-		animalListView.o \
 		clientAddViewControl.o \
 		clientEditControl.o \
 		AnimalFactory.o \
 		UserFactory.o \
-		moc_mainwindow.o \
+		addStaffControl.o \
+		clientListControl.o \
+		animalListControl.o \
+		mainWindow.o \
 		moc_staffwindow.o \
-		moc_viewclients.o \
-		moc_addstaff.o \
 		moc_clientwindow.o \
 		moc_animalAddEditControl.o \
 		moc_animalViewControl.o \
 		moc_animalListView.o \
 		moc_clientAddViewControl.o \
-		moc_clientEditControl.o
+		moc_clientEditControl.o \
+		moc_addStaffControl.o \
+		moc_clientListControl.o \
+		moc_mainWindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -202,8 +202,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		cuACS.pro mainwindow.h \
-		staffwindow.h \
+		cuACS.pro staffwindow.h \
 		Animal.h \
 		Cat.h \
 		Client.h \
@@ -213,8 +212,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		User.h \
 		Bird.h \
 		SmallAnimal.h \
-		viewclients.h \
-		addstaff.h \
 		clientwindow.h \
 		animalAddEditControl.h \
 		animalViewControl.h \
@@ -223,8 +220,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		clientEditControl.h \
 		AbstractFactory.h \
 		AnimalFactory.h \
-		UserFactory.h main.cpp \
-		mainwindow.cpp \
+		UserFactory.h \
+		addStaffControl.h \
+		clientListControl.h \
+		mainWindow.h main.cpp \
 		staffwindow.cpp \
 		Animal.cpp \
 		Bird.cpp \
@@ -235,16 +234,17 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		SmallAnimal.cpp \
 		Staff.cpp \
 		User.cpp \
-		viewclients.cpp \
-		addstaff.cpp \
 		clientwindow.cpp \
 		animalAddEditControl.cpp \
 		animalViewControl.cpp \
-		animalListView.cpp \
 		clientAddViewControl.cpp \
 		clientEditControl.cpp \
 		AnimalFactory.cpp \
-		UserFactory.cpp
+		UserFactory.cpp \
+		addStaffControl.cpp \
+		clientListControl.cpp \
+		animalListControl.cpp \
+		mainWindow.cpp
 QMAKE_TARGET  = cuACS
 DESTDIR       = 
 TARGET        = cuACS
@@ -253,7 +253,7 @@ TARGET        = cuACS
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_viewclients.h ui_addstaff.h ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h $(OBJECTS)  
+$(TARGET): ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: cuACS.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -460,9 +460,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h staffwindow.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h viewclients.h addstaff.h clientwindow.h animalAddEditControl.h animalViewControl.h animalListView.h clientAddViewControl.h clientEditControl.h AbstractFactory.h AnimalFactory.h UserFactory.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp staffwindow.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp viewclients.cpp addstaff.cpp clientwindow.cpp animalAddEditControl.cpp animalViewControl.cpp animalListView.cpp clientAddViewControl.cpp clientEditControl.cpp AnimalFactory.cpp UserFactory.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui viewclients.ui addstaff.ui menu.ui animalDetailView.ui animalListView.ui clientDetailView.ui $(DISTDIR)/
+	$(COPY_FILE) --parents staffwindow.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h clientwindow.h animalAddEditControl.h animalViewControl.h animalListView.h clientAddViewControl.h clientEditControl.h AbstractFactory.h AnimalFactory.h UserFactory.h addStaffControl.h clientListControl.h mainWindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp staffwindow.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp clientwindow.cpp animalAddEditControl.cpp animalViewControl.cpp clientAddViewControl.cpp clientEditControl.cpp AnimalFactory.cpp UserFactory.cpp addStaffControl.cpp clientListControl.cpp animalListControl.cpp mainWindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents menu.ui animalDetailView.ui animalListView.ui clientDetailView.ui addStaffView.ui clientListView.ui mainWindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -494,23 +494,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_staffwindow.cpp moc_viewclients.cpp moc_addstaff.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_animalListView.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp
+compiler_moc_header_make_all: moc_staffwindow.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_animalListView.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp moc_addStaffControl.cpp moc_clientListControl.cpp moc_mainWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_staffwindow.cpp moc_viewclients.cpp moc_addstaff.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_animalListView.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp
-moc_mainwindow.cpp: Shelter.h \
-		Staff.h \
-		User.h \
-		Client.h \
-		Animal.h \
-		Dog.h \
-		Cat.h \
-		Bird.h \
-		SmallAnimal.h \
-		mainwindow.h \
-		moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
-
+	-$(DEL_FILE) moc_staffwindow.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_animalListView.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp moc_addStaffControl.cpp moc_clientListControl.cpp moc_mainWindow.cpp
 moc_staffwindow.cpp: Shelter.h \
 		Staff.h \
 		User.h \
@@ -520,64 +506,12 @@ moc_staffwindow.cpp: Shelter.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_menu.h \
 		staffwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include staffwindow.h -o moc_staffwindow.cpp
-
-moc_viewclients.cpp: Shelter.h \
-		Staff.h \
-		User.h \
-		Client.h \
-		Animal.h \
-		Dog.h \
-		Cat.h \
-		Bird.h \
-		SmallAnimal.h \
-		staffwindow.h \
-		mainwindow.h \
-		ui_menu.h \
-		animalAddEditControl.h \
-		AnimalFactory.h \
-		AbstractFactory.h \
-		ui_animalDetailView.h \
-		clientAddViewControl.h \
-		viewclients.h \
-		clientwindow.h \
-		UserFactory.h \
-		ui_clientDetailView.h \
-		viewclients.h \
-		moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include viewclients.h -o moc_viewclients.cpp
-
-moc_addstaff.cpp: Shelter.h \
-		Staff.h \
-		User.h \
-		Client.h \
-		Animal.h \
-		Dog.h \
-		Cat.h \
-		Bird.h \
-		SmallAnimal.h \
-		UserFactory.h \
-		AbstractFactory.h \
-		viewclients.h \
-		staffwindow.h \
-		mainwindow.h \
-		ui_menu.h \
-		animalAddEditControl.h \
-		AnimalFactory.h \
-		ui_animalDetailView.h \
-		clientAddViewControl.h \
-		clientwindow.h \
-		ui_clientDetailView.h \
-		addstaff.h \
-		moc_predefs.h \
-		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include addstaff.h -o moc_addstaff.cpp
 
 moc_clientwindow.cpp: Shelter.h \
 		Staff.h \
@@ -588,7 +522,7 @@ moc_clientwindow.cpp: Shelter.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_menu.h \
 		clientwindow.h \
 		moc_predefs.h \
@@ -606,7 +540,7 @@ moc_animalAddEditControl.cpp: Shelter.h \
 		SmallAnimal.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_animalDetailView.h \
 		animalAddEditControl.h \
 		moc_predefs.h \
@@ -622,7 +556,7 @@ moc_animalViewControl.cpp: Shelter.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_animalDetailView.h \
 		animalViewControl.h \
 		moc_predefs.h \
@@ -638,7 +572,7 @@ moc_animalListView.cpp: Shelter.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		mainwindow.h \
+		mainWindow.h \
 		animalListView.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -653,9 +587,9 @@ moc_clientAddViewControl.cpp: Shelter.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		viewclients.h \
+		clientListControl.h \
 		staffwindow.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
@@ -665,6 +599,7 @@ moc_clientAddViewControl.cpp: Shelter.h \
 		clientwindow.h \
 		UserFactory.h \
 		ui_clientDetailView.h \
+		ui_clientListView.h \
 		clientAddViewControl.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -679,9 +614,9 @@ moc_clientEditControl.cpp: Shelter.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		viewclients.h \
+		clientListControl.h \
 		staffwindow.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
@@ -691,28 +626,86 @@ moc_clientEditControl.cpp: Shelter.h \
 		clientwindow.h \
 		UserFactory.h \
 		ui_clientDetailView.h \
+		ui_clientListView.h \
 		clientEditControl.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include clientEditControl.h -o moc_clientEditControl.cpp
 
+moc_addStaffControl.cpp: Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		UserFactory.h \
+		AbstractFactory.h \
+		clientListControl.h \
+		staffwindow.h \
+		mainWindow.h \
+		ui_menu.h \
+		animalAddEditControl.h \
+		AnimalFactory.h \
+		ui_animalDetailView.h \
+		clientAddViewControl.h \
+		clientwindow.h \
+		ui_clientDetailView.h \
+		ui_clientListView.h \
+		ui_addStaffView.h \
+		addStaffControl.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include addStaffControl.h -o moc_addStaffControl.cpp
+
+moc_clientListControl.cpp: Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		staffwindow.h \
+		mainWindow.h \
+		ui_menu.h \
+		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
+		ui_animalDetailView.h \
+		clientAddViewControl.h \
+		clientListControl.h \
+		ui_clientListView.h \
+		clientwindow.h \
+		UserFactory.h \
+		ui_clientDetailView.h \
+		clientListControl.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include clientListControl.h -o moc_clientListControl.cpp
+
+moc_mainWindow.cpp: Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		mainWindow.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainWindow.h -o moc_mainWindow.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_viewclients.h ui_addstaff.h ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h
+compiler_uic_make_all: ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_viewclients.h ui_addstaff.h ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h
-ui_mainwindow.h: mainwindow.ui \
-		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
-
-ui_viewclients.h: viewclients.ui \
-		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic viewclients.ui -o ui_viewclients.h
-
-ui_addstaff.h: addstaff.ui \
-		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic addstaff.ui -o ui_addstaff.h
-
+	-$(DEL_FILE) ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h
 ui_menu.h: menu.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic menu.ui -o ui_menu.h
@@ -729,6 +722,18 @@ ui_clientDetailView.h: clientDetailView.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic clientDetailView.ui -o ui_clientDetailView.h
 
+ui_addStaffView.h: addStaffView.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic addStaffView.ui -o ui_addStaffView.h
+
+ui_clientListView.h: clientListView.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic clientListView.ui -o ui_clientListView.h
+
+ui_mainWindow.h: mainWindow.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic mainWindow.ui -o ui_mainWindow.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -739,7 +744,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: main.cpp mainwindow.h \
+main.o: main.cpp mainWindow.h \
 		Shelter.h \
 		Staff.h \
 		User.h \
@@ -751,22 +756,6 @@ main.o: main.cpp mainwindow.h \
 		SmallAnimal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-mainwindow.o: mainwindow.cpp mainwindow.h \
-		Shelter.h \
-		Staff.h \
-		User.h \
-		Client.h \
-		Animal.h \
-		Dog.h \
-		Cat.h \
-		Bird.h \
-		SmallAnimal.h \
-		ui_mainwindow.h \
-		staffwindow.h \
-		ui_menu.h \
-		clientwindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
-
 staffwindow.o: staffwindow.cpp staffwindow.h \
 		Shelter.h \
 		Staff.h \
@@ -777,10 +766,10 @@ staffwindow.o: staffwindow.cpp staffwindow.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_menu.h \
 		animalListView.h \
-		viewclients.h \
+		clientListControl.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
@@ -789,7 +778,9 @@ staffwindow.o: staffwindow.cpp staffwindow.h \
 		clientwindow.h \
 		UserFactory.h \
 		ui_clientDetailView.h \
-		addstaff.h
+		ui_clientListView.h \
+		addStaffControl.h \
+		ui_addStaffView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o staffwindow.o staffwindow.cpp
 
 Animal.o: Animal.cpp Animal.h
@@ -833,56 +824,6 @@ Staff.o: Staff.cpp Staff.h \
 User.o: User.cpp User.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o User.o User.cpp
 
-viewclients.o: viewclients.cpp viewclients.h \
-		Shelter.h \
-		Staff.h \
-		User.h \
-		Client.h \
-		Animal.h \
-		Dog.h \
-		Cat.h \
-		Bird.h \
-		SmallAnimal.h \
-		staffwindow.h \
-		mainwindow.h \
-		ui_menu.h \
-		animalAddEditControl.h \
-		AnimalFactory.h \
-		AbstractFactory.h \
-		ui_animalDetailView.h \
-		clientAddViewControl.h \
-		clientwindow.h \
-		UserFactory.h \
-		ui_clientDetailView.h \
-		ui_viewclients.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o viewclients.o viewclients.cpp
-
-addstaff.o: addstaff.cpp addstaff.h \
-		Shelter.h \
-		Staff.h \
-		User.h \
-		Client.h \
-		Animal.h \
-		Dog.h \
-		Cat.h \
-		Bird.h \
-		SmallAnimal.h \
-		UserFactory.h \
-		AbstractFactory.h \
-		viewclients.h \
-		staffwindow.h \
-		mainwindow.h \
-		ui_menu.h \
-		animalAddEditControl.h \
-		AnimalFactory.h \
-		ui_animalDetailView.h \
-		clientAddViewControl.h \
-		clientwindow.h \
-		ui_clientDetailView.h \
-		ui_addstaff.h \
-		animalListView.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addstaff.o addstaff.cpp
-
 clientwindow.o: clientwindow.cpp clientwindow.h \
 		Shelter.h \
 		Staff.h \
@@ -893,10 +834,10 @@ clientwindow.o: clientwindow.cpp clientwindow.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_menu.h \
 		animalListView.h \
-		viewclients.h \
+		clientListControl.h \
 		staffwindow.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
@@ -905,6 +846,7 @@ clientwindow.o: clientwindow.cpp clientwindow.h \
 		clientAddViewControl.h \
 		UserFactory.h \
 		ui_clientDetailView.h \
+		ui_clientListView.h \
 		clientEditControl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientwindow.o clientwindow.cpp
 
@@ -920,7 +862,7 @@ animalAddEditControl.o: animalAddEditControl.cpp animalAddEditControl.h \
 		SmallAnimal.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_animalDetailView.h \
 		animalListView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animalAddEditControl.o animalAddEditControl.cpp
@@ -935,35 +877,13 @@ animalViewControl.o: animalViewControl.cpp animalViewControl.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_animalDetailView.h \
 		animalListView.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animalViewControl.o animalViewControl.cpp
-
-animalListView.o: animalListView.cpp animalListView.h \
-		Shelter.h \
-		Staff.h \
-		User.h \
-		Client.h \
-		Animal.h \
-		Dog.h \
-		Cat.h \
-		Bird.h \
-		SmallAnimal.h \
-		mainwindow.h \
-		ui_animalListView.h \
-		staffwindow.h \
-		ui_menu.h \
-		clientwindow.h \
-		animalAddEditControl.h \
-		AnimalFactory.h \
-		AbstractFactory.h \
-		ui_animalDetailView.h \
-		animalViewControl.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animalListView.o animalListView.cpp
 
 clientAddViewControl.o: clientAddViewControl.cpp clientAddViewControl.h \
 		Shelter.h \
@@ -975,14 +895,15 @@ clientAddViewControl.o: clientAddViewControl.cpp clientAddViewControl.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		viewclients.h \
+		clientListControl.h \
 		staffwindow.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
 		ui_animalDetailView.h \
+		ui_clientListView.h \
 		clientwindow.h \
 		UserFactory.h \
 		ui_clientDetailView.h \
@@ -999,9 +920,9 @@ clientEditControl.o: clientEditControl.cpp clientEditControl.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		viewclients.h \
+		clientListControl.h \
 		staffwindow.h \
-		mainwindow.h \
+		mainWindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
@@ -1011,6 +932,7 @@ clientEditControl.o: clientEditControl.cpp clientEditControl.h \
 		clientwindow.h \
 		UserFactory.h \
 		ui_clientDetailView.h \
+		ui_clientListView.h \
 		animalListView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientEditControl.o clientEditControl.cpp
 
@@ -1038,17 +960,97 @@ UserFactory.o: UserFactory.cpp UserFactory.h \
 		Client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UserFactory.o UserFactory.cpp
 
-moc_mainwindow.o: moc_mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+addStaffControl.o: addStaffControl.cpp addStaffControl.h \
+		Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		UserFactory.h \
+		AbstractFactory.h \
+		clientListControl.h \
+		staffwindow.h \
+		mainWindow.h \
+		ui_menu.h \
+		animalAddEditControl.h \
+		AnimalFactory.h \
+		ui_animalDetailView.h \
+		clientAddViewControl.h \
+		clientwindow.h \
+		ui_clientDetailView.h \
+		ui_clientListView.h \
+		ui_addStaffView.h \
+		animalListView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addStaffControl.o addStaffControl.cpp
+
+clientListControl.o: clientListControl.cpp clientListControl.h \
+		Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		staffwindow.h \
+		mainWindow.h \
+		ui_menu.h \
+		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
+		ui_animalDetailView.h \
+		clientAddViewControl.h \
+		clientwindow.h \
+		UserFactory.h \
+		ui_clientDetailView.h \
+		ui_clientListView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientListControl.o clientListControl.cpp
+
+animalListControl.o: animalListControl.cpp animalListView.h \
+		Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		mainWindow.h \
+		ui_animalListView.h \
+		staffwindow.h \
+		ui_menu.h \
+		clientwindow.h \
+		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
+		ui_animalDetailView.h \
+		animalViewControl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animalListControl.o animalListControl.cpp
+
+mainWindow.o: mainWindow.cpp mainWindow.h \
+		Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		ui_mainwindow.h \
+		staffwindow.h \
+		ui_menu.h \
+		clientwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainWindow.o mainWindow.cpp
 
 moc_staffwindow.o: moc_staffwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_staffwindow.o moc_staffwindow.cpp
-
-moc_viewclients.o: moc_viewclients.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_viewclients.o moc_viewclients.cpp
-
-moc_addstaff.o: moc_addstaff.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_addstaff.o moc_addstaff.cpp
 
 moc_clientwindow.o: moc_clientwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientwindow.o moc_clientwindow.cpp
@@ -1067,6 +1069,15 @@ moc_clientAddViewControl.o: moc_clientAddViewControl.cpp
 
 moc_clientEditControl.o: moc_clientEditControl.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientEditControl.o moc_clientEditControl.cpp
+
+moc_addStaffControl.o: moc_addStaffControl.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_addStaffControl.o moc_addStaffControl.cpp
+
+moc_clientListControl.o: moc_clientListControl.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientListControl.o moc_clientListControl.cpp
+
+moc_mainWindow.o: moc_mainWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainWindow.o moc_mainWindow.cpp
 
 ####### Install
 

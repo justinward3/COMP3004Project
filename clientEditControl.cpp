@@ -1,7 +1,7 @@
 #include "clientEditControl.h"
 #include "ui_clientDetailView.h"
 #include "animalListView.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "QMessageBox"
 
 clientEditControl::clientEditControl(QWidget *parent) :
@@ -17,6 +17,7 @@ clientEditControl::clientEditControl(QWidget *parent) :
     ui->addButton->setVisible(false);
     ui->editButton->setVisible(false);
     ui->saveButton->setEnabled(true);
+    //ui->label_6->setVisible(false);
     this->setWindowTitle("Edit Profile");
 }
 
@@ -109,14 +110,20 @@ void clientEditControl::on_saveButton_clicked()
         temp.insert(keys[21],ui->aSpace->currentIndex()+1);
         temp.insert(keys[22],ui->aTime->currentIndex()+1);
         qDebug()<<temp;
-        if(sh->update(client,new Client(newname,newLname,newAdd,newPNum,newEmail,temp))){
+        int retstatus;
+        retstatus = sh->update(client,new Client(newname,newLname,newAdd,newPNum,newEmail,temp));
+        if(retstatus == 1){
             mw->updateCurrUserName(newEmail);
             QMessageBox::information(0, "DB Status","Profile updated in DATABASE", QMessageBox::Ok);
             this->on_backButton_clicked();
         }
-        else{
+        else if(retstatus == 0){
             //pop a failed message
-            QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please contact system admin", QMessageBox::Ok);
+            QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please exit and contact system admin", QMessageBox::Ok);
+        }
+        else if(retstatus == -1){
+            //pop a failed message
+            QMessageBox::critical(0, "Profile Error","Email in use, please try again!", QMessageBox::Ok);
         }
 }
 

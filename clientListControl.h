@@ -1,5 +1,5 @@
-#ifndef VIEWCLIENTS_H
-#define VIEWCLIENTS_H
+#ifndef CLIENTLISTCONTROL_H
+#define CLIENTLISTCONTROL_H
 
 #include <QDialog>
 #include "Shelter.h"
@@ -7,21 +7,22 @@
 #include "Client.h"
 #include "staffwindow.h"
 #include "animalAddEditControl.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "clientAddViewControl.h"
+#include "ui_clientListView.h"
 
 
 namespace Ui {
-class viewClients;
+class clientListControl;
 }
 
-class viewClients : public QDialog
+class clientListControl : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit viewClients(QWidget *parent = 0);
-    ~viewClients();
+    explicit clientListControl(QWidget *parent = 0);
+    ~clientListControl();
     void setShelter(Shelter*);
     void setMainWindow(MainWindow*);
     void setUserView();
@@ -33,7 +34,7 @@ private slots:
     void on_detailButton_clicked();
 
 private:
-    Ui::viewClients *ui;
+    Ui::clientListView *ui;
     Shelter* sh;
     QStandardItemModel* model;
     vector<Client*>  clients;
@@ -41,4 +42,4 @@ private:
 
 };
 
-#endif // VIEWCLIENTS_H
+#endif // CLIENTLISTCONTROL_H

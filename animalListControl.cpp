@@ -4,7 +4,7 @@
 #include "clientwindow.h"
 #include "animalAddEditControl.h"
 #include "animalViewControl.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "Shelter.h"
 #include <QStandardItemModel>
 

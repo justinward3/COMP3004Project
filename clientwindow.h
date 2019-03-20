@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "Shelter.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "ui_menu.h"
 
 

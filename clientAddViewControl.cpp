@@ -1,6 +1,6 @@
 #include "clientAddViewControl.h"
 #include "animalListView.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "QMessageBox"
 
 clientAddViewControl::clientAddViewControl(QWidget *parent) :
@@ -74,11 +74,11 @@ void clientAddViewControl::setMainWindow(MainWindow *main){
 void clientAddViewControl::on_backButton_clicked()
 {
     this->hide();
-    viewClients viewClients;
-    viewClients.setShelter(sh);
-    viewClients.setMainWindow(mw);
-    viewClients.setModal(true);
-    viewClients.exec();
+    clientListControl clientListControl;
+    clientListControl.setShelter(sh);
+    clientListControl.setMainWindow(mw);
+    clientListControl.setModal(true);
+    clientListControl.exec();
 
 }
 

@@ -9,7 +9,7 @@
 #include "Cat.h"
 #include "Bird.h"
 #include "SmallAnimal.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 
 namespace Ui {
 class animalListView;

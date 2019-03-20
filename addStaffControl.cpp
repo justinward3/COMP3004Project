@@ -1,30 +1,30 @@
-#include "addstaff.h"
-#include "ui_addstaff.h"
+#include "addStaffControl.h"
+#include "ui_addStaffView.h"
 #include "animalListView.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "QMessageBox"
 
-addStaff::addStaff(QWidget *parent) :
+addStaffControl::addStaffControl(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::addStaff)
+    ui(new Ui::addStaffView)
 {
     ui->setupUi(this);
 }
 
 //Deconstructor
-addStaff::~addStaff()
+addStaffControl::~addStaffControl()
 {
     delete ui;
 }
 
 //set shelter pointer
-void addStaff::setShelter(Shelter *shelter_ptr)
+void addStaffControl::setShelter(Shelter *shelter_ptr)
 {
     sh = shelter_ptr;
 }
 
 //set mw pointer
-void addStaff::setMainWindow(MainWindow *main)
+void addStaffControl::setMainWindow(MainWindow *main)
 {
     mw = main;
 }
@@ -32,7 +32,7 @@ void addStaff::setMainWindow(MainWindow *main)
 
 
 //command handler for back button
-void addStaff::on_backButton_clicked()
+void addStaffControl::on_backButton_clicked()
 {
     this->hide();
     //this->deleteLater();
@@ -45,9 +45,9 @@ void addStaff::on_backButton_clicked()
 }
 
 //command handler for add button
-void addStaff::on_addButton_clicked()
+void addStaffControl::on_addButton_clicked()
 {
-    cout<< "addStaff" << endl;
+    cout<< "addStaffControl" << endl;
     //local vars for instantiation of new Animal
     QString Fname = ui->staffFName->text();
     QString Lname = ui->staffLName->text();

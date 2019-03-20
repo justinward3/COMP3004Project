@@ -1,7 +1,7 @@
 #include "animalAddEditControl.h"
 #include "ui_animalDetailView.h"
 #include "animalListView.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "QMessageBox"
 #include <QPushButton>
 #include <QButtonGroup>

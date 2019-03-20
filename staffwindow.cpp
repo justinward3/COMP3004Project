@@ -1,8 +1,8 @@
 #include "staffwindow.h"
 #include "animalListView.h"
-#include "viewclients.h"
-#include "addstaff.h"
-#include "mainwindow.h"
+#include "clientListControl.h"
+#include "addStaffControl.h"
+#include "mainWindow.h"
 
 staffWindow::staffWindow(QWidget *parent) :
     QDialog(parent),
@@ -41,7 +41,7 @@ void staffWindow::on_viewAnimalsButton_clicked()
 void staffWindow::on_viewClientsButton_clicked()
 {
     this->hide();
-    viewClients* clientsView = new viewClients();
+    clientListControl* clientsView = new clientListControl();
     clientsView->setShelter(sh);
     clientsView->setMainWindow(mw);
     clientsView->setModal(true);
@@ -52,7 +52,7 @@ void staffWindow::on_viewClientsButton_clicked()
 void staffWindow::on_addStaffButton_clicked()
 {
     this->hide();
-    addStaff* staffAdd = new addStaff();
+    addStaffControl* staffAdd = new addStaffControl();
     staffAdd->setShelter(sh);
     staffAdd->setMainWindow(mw);
     staffAdd->setModal(true);

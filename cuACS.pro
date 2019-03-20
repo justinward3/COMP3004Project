@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
     staffwindow.cpp \
     Animal.cpp \
     Bird.cpp \
@@ -36,19 +35,19 @@ SOURCES += \
     SmallAnimal.cpp \
     Staff.cpp \
     User.cpp \
-    viewclients.cpp \
-    addstaff.cpp \
     clientwindow.cpp \
     animalAddEditControl.cpp \
     animalViewControl.cpp \
-    animalListView.cpp \
     clientAddViewControl.cpp \
     clientEditControl.cpp \
     AnimalFactory.cpp \
-    UserFactory.cpp
+    UserFactory.cpp \
+    addStaffControl.cpp \
+    clientListControl.cpp \
+    animalListControl.cpp \
+    mainWindow.cpp
 
 HEADERS += \
-        mainwindow.h \
     staffwindow.h \
     Animal.h \
     Cat.h \
@@ -59,8 +58,6 @@ HEADERS += \
     User.h \
     Bird.h \
     SmallAnimal.h \
-    viewclients.h \
-    addstaff.h \
     clientwindow.h \
     animalAddEditControl.h \
     animalViewControl.h \
@@ -69,13 +66,16 @@ HEADERS += \
     clientEditControl.h \
     AbstractFactory.h \
     AnimalFactory.h \
-    UserFactory.h
+    UserFactory.h \
+    addStaffControl.h \
+    clientListControl.h \
+    mainWindow.h
 
 FORMS += \
-        mainwindow.ui \
-    viewclients.ui \
-    addstaff.ui \
     menu.ui \
     animalDetailView.ui \
     animalListView.ui \
-    clientDetailView.ui
+    clientDetailView.ui \
+    addStaffView.ui \
+    clientListView.ui \
+    mainWindow.ui

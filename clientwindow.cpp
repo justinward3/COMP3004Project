@@ -1,6 +1,6 @@
 #include "clientwindow.h"
 #include "animalListView.h"
-#include "viewclients.h"
+#include "clientListControl.h"
 #include "clientEditControl.h"
 
 clientWindow::clientWindow(QWidget *parent) :

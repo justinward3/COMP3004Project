@@ -27,7 +27,7 @@ class Shelter{
         vector<Animal*>& getAnimals();
         vector<Staff*>& getStaff();
         bool update(Animal*,QString, QString,QString,int,QChar,QString, QMap<QString,int>, int pos);
-        bool update(Client*,Client*);
+        int update(Client*,Client*);
         int getLastId();
 
     private:

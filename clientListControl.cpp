@@ -1,10 +1,9 @@
-#include "viewclients.h"
-#include "ui_viewclients.h"
+#include "clientListControl.h"
 #include <QStandardItemModel>
 
-viewClients::viewClients(QWidget *parent):
+clientListControl::clientListControl(QWidget *parent):
     QDialog(parent),
-    ui(new Ui::viewClients)
+    ui(new Ui::clientListView)
 {
     ui->setupUi(this);
     //Set up table and ui
@@ -24,13 +23,13 @@ viewClients::viewClients(QWidget *parent):
 
 }
 
-viewClients::~viewClients()
+clientListControl::~clientListControl()
 {
     delete model;
     delete ui;
 }
 //set shelter pointer
-void viewClients::setShelter(Shelter* shelter_ptr){
+void clientListControl::setShelter(Shelter* shelter_ptr){
     sh = shelter_ptr;
     clients = sh->getClients();
 
@@ -57,13 +56,13 @@ void viewClients::setShelter(Shelter* shelter_ptr){
 }
 
 //set mw pointer
-void viewClients::setMainWindow(MainWindow *main)
+void clientListControl::setMainWindow(MainWindow *main)
 {
     mw = main;
 }
 
 //command handler for back button
-void viewClients::on_backButton_clicked()
+void clientListControl::on_backButton_clicked()
 {
     this->hide();
     staffWindow staffWindow;
@@ -74,7 +73,7 @@ void viewClients::on_backButton_clicked()
 }
 
 //command handler for add button
-void viewClients::on_addButton_clicked()
+void clientListControl::on_addButton_clicked()
 {
     this->hide();
     clientAddViewControl clientAdd;
@@ -85,7 +84,7 @@ void viewClients::on_addButton_clicked()
 }
 
 
-void viewClients::on_detailButton_clicked()
+void clientListControl::on_detailButton_clicked()
 {
     QItemSelectionModel *select = ui->clientList->selectionModel();
     if(select->hasSelection()){

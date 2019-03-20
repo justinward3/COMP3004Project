@@ -4,7 +4,7 @@
 #include <QDialog>
 #include "Shelter.h"
 #include "Client.h"
-#include "viewclients.h"
+#include "clientListControl.h"
 #include "clientwindow.h"
 #include "UserFactory.h"
 #include "ui_clientDetailView.h"
