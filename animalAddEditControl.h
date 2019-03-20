@@ -8,6 +8,7 @@
 #include "Cat.h"
 #include "Bird.h"
 #include "SmallAnimal.h"
+#include "AnimalFactory.h"
 #include "mainwindow.h"
 #include "ui_animalDetailView.h"
 

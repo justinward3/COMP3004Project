@@ -57,7 +57,7 @@ void addStaff::on_addButton_clicked()
     //Check fields have value
     if (Fname!="" && Lname!="" && Add!="" && PNum!="" && email!="") {
         //Create staff
-         staff = new Staff(Fname,Lname,Add,PNum,email);
+         staff = UserFactory::createStaff(Fname,Lname,Add,PNum,email);
         //If successfully added to Shelter, pop a success message and go back
         if(sh->operator +=(staff)){
             QMessageBox::information(0, "DB Status",staff->getFname()+" added to DATABASE", QMessageBox::Ok);

@@ -249,16 +249,16 @@ void animalAddEditControl::on_addButton_clicked()
         newAnimalId++;
         //Create animal based on type
         if(type == "Dog"){
-            animal = new Dog(name,colour,age,sex[0],detail,attr,newAnimalId);
+            animal = AnimalFactory::createDog(name,colour,age,sex[0],detail,attr,newAnimalId);
         }
         else if(type == "Cat"){
-            animal = new Cat(name,colour,age,sex[0],detail,attr,newAnimalId);
+            animal = AnimalFactory::createCat(name,colour,age,sex[0],detail,attr,newAnimalId);
         }
         else if(type == "Bird"){
-            animal = new Bird(name,colour,age,sex[0],detail,attr,newAnimalId);
+            animal = AnimalFactory::createBird(name,colour,age,sex[0],detail,attr,newAnimalId);
         }
         else if(type == "Small Animal"){
-            animal = new SmallAnimal(name,colour,age,sex[0],detail,attr,newAnimalId);
+            animal = AnimalFactory::createSmallAnimal(name,colour,age,sex[0],detail,attr,newAnimalId);
         }
         //If successfully added to Shelter, pop a success message and go back
         if(sh->operator +=(animal)){

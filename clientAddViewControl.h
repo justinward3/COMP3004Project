@@ -6,6 +6,7 @@
 #include "Client.h"
 #include "viewclients.h"
 #include "clientwindow.h"
+#include "UserFactory.h"
 #include "ui_clientDetailView.h"
 
 namespace Ui {

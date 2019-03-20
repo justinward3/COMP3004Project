@@ -94,7 +94,7 @@ void clientAddViewControl::on_addButton_clicked()
     //Check fields have value
     if (Fname!="" && Lname!="" && Add!="" && PNum!="" && email!="") {
         //Create client
-         client = new Client(Fname,Lname,Add,PNum,email);
+         client = UserFactory::createClient(Fname,Lname,Add,PNum,email);
         //If successfully added to Shelter, pop a success message and go back
         if(sh->operator +=(client)){
             QMessageBox::critical(0, "DB Status",client->getFname()+" added to DATABASE", QMessageBox::Ok);
