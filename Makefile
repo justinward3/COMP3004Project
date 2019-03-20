@@ -69,7 +69,9 @@ SOURCES       = main.cpp \
 		animalViewControl.cpp \
 		animalListView.cpp \
 		clientAddViewControl.cpp \
-		clientEditControl.cpp moc_mainwindow.cpp \
+		clientEditControl.cpp \
+		AnimalFactory.cpp \
+		UserFactory.cpp moc_mainwindow.cpp \
 		moc_staffwindow.cpp \
 		moc_viewclients.cpp \
 		moc_addstaff.cpp \
@@ -99,6 +101,8 @@ OBJECTS       = main.o \
 		animalListView.o \
 		clientAddViewControl.o \
 		clientEditControl.o \
+		AnimalFactory.o \
+		UserFactory.o \
 		moc_mainwindow.o \
 		moc_staffwindow.o \
 		moc_viewclients.o \
@@ -216,7 +220,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		animalViewControl.h \
 		animalListView.h \
 		clientAddViewControl.h \
-		clientEditControl.h main.cpp \
+		clientEditControl.h \
+		AbstractFactory.h \
+		AnimalFactory.h \
+		UserFactory.h main.cpp \
 		mainwindow.cpp \
 		staffwindow.cpp \
 		Animal.cpp \
@@ -235,7 +242,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		animalViewControl.cpp \
 		animalListView.cpp \
 		clientAddViewControl.cpp \
-		clientEditControl.cpp
+		clientEditControl.cpp \
+		AnimalFactory.cpp \
+		UserFactory.cpp
 QMAKE_TARGET  = cuACS
 DESTDIR       = 
 TARGET        = cuACS
@@ -451,8 +460,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h staffwindow.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h viewclients.h addstaff.h clientwindow.h animalAddEditControl.h animalViewControl.h animalListView.h clientAddViewControl.h clientEditControl.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp staffwindow.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp viewclients.cpp addstaff.cpp clientwindow.cpp animalAddEditControl.cpp animalViewControl.cpp animalListView.cpp clientAddViewControl.cpp clientEditControl.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h staffwindow.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h viewclients.h addstaff.h clientwindow.h animalAddEditControl.h animalViewControl.h animalListView.h clientAddViewControl.h clientEditControl.h AbstractFactory.h AnimalFactory.h UserFactory.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp staffwindow.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp viewclients.cpp addstaff.cpp clientwindow.cpp animalAddEditControl.cpp animalViewControl.cpp animalListView.cpp clientAddViewControl.cpp clientEditControl.cpp AnimalFactory.cpp UserFactory.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui viewclients.ui addstaff.ui menu.ui animalDetailView.ui animalListView.ui clientDetailView.ui $(DISTDIR)/
 
 
@@ -531,10 +540,13 @@ moc_viewclients.cpp: Shelter.h \
 		mainwindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
 		viewclients.h \
 		clientwindow.h \
+		UserFactory.h \
 		ui_clientDetailView.h \
 		viewclients.h \
 		moc_predefs.h \
@@ -550,11 +562,14 @@ moc_addstaff.cpp: Shelter.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
+		UserFactory.h \
+		AbstractFactory.h \
 		viewclients.h \
 		staffwindow.h \
 		mainwindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
 		clientwindow.h \
@@ -589,6 +604,8 @@ moc_animalAddEditControl.cpp: Shelter.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		mainwindow.h \
 		ui_animalDetailView.h \
 		animalAddEditControl.h \
@@ -641,9 +658,12 @@ moc_clientAddViewControl.cpp: Shelter.h \
 		mainwindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
 		clientwindow.h \
+		UserFactory.h \
 		ui_clientDetailView.h \
 		clientAddViewControl.h \
 		moc_predefs.h \
@@ -664,9 +684,12 @@ moc_clientEditControl.cpp: Shelter.h \
 		mainwindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
 		clientwindow.h \
+		UserFactory.h \
 		ui_clientDetailView.h \
 		clientEditControl.h \
 		moc_predefs.h \
@@ -759,9 +782,12 @@ staffwindow.o: staffwindow.cpp staffwindow.h \
 		animalListView.h \
 		viewclients.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
 		clientwindow.h \
+		UserFactory.h \
 		ui_clientDetailView.h \
 		addstaff.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o staffwindow.o staffwindow.cpp
@@ -821,9 +847,12 @@ viewclients.o: viewclients.cpp viewclients.h \
 		mainwindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
 		clientwindow.h \
+		UserFactory.h \
 		ui_clientDetailView.h \
 		ui_viewclients.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o viewclients.o viewclients.cpp
@@ -838,11 +867,14 @@ addstaff.o: addstaff.cpp addstaff.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
+		UserFactory.h \
+		AbstractFactory.h \
 		viewclients.h \
 		staffwindow.h \
 		mainwindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
 		clientwindow.h \
@@ -867,8 +899,11 @@ clientwindow.o: clientwindow.cpp clientwindow.h \
 		viewclients.h \
 		staffwindow.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
+		UserFactory.h \
 		ui_clientDetailView.h \
 		clientEditControl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientwindow.o clientwindow.cpp
@@ -883,6 +918,8 @@ animalAddEditControl.o: animalAddEditControl.cpp animalAddEditControl.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		mainwindow.h \
 		ui_animalDetailView.h \
 		animalListView.h
@@ -901,7 +938,9 @@ animalViewControl.o: animalViewControl.cpp animalViewControl.h \
 		mainwindow.h \
 		ui_animalDetailView.h \
 		animalListView.h \
-		animalAddEditControl.h
+		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animalViewControl.o animalViewControl.cpp
 
 animalListView.o: animalListView.cpp animalListView.h \
@@ -920,6 +959,8 @@ animalListView.o: animalListView.cpp animalListView.h \
 		ui_menu.h \
 		clientwindow.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		animalViewControl.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animalListView.o animalListView.cpp
@@ -939,8 +980,11 @@ clientAddViewControl.o: clientAddViewControl.cpp clientAddViewControl.h \
 		mainwindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		clientwindow.h \
+		UserFactory.h \
 		ui_clientDetailView.h \
 		animalListView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientAddViewControl.o clientAddViewControl.cpp
@@ -960,12 +1004,39 @@ clientEditControl.o: clientEditControl.cpp clientEditControl.h \
 		mainwindow.h \
 		ui_menu.h \
 		animalAddEditControl.h \
+		AnimalFactory.h \
+		AbstractFactory.h \
 		ui_animalDetailView.h \
 		clientAddViewControl.h \
 		clientwindow.h \
+		UserFactory.h \
 		ui_clientDetailView.h \
 		animalListView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientEditControl.o clientEditControl.cpp
+
+AnimalFactory.o: AnimalFactory.cpp AnimalFactory.h \
+		AbstractFactory.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		User.h \
+		Staff.h \
+		Client.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AnimalFactory.o AnimalFactory.cpp
+
+UserFactory.o: UserFactory.cpp UserFactory.h \
+		AbstractFactory.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		User.h \
+		Staff.h \
+		Client.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UserFactory.o UserFactory.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

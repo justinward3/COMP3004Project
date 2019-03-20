@@ -43,7 +43,9 @@ SOURCES += \
     animalViewControl.cpp \
     animalListView.cpp \
     clientAddViewControl.cpp \
-    clientEditControl.cpp
+    clientEditControl.cpp \
+    AnimalFactory.cpp \
+    UserFactory.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -64,7 +66,10 @@ HEADERS += \
     animalViewControl.h \
     animalListView.h \
     clientAddViewControl.h \
-    clientEditControl.h
+    clientEditControl.h \
+    AbstractFactory.h \
+    AnimalFactory.h \
+    UserFactory.h
 
 FORMS += \
         mainwindow.ui \
