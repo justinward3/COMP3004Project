@@ -1043,7 +1043,7 @@ mainWindow.o: mainWindow.cpp mainWindow.h \
 		Cat.h \
 		Bird.h \
 		SmallAnimal.h \
-		ui_mainwindow.h \
+		ui_mainWindow.h \
 		staffwindow.h \
 		ui_menu.h \
 		clientwindow.h

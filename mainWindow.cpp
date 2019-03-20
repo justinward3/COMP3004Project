@@ -1,5 +1,5 @@
 #include "mainWindow.h"
-#include "ui_mainwindow.h"
+#include "ui_mainWindow.h"
 #include "staffwindow.h"
 #include "clientwindow.h"
 #include "QMessageBox"
