@@ -17,3 +17,7 @@ LAUNCHING INSTRUCTIONS
    credentials. 
    You can use the following email to login as staff:
    s.b@cu.ca
+5) To login as a client, you must have the correct email 
+   credentials. 
+   You can use the following email to login as client:
+   u.m@cu.ca
