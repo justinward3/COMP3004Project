@@ -131,6 +131,7 @@ void animalListView::on_detailButton_clicked()
 }
 
 void animalListView::setUserView(){
+    qDebug()<<"SETUSERVIEW";
     ui->addButton->setVisible(false);
     clientView = true;
 }

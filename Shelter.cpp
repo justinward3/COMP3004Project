@@ -175,7 +175,7 @@ bool Shelter::operator+=(Animal* a) {
     qry->bindValue(":age", a->getAge());
     qry->bindValue(":colour", a->getColour());
     qry->bindValue(":detail", a->getDetail());
-    qry->bindValue(":doc", a->getTraits()["doc"]);
+    qry->bindValue(":doc", a->getTraits()["DoC"]);
     qry->bindValue(":affection", a->getTraits()["affection"]);
     qry->bindValue(":cost", a->getTraits()["cost"]);
     qry->bindValue(":time", a->getTraits()["time"]);
@@ -219,11 +219,13 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     qry->bindValue(":age", age);
     qry->bindValue(":colour", colour);
     qry->bindValue(":detail", detail);
-    qry->bindValue(":doc", attr["doc"]);
+    qDebug()<<attr["DoC"];
+    qry->bindValue(":doc", attr["DoC"]);
     qry->bindValue(":affection", attr["affection"]);
     qry->bindValue(":cost", attr["cost"]);
     qry->bindValue(":time", attr["time"]);
     qry->bindValue(":lifespan", attr["lifespan"]);
+    qDebug()<<"LS"<<attr["lifespan"];
     qry->bindValue(":space", attr["space"]);
     qry->bindValue(":loudness", attr["loudness"]);
     qry->bindValue(":activeness", attr["activeness"]);
@@ -241,6 +243,7 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     qDebug() << a->getColour();
     qDebug() << a->getDetail();
     qDebug() << a->getTraits();
+    int updateid = a->getId();
 
     //if updated in Db then update in vector
     if(qry->exec()){
@@ -248,16 +251,16 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
         //qDebug()<<qry->value(1).toString();
         delete a;
         if(type == "Dog"){
-            newAnimal = new Dog(name,colour,age,sex,detail,attr,++lastId);
+            newAnimal = new Dog(name,colour,age,sex,detail,attr,updateid);
         }
         else if(type == "Cat"){
-            newAnimal = new Cat(name,colour,age,sex,detail,attr,++lastId);
+            newAnimal = new Cat(name,colour,age,sex,detail,attr,updateid);
         }
         else if(type == "Bird"){
-            newAnimal = new Bird(name,colour,age,sex,detail,attr,++lastId);
+            newAnimal = new Bird(name,colour,age,sex,detail,attr,updateid);
         }
         else if(type == "Small Animal"){
-            newAnimal = new SmallAnimal(name,colour,age,sex,detail,attr,++lastId);
+            newAnimal = new SmallAnimal(name,colour,age,sex,detail,attr,updateid);
         }
         animals[pos] = newAnimal;
         delete qry;
@@ -301,8 +304,8 @@ int Shelter::update(Client* c, Client* newc){
         }
         qry->bindValue(":email",newc->getEmail());
         qry->bindValue(":prevemail",c->getEmail());
-        qDebug()<<qry->lastQuery();
-        qDebug()<<qry->boundValues();
+        //qDebug()<<qry->lastQuery();
+        //qDebug()<<qry->boundValues();
         if(qry->exec()){
             qry->finish();
             s = "UPDATE Users SET EmailAddress=:email, FirstName=:fname, LastName=:lname, Address=:addr, PhoneNumber=:Pnum WHERE EmailAddress=:prevemail;";

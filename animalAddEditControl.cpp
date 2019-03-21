@@ -25,6 +25,7 @@ animalAddEditControl::~animalAddEditControl()
 //set view
 void animalAddEditControl::edit(Animal *a, int i)
 {
+        this->setWindowTitle("Edit Animal");
         animal = a;
         pos = i;
         //Populate all fields for view/edit
@@ -101,6 +102,7 @@ void animalAddEditControl::on_saveButton_clicked()
     QString ageStr = ui->animalAge->text();
     int age = ui->animalAge->text().toInt();
     int lifespan = ui->animalLifespan->text().toInt();
+    qDebug()<<"Lifespan"<<lifespan;
     int cost = ui->animalCost->text().toInt();
     float time = ui->animalTime->text().toFloat();
     QString costStr = ui->animalCost->text();
@@ -133,7 +135,7 @@ void animalAddEditControl::on_saveButton_clicked()
             && lifespanStr!="" && costStr!="" && timeStr!="") {
 
         //Populate Matching parameter dictionary
-        attr.insert("doc", (ui->animalDifficulty->currentIndex()+1));
+        attr.insert("DoC", (ui->animalDifficulty->currentIndex()+1));
         attr.insert("affection", (ui->animalAffection->currentIndex()+1));
         attr.insert("cost", cost);
         attr.insert("time", time);
@@ -226,7 +228,7 @@ void animalAddEditControl::on_addButton_clicked()
             && lifespanStr!="" && costStr!="" && timeStr!="") {
 
         //Populate Matching parameter dictionary
-        attr.insert("doc", (ui->animalDifficulty->currentIndex()+1));
+        attr.insert("DoC", (ui->animalDifficulty->currentIndex()+1));
         attr.insert("affection", (ui->animalAffection->currentIndex()+1));
         attr.insert("cost", cost);
         attr.insert("time", time);

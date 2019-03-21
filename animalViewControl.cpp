@@ -34,7 +34,7 @@ animalViewControl::animalViewControl(QWidget *parent) :
     ui->dogCheckBox->setEnabled(false);
     ui->catCheckBox->setEnabled(false);
     ui->childCheckBox->setEnabled(false);
-    clientView = true;
+    clientView = false;
 }
 
 //Deconstructor
@@ -79,6 +79,20 @@ void animalViewControl::setAnimal(Animal *a, int i)
         ui->animalShedding->setCurrentIndex((animal->getTraits())["shedding"]-1);
         ui->animalLifespan->setText(QString::number((animal->getTraits())["lifespan"]));
 
+        //Check subclass of animal and set type
+        if ( dynamic_cast<Dog*>( a ) )
+           ui->animalType->setCurrentIndex(0);
+
+        else if ( dynamic_cast<Cat*>( a ) )
+           ui->animalType->setCurrentIndex(1);
+
+        else if ( dynamic_cast<Bird*>( a ) )
+           ui->animalType->setCurrentIndex(2);
+
+        else if ( dynamic_cast<SmallAnimal*>( a ) )
+           ui->animalType->setCurrentIndex(3);
+
+        //Integration Checkboxes
         if (animal->getTraits()["intwithdog"] == 0){
           ui->dogCheckBox->setChecked(1);
         }else{
