@@ -55,8 +55,84 @@ ACMAlgorithm::~ACMAlgorithm(){
 
 
 QMap<Animal*, Client*> ACMAlgorithm::runACM(){
-    qDebug()<<"We out here!";
-    return QMap<Animal*, Client*>();
+    QMap<Animal*, Client> ACMAlgorithm::runACM(vector<Client*> clients, vector<Animal*> animals){
+	QMap<Client, QMap<int, Animal*>> clientMatches;
+	int numMatchesSaved = (clients.size() < animals.size()) ? clients.size() : animals.size();
+
+	for (client in clients){	
+		for (animal in animals){
+			int matchScore = runACMOnPair(animal, client);
+			
+			if (clientMatches.count <= numMatchesSaved){
+				clientMatches[client].insert([matchScore : animal]);
+			}else{
+				int worst = 0;
+				int pop = 0;
+				for (auto key : clientMatches[client]){
+					if (matchScore >= key && pop == 0){
+						pop = 1;
+						worst = key;					
+					}else if (key < worst){
+						worst = key;
+					}
+				}
+				if (pop == 1){
+					clientMatches[client].remove(worst);
+					clientMatches[client].insert([matchScore : animal]);
+				}
+			}
+		}
+	}
+	QMap<Animal Client> pairs;
+	vector<Client> exhausted; //Clients who dont have a match
+	vector<Client> lowMatchCount; //Clients who don't have enough matches
+	while ((pairs.size() < numMatchesSaved && pairs.size()) ||  pairs.size() < numMatchesSaved + exhausted.size()){
+		for (client in clients){
+			if (!pairs.contains(client)){
+				for (auto key : clientMatches[client]){ // needs to be sorted order
+					if (clientMatches[client][key] != null){
+						Animal animal = clientMatches[client][key];
+						if (!pairs.value(client).contains(animal)){
+							pairs.add([animal : client]);
+							break;
+						}else{
+							if (clientMatches[client] > clientMatches[pairs[animal]] && !exhausted.contains(pairs[animal])){
+								pairs.remove(animal);
+								pairs.add([animal : client]);
+								break;
+							}
+						}
+					}	
+				}
+			}
+			if (clientMatches[client].count() < animals.size() && clientMatches[client].count() < clients.size() && !pairs.contains(client)){
+				//Check the matches this client does have to see if they have nay good matches
+				int matchable = 0;
+				for (auto key : clientMatches[client]){
+					Animal animal = clientMatches[client][key]; 
+					//If Exhausted does not contain the client this animal is paired with currently, then its safe to remove him for rematching
+					if (!lowMatchCount.contains(pair[animal]){
+						pairs.remove(animal);
+						pairs.add([animal : client]);
+						lowMatchCount.add(client);
+						matchable = 1;
+					}else{
+						pairs.remove(animal);
+						pairs.add([animal : client]);
+						lowMatchCount.add(client);
+						lowMatchCount.remove(pair[animal]);
+						matchable = 1;
+					}
+				}
+				if (matchable == 0){
+					exhausted.add(client);
+				}
+			}
+		}
+	}
+	
+	return pairs;
+}
 }
 
 int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
