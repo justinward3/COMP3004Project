@@ -16,7 +16,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>110</x>
      <y>10</y>
      <width>171</width>
      <height>31</height>
@@ -438,6 +438,9 @@
        </property>
        <property name="text">
         <string>Children</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">animalButtonGroup</string>
@@ -1611,6 +1614,87 @@
      </property>
     </widget>
    </widget>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>10</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>Match Score:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_19">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>10</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>/47</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_20">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>10</y>
+     <width>51</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>DejaVu Sans</family>
+     <pointsize>16</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
  </widget>
  <resources/>
