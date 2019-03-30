@@ -45,7 +45,8 @@ SOURCES += \
     addStaffControl.cpp \
     clientListControl.cpp \
     animalListControl.cpp \
-    mainWindow.cpp
+    mainWindow.cpp \
+    ACMAlgorithm.cpp
 
 HEADERS += \
     staffwindow.h \
@@ -69,7 +70,8 @@ HEADERS += \
     addStaffControl.h \
     clientListControl.h \
     mainWindow.h \
-    animalListControl.h
+    animalListControl.h \
+    ACMAlgorithm.h
 
 FORMS += \
     menu.ui \

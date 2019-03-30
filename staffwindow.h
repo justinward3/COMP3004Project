@@ -5,6 +5,7 @@
 #include "Shelter.h"
 #include "mainWindow.h"
 #include "ui_menu.h"
+#include "ACMAlgorithm.h"
 
 namespace Ui {
 class staffWindow;

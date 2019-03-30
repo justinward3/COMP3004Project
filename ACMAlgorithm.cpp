@@ -1,13 +1,14 @@
-#include <ACMAlgirithm.h>
-#include "qmap"
+#include <ACMAlgorithm.h>
+#include "qmap.h"
 #include <vector>
+#include <cstdlib>
 
 
 using namespace std;
 
 //Constructor for the ACM Algorithm
 ACMAlgorithm::ACMAlgorithm() {
-	cout << "ACM Algorithm Constructued" << endl;
+    cout << "ACM Algorithm Constructed" << endl;
 	caseDict["type"] = 1;
 	caseDict["sex"] = 1;
 	caseDict["size"] = 1;
@@ -53,21 +54,22 @@ ACMAlgorithm::~ACMAlgorithm(){
 }
 
 
-QMap<Animal*, Client> ACMAlgorithm::runACM(){
-	
+QMap<Animal*, Client*> ACMAlgorithm::runACM(){
+    qDebug()<<"We out here!";
+    return QMap<Animal*, Client*>();
 }
 
-int ACMAlgorithm::runACMOnPair(animal, client){
+int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 	//Variable used to check if a trait match value is <= -5
 	int pastMatchScore = 0;
 
 	//Actual Match Score
-	int matchScore = 0
+    int matchScore = 0;
 	for (auto trait : caseDict.keys()){
 		
 		//Grab the trait values and set the pastMatchScore variable
-		clientValue = client.getTraits().at(trait);
-		animalValue = animal.getTraits().at(trait);
+        int clientValue = client->getMatchingPrefs()[trait];
+        int animalValue = animal->getTraits()[trait];
 		pastMatchScore = matchScore;
 	
 		//Check our cases and compute trait match score		
@@ -80,13 +82,13 @@ int ACMAlgorithm::runACMOnPair(animal, client){
 		}else if (caseDict.value(trait) == 2){
 			matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
 		}else if (caseDict.value(trait) == 3){
-			matchScore += weightDict.value(trait)/(ABS(clientValue-animalValue)+1);
+            matchScore += weightDict.value(trait)/(abs(clientValue-animalValue)+1);
 		}
 
 		if (pastMatchScore >= (matchScore+5)){
-			return null;
+            return -1;
 		}
 		return matchScore;
 	}
-	
+    return 0;
 }

@@ -68,4 +68,6 @@ void staffWindow::on_logOut_clicked()
 void staffWindow::on_acmButton_clicked()
 {
     qDebug()<<"It's Showtime!";
+    ACMAlgorithm acm;
+    QMap<Animal*,Client*> matches = acm.runACM();
 }
