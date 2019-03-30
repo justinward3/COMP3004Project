@@ -69,5 +69,13 @@ void staffWindow::on_acmButton_clicked()
 {
     qDebug()<<"It's Showtime!";
     ACMAlgorithm acm;
-    QMap<Animal*,Client*> matches = acm.runACM();
+    QMap<Animal*,Client*> matches = acm.runACM(sh->getClients(),sh->getAnimals());
+    QList<Animal*> akeys = matches.keys();
+    for(int i=0; i<akeys.size();i++){
+        akeys[i]->getName();
+        matches[akeys[i]]->getFname();
+    }
+
+    qDebug()<<"Done?";
+
 }

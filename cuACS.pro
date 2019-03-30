@@ -81,4 +81,5 @@ FORMS += \
     addStaffView.ui \
     clientListView.ui \
     mainWindow.ui \
-    matchDetailView.ui
+    matchDetailView.ui \
+    matchListView.ui

@@ -71,7 +71,8 @@ SOURCES       = main.cpp \
 		addStaffControl.cpp \
 		clientListControl.cpp \
 		animalListControl.cpp \
-		mainWindow.cpp moc_staffwindow.cpp \
+		mainWindow.cpp \
+		ACMAlgorithm.cpp moc_staffwindow.cpp \
 		moc_clientwindow.cpp \
 		moc_animalAddEditControl.cpp \
 		moc_animalViewControl.cpp \
@@ -103,6 +104,7 @@ OBJECTS       = main.o \
 		clientListControl.o \
 		animalListControl.o \
 		mainWindow.o \
+		ACMAlgorithm.o \
 		moc_staffwindow.o \
 		moc_clientwindow.o \
 		moc_animalAddEditControl.o \
@@ -223,7 +225,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		addStaffControl.h \
 		clientListControl.h \
 		mainWindow.h \
-		animalListControl.h main.cpp \
+		animalListControl.h \
+		ACMAlgorithm.h main.cpp \
 		staffwindow.cpp \
 		Animal.cpp \
 		Bird.cpp \
@@ -244,7 +247,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		addStaffControl.cpp \
 		clientListControl.cpp \
 		animalListControl.cpp \
-		mainWindow.cpp
+		mainWindow.cpp \
+		ACMAlgorithm.cpp
 QMAKE_TARGET  = cuACS
 DESTDIR       = 
 TARGET        = cuACS
@@ -253,7 +257,7 @@ TARGET        = cuACS
 first: all
 ####### Build rules
 
-$(TARGET): ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h ui_matchDetailView.h $(OBJECTS)  
+$(TARGET): ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h ui_matchDetailView.h ui_matchListView.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: cuACS.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -460,9 +464,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents staffwindow.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h clientwindow.h animalAddEditControl.h animalViewControl.h clientAddViewControl.h clientEditControl.h AbstractFactory.h AnimalFactory.h UserFactory.h addStaffControl.h clientListControl.h mainWindow.h animalListControl.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp staffwindow.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp clientwindow.cpp animalAddEditControl.cpp animalViewControl.cpp clientAddViewControl.cpp clientEditControl.cpp AnimalFactory.cpp UserFactory.cpp addStaffControl.cpp clientListControl.cpp animalListControl.cpp mainWindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents menu.ui animalDetailView.ui animalListView.ui clientDetailView.ui addStaffView.ui clientListView.ui mainWindow.ui matchDetailView.ui $(DISTDIR)/
+	$(COPY_FILE) --parents staffwindow.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h clientwindow.h animalAddEditControl.h animalViewControl.h clientAddViewControl.h clientEditControl.h AbstractFactory.h AnimalFactory.h UserFactory.h addStaffControl.h clientListControl.h mainWindow.h animalListControl.h ACMAlgorithm.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp staffwindow.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp clientwindow.cpp animalAddEditControl.cpp animalViewControl.cpp clientAddViewControl.cpp clientEditControl.cpp AnimalFactory.cpp UserFactory.cpp addStaffControl.cpp clientListControl.cpp animalListControl.cpp mainWindow.cpp ACMAlgorithm.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents menu.ui animalDetailView.ui animalListView.ui clientDetailView.ui addStaffView.ui clientListView.ui mainWindow.ui matchDetailView.ui matchListView.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -508,6 +512,7 @@ moc_staffwindow.cpp: Shelter.h \
 		SmallAnimal.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		staffwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -576,6 +581,7 @@ moc_clientAddViewControl.cpp: Shelter.h \
 		staffwindow.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
@@ -603,6 +609,7 @@ moc_clientEditControl.cpp: Shelter.h \
 		staffwindow.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
@@ -632,6 +639,7 @@ moc_addStaffControl.cpp: Shelter.h \
 		staffwindow.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		ui_animalDetailView.h \
@@ -657,6 +665,7 @@ moc_clientListControl.cpp: Shelter.h \
 		staffwindow.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
@@ -704,9 +713,9 @@ moc_animalListControl.cpp: Shelter.h \
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h ui_matchDetailView.h
+compiler_uic_make_all: ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h ui_matchDetailView.h ui_matchListView.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h ui_matchDetailView.h
+	-$(DEL_FILE) ui_menu.h ui_animalDetailView.h ui_animalListView.h ui_clientDetailView.h ui_addStaffView.h ui_clientListView.h ui_mainWindow.h ui_matchDetailView.h ui_matchListView.h
 ui_menu.h: menu.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic menu.ui -o ui_menu.h
@@ -738,6 +747,10 @@ ui_mainWindow.h: mainWindow.ui \
 ui_matchDetailView.h: matchDetailView.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic matchDetailView.ui -o ui_matchDetailView.h
+
+ui_matchListView.h: matchListView.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic matchListView.ui -o ui_matchListView.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -773,6 +786,7 @@ staffwindow.o: staffwindow.cpp staffwindow.h \
 		SmallAnimal.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalListControl.h \
 		ui_animalListView.h \
 		clientListControl.h \
@@ -846,6 +860,7 @@ clientwindow.o: clientwindow.cpp clientwindow.h \
 		ui_animalListView.h \
 		clientListControl.h \
 		staffwindow.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
@@ -908,6 +923,7 @@ clientAddViewControl.o: clientAddViewControl.cpp clientAddViewControl.h \
 		staffwindow.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
@@ -934,6 +950,7 @@ clientEditControl.o: clientEditControl.cpp clientEditControl.h \
 		staffwindow.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
@@ -987,6 +1004,7 @@ addStaffControl.o: addStaffControl.cpp addStaffControl.h \
 		staffwindow.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		ui_animalDetailView.h \
@@ -1012,6 +1030,7 @@ clientListControl.o: clientListControl.cpp clientListControl.h \
 		staffwindow.h \
 		mainWindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
 		AbstractFactory.h \
@@ -1037,6 +1056,7 @@ animalListControl.o: animalListControl.cpp animalListControl.h \
 		ui_animalListView.h \
 		staffwindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		clientwindow.h \
 		animalAddEditControl.h \
 		AnimalFactory.h \
@@ -1058,8 +1078,21 @@ mainWindow.o: mainWindow.cpp mainWindow.h \
 		ui_mainWindow.h \
 		staffwindow.h \
 		ui_menu.h \
+		ACMAlgorithm.h \
 		clientwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainWindow.o mainWindow.cpp
+
+ACMAlgorithm.o: ACMAlgorithm.cpp ACMAlgorithm.h \
+		Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ACMAlgorithm.o ACMAlgorithm.cpp
 
 moc_staffwindow.o: moc_staffwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_staffwindow.o moc_staffwindow.cpp

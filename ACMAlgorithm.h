@@ -15,7 +15,7 @@ class ACMAlgorithm{
 	public:
 		ACMAlgorithm();
 		~ACMAlgorithm();
-        QMap<Animal*, Client*> runACM();
+        QMap<Animal*, Client*> runACM(vector<Client*>,vector<Animal*>);
 
 	private:
         int runACMOnPair(Animal*, Client*);
