@@ -1,4 +1,4 @@
-#include "animalListView.h"
+#include "animalListControl.h"
 #include "ui_animalListView.h"
 #include "staffwindow.h"
 #include "clientwindow.h"
@@ -8,7 +8,7 @@
 #include "Shelter.h"
 #include <QStandardItemModel>
 
-animalListView::animalListView(QWidget *parent):
+animalListControl::animalListControl(QWidget *parent):
     QDialog(parent),
     ui(new Ui::animalListView)
 {
@@ -30,13 +30,13 @@ animalListView::animalListView(QWidget *parent):
     clientView = false;
 }
 
-animalListView::~animalListView()
+animalListControl::~animalListControl()
 {
     delete model;
     delete ui;
 }
 //set shelter pointer
-void animalListView::setShelter(Shelter* shelter_ptr){
+void animalListControl::setShelter(Shelter* shelter_ptr){
     sh = shelter_ptr;
 
     //Add sh->getAnimals() to table
@@ -77,13 +77,13 @@ void animalListView::setShelter(Shelter* shelter_ptr){
 }
 
 //set mw pointer
-void animalListView::setMainWindow(MainWindow *main)
+void animalListControl::setMainWindow(MainWindow *main)
 {
     mw = main;
 }
 
 //command handler for back button
-void animalListView::on_backButton_clicked()
+void animalListControl::on_backButton_clicked()
 {
     this->hide();
     if(clientView){
@@ -103,7 +103,7 @@ void animalListView::on_backButton_clicked()
 }
 
 //command handler for add button
-void animalListView::on_addButton_clicked()
+void animalListControl::on_addButton_clicked()
 {
     this->hide();
     animalAddEditControl animalAdd;
@@ -113,7 +113,7 @@ void animalListView::on_addButton_clicked()
     animalAdd.exec();
 }
 
-void animalListView::on_detailButton_clicked()
+void animalListControl::on_detailButton_clicked()
 {
     QItemSelectionModel *select = ui->animalList->selectionModel();
     if(select->hasSelection()){
@@ -130,7 +130,7 @@ void animalListView::on_detailButton_clicked()
   }
 }
 
-void animalListView::setUserView(){
+void animalListControl::setUserView(){
     qDebug()<<"SETUSERVIEW";
     ui->addButton->setVisible(false);
     clientView = true;

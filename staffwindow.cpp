@@ -1,5 +1,5 @@
 #include "staffwindow.h"
-#include "animalListView.h"
+#include "animalListControl.h"
 #include "clientListControl.h"
 #include "addStaffControl.h"
 #include "mainWindow.h"
@@ -30,7 +30,7 @@ void staffWindow::setMainWindow(MainWindow *main){
 void staffWindow::on_viewAnimalsButton_clicked()
 {
     this->hide();
-    animalListView* animalView = new animalListView();
+    animalListControl* animalView = new animalListControl();
     animalView->setShelter(sh);
     animalView->setMainWindow(mw);
     animalView->setModal(true);
@@ -63,4 +63,9 @@ void staffWindow::on_logOut_clicked()
 {
     this->hide();
     mw->show();
+}
+
+void staffWindow::on_acmButton_clicked()
+{
+    qDebug()<<"It's Showtime!";
 }

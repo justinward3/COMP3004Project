@@ -10,18 +10,19 @@
 #include "Bird.h"
 #include "SmallAnimal.h"
 #include "mainWindow.h"
+#include "ui_animalListView.h"
 
 namespace Ui {
-class animalListView;
+class animalListControl;
 }
 
-class animalListView : public QDialog
+class animalListControl : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit animalListView(QWidget *parent = 0);
-    ~animalListView();
+    explicit animalListControl(QWidget *parent = 0);
+    ~animalListControl();
     void setShelter(Shelter*);
     void setMainWindow(MainWindow*);
     void setUserView();

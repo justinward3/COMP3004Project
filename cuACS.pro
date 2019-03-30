@@ -61,7 +61,6 @@ HEADERS += \
     clientwindow.h \
     animalAddEditControl.h \
     animalViewControl.h \
-    animalListView.h \
     clientAddViewControl.h \
     clientEditControl.h \
     AbstractFactory.h \
@@ -69,7 +68,8 @@ HEADERS += \
     UserFactory.h \
     addStaffControl.h \
     clientListControl.h \
-    mainWindow.h
+    mainWindow.h \
+    animalListControl.h
 
 FORMS += \
     menu.ui \
@@ -78,4 +78,5 @@ FORMS += \
     clientDetailView.ui \
     addStaffView.ui \
     clientListView.ui \
-    mainWindow.ui
+    mainWindow.ui \
+    matchDetailView.ui

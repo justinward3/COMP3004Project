@@ -1,5 +1,5 @@
 #include "clientwindow.h"
-#include "animalListView.h"
+#include "animalListControl.h"
 #include "clientListControl.h"
 #include "clientEditControl.h"
 
@@ -35,7 +35,7 @@ void clientWindow::setMainWindow(MainWindow *main){
 void clientWindow::on_viewAnimalsButton_clicked()
 {
     this->hide();
-    animalListView* animalView = new animalListView();
+    animalListControl* animalView = new animalListControl();
     animalView->setShelter(sh);
     animalView->setMainWindow(mw);
     animalView->setUserView();

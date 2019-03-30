@@ -1,5 +1,5 @@
 #include "clientAddViewControl.h"
-#include "animalListView.h"
+#include "animalListControl.h"
 #include "mainWindow.h"
 #include "QMessageBox"
 

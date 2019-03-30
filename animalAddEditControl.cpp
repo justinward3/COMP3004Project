@@ -1,6 +1,6 @@
 #include "animalAddEditControl.h"
 #include "ui_animalDetailView.h"
-#include "animalListView.h"
+#include "animalListControl.h"
 #include "mainWindow.h"
 #include "QMessageBox"
 #include <QPushButton>
@@ -83,7 +83,7 @@ void animalAddEditControl::setMainWindow(MainWindow* main){
 void animalAddEditControl::on_backButton_clicked()
 {
     this->hide();
-    animalListView animalView;
+    animalListControl animalView;
     animalView.setShelter(sh);
     animalView.setMainWindow(mw);
     animalView.setModal(true);

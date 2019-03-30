@@ -1,5 +1,5 @@
 #include "animalViewControl.h"
-#include "animalListView.h"
+#include "animalListControl.h"
 #include "mainWindow.h"
 #include "QMessageBox"
 #include <QPushButton>
@@ -115,7 +115,7 @@ void animalViewControl::setAnimal(Animal *a, int i)
 void animalViewControl::on_backButton_clicked()
 {
     this->hide();
-    animalListView animalView;
+    animalListControl animalView;
     animalView.setShelter(sh);
     animalView.setMainWindow(mw);
     if(clientView){

@@ -30,6 +30,8 @@ private slots:
 
     void on_logOut_clicked();
 
+    void on_acmButton_clicked();
+
 private:
     Ui::menu *ui;
     Shelter* sh;
