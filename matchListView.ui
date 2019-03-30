@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>animalListView</class>
- <widget class="QDialog" name="animalListView">
+ <class>matchListView</class>
+ <widget class="QDialog" name="matchListView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,9 +16,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>100</x>
      <y>20</y>
-     <width>271</width>
+     <width>461</width>
      <height>21</height>
     </rect>
    </property>
@@ -34,7 +34,7 @@
     <number>0</number>
    </property>
    <property name="text">
-    <string>Animals Available</string>
+    <string>ACM Computed Matches</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -52,24 +52,11 @@
    <property name="title">
     <string>Menu</string>
    </property>
-   <widget class="QPushButton" name="addButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>131</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Animal</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="backButton">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>110</y>
+      <y>80</y>
       <width>131</width>
       <height>25</height>
      </rect>
@@ -82,17 +69,17 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
+      <y>40</y>
       <width>131</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>View Animal Detail</string>
+     <string>View Match Detail</string>
     </property>
    </widget>
   </widget>
-  <widget class="QTableView" name="animalList">
+  <widget class="QTableView" name="matchList">
    <property name="geometry">
     <rect>
      <x>20</x>
