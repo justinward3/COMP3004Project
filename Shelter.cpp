@@ -73,10 +73,7 @@ bool Shelter::operator+=(Client* c) {
         qry->bindValue(":phone", c->getPhoneNumber());
         qry->bindValue(":email", c->getEmail());
         //if added to Db then add to vector
-        cout <<"try to exec"<<endl;
         if(qry->exec()){
-                    cout <<"try to exec2"<<endl;
-
             clients.insert(clients.end(),c);
             delete qry;
             return true;
@@ -91,7 +88,6 @@ bool Shelter::operator+=(Client* c) {
 
 //add Staff function (operator overload)
 bool Shelter::operator+=(Staff* s) {
-    cout<<"staffop"<<endl;
     //Set up query
     bool unique = true;
     for (size_t i = 0; i < staff.size(); i++) {
@@ -110,10 +106,7 @@ bool Shelter::operator+=(Staff* s) {
         qry->bindValue(":phone", s->getPhoneNumber());
         qry->bindValue(":email", s->getEmail());
         //if added to Db then add to vector
-        cout <<"try to exec"<<endl;
         if(qry->exec()){
-                    cout <<"try to exec2"<<endl;
-
             staff.insert(staff.end(),s);
             delete qry;
             return true;
@@ -219,13 +212,11 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     qry->bindValue(":age", age);
     qry->bindValue(":colour", colour);
     qry->bindValue(":detail", detail);
-    qDebug()<<attr["DoC"];
     qry->bindValue(":doc", attr["DoC"]);
     qry->bindValue(":affection", attr["affection"]);
     qry->bindValue(":cost", attr["cost"]);
     qry->bindValue(":time", attr["time"]);
     qry->bindValue(":lifespan", attr["lifespan"]);
-    qDebug()<<"LS"<<attr["lifespan"];
     qry->bindValue(":space", attr["space"]);
     qry->bindValue(":loudness", attr["loudness"]);
     qry->bindValue(":activeness", attr["activeness"]);
@@ -236,6 +227,7 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     qry->bindValue(":intwithchild", attr["intwithchild"]);
     qry->bindValue(":id", a->getId());
 
+    /*
     qDebug() << "ID: " << a->getId();
     qDebug() << a->getName();
     qDebug() << a->getSex();
@@ -243,6 +235,7 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     qDebug() << a->getColour();
     qDebug() << a->getDetail();
     qDebug() << a->getTraits();
+    */
     int updateid = a->getId();
 
     //if updated in Db then update in vector
