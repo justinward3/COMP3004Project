@@ -9,7 +9,6 @@ clientAddViewControl::clientAddViewControl(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->editButton->setVisible(false);
-    ui->clientMatchingInfo->setVisible(false);
 }
 
 //Deconstructor
@@ -25,29 +24,51 @@ void clientAddViewControl::setView(int view, Client *client)
     if (view == 1) {
         ui->label->setText("View Client");
         ui->addButton->setVisible(false);
-        ui->editButton->setVisible(true);
+        this->setWindowTitle("View Client");
         ui->label_6->setVisible(false);
-        ui->clientMatchingInfo->setVisible(true);
+        ui->saveButton->setVisible(false);
         addClientFields(false);
         ui->clientFName->setText(client->getFname());
         ui->clientLName->setText(client->getLname());
         ui->clientEmail->setText(client->getEmail());
         ui->clientPNum->setText(client->getPhoneNumber());
         ui->clientAdd->setText(client->getAddress());
+        if(client->getMatchingPrefs().isEmpty()){
+            qDebug()<<"No MP";
+            ui->clientMatchingInfo->setVisible(false);
+        }
+        else{
+            ui->clientMatchingInfo->setVisible(true);
+            QStringList keys = {"type","active","affection","age","cats","catsfuture","children","childrenfuture","colour","cost","dogs","dogsfuture","experience","home","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
+            //populate matching prefs
+            QMap<QString,int> temp = client->getMatchingPrefs();
+            ui->aType->setCurrentIndex(temp[keys[0]]-1);
+            ui->aActive->setCurrentIndex(temp[keys[1]]-1);
+            ui->aAffection->setCurrentIndex(temp[keys[2]]-1);
+            ui->aAge->setCurrentIndex(temp[keys[3]]-1);
+            ui->aCats->setCurrentIndex(temp[keys[4]]-1);
+            ui->aCatsFuture->setCurrentIndex(temp[keys[5]]-1);
+            ui->aChildren->setCurrentIndex(temp[keys[6]]-1);
+            ui->aChildrenFuture->setCurrentIndex(temp[keys[7]]-1);
+            ui->aColour->setCurrentIndex(temp[keys[8]]-1);
+            ui->aCost->setCurrentIndex(temp[keys[9]]-1);
+            ui->aDogs->setCurrentIndex(temp[keys[10]]-1);
+            ui->aDogsFuture->setCurrentIndex(temp[keys[11]]-1);
+            ui->aExperience->setCurrentIndex(temp[keys[12]]-1);
+            ui->aHome->setCurrentIndex(temp[keys[13]]-1);
+            ui->aLifespan->setCurrentIndex(temp[keys[13]]-1);
+            ui->aNoise->setCurrentIndex(temp[keys[14]]-1);
+            ui->aObedient->setCurrentIndex(temp[keys[14]]-1);
+            ui->aOlder->setCurrentIndex(temp[keys[15]]-1);
+            ui->aSex->setCurrentIndex(temp[keys[16]]-1);
+            ui->aShedding->setCurrentIndex(temp[keys[17]]-1);
+            ui->aSize->setCurrentIndex(temp[keys[18]]-1);
+            ui->aSpace->setCurrentIndex(temp[keys[19]]-1);
+            ui->aTime->setCurrentIndex(temp[keys[20]]-1);
+        }
     }
 }
 
-void clientAddViewControl::setUserView(){
-    ui->label->setText("Edit Profile");
-    ui->clientMatchingInfo->setVisible(true);
-    ui->addButton->setVisible(false);
-    ui->editButton->setVisible(false);
-    ui->clientFName->setText(client->getFname());
-    ui->clientLName->setText(client->getLname());
-    ui->clientEmail->setText(client->getEmail());
-    ui->clientPNum->setText(client->getPhoneNumber());
-    ui->clientAdd->setText(client->getAddress());
-}
 
 // enable/disable fields
 void clientAddViewControl::addClientFields(bool flag) {
