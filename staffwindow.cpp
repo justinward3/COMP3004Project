@@ -74,7 +74,7 @@ void staffWindow::on_acmButton_clicked()
     qDebug()<<"SIZE:"<<akeys.size();
     for(int i=0; i<akeys.size();i++){
         qDebug()<<"Match "<<i+1<<":";
-        qDebug()<<akeys[i]->getName()<< "and" << matches[akeys[i]]->getFname();
+        qDebug()<<akeys[i]->getName()<< "and" << matches[akeys[i]]->getFname() << matches[akeys[i]]->getLname();
     }
 
     qDebug()<<"Done?";
