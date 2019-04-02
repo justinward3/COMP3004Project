@@ -142,7 +142,7 @@ vector<Client*>& Shelter::getClients() { return clients; }
 bool Shelter::operator+=(Animal* a) {
     //Set up query
     qry=new QSqlQuery(db);
-    QString s = "INSERT INTO `Animals`(`Type`,`Name`,`Age`,`Colour`,`Sex`,`Detail`,`DoC`,`Affection`,`Cost`,`Time`,`LifeSpan`,`Space`,`Loudness`,`Activeness`,`Obedience`,`Shedding`,`IntWithDog`,`IntWithCat`,`IntWithChild`,`id`) VALUES (:type,:name,:age,:colour,:sex,:detail,:doc,:affection,:cost,:time,:lifespan,:space,:loudness,:activeness,:obedience,:shedding,:intwithdog,:intwithcat,:intwithchild,:id);";
+    QString s = "INSERT INTO `Animals`(`Type`,`Name`,`Age`,`Colour`,`Sex`,`Size`,`Detail`,`DoC`,`Affection`,`Cost`,`Time`,`LifeSpan`,`Space`,`Loudness`,`Activeness`,`Obedience`,`Shedding`,`IntWithDog`,`IntWithCat`,`IntWithChild`,`id`) VALUES (:type,:name,:age,:colour,:sex,:size,:detail,:doc,:affection,:cost,:time,:lifespan,:space,:loudness,:activeness,:obedience,:shedding,:intwithdog,:intwithcat,:intwithchild,:id);";
     qry->prepare(s);
     qry->bindValue(":name", a->getName());
 
@@ -165,6 +165,7 @@ bool Shelter::operator+=(Animal* a) {
 
     //set bind values
     qry->bindValue(":sex", temp);
+    qry->bindValue(":size",a->getTraits()["size"]);
     qry->bindValue(":age", a->getAge());
     qry->bindValue(":colour", a->getColour());
     qry->bindValue(":detail", a->getDetail());
@@ -201,7 +202,7 @@ bool Shelter::operator+=(Animal* a) {
 bool Shelter::update(Animal* a, QString type, QString name,QString colour,int age, QChar sex, QString detail, QMap<QString,int> attr, int pos){
     Animal *newAnimal;
     qry=new QSqlQuery(db);
-    QString s = "UPDATE `Animals` SET `Type`=:type,`Name`=:name,`Age`=:age,`Colour`=:colour,`Sex`=:sex,`Detail`=:detail,`DoC`=:doc,`Affection`=:affection,`Cost`=:cost,`Time`=:time,`LifeSpan`=:lifespan,`Space`=:space,`Loudness`=:loudness,`Activeness`=:activeness,`Obedience`=:obedience,`Shedding`=:shedding,`IntWithDog`=:intwithdog,`IntWithCat`=:intwithcat,`IntWithChild`=:intwithchild WHERE `id`=:id ";
+    QString s = "UPDATE `Animals` SET `Type`=:type,`Name`=:name,`Age`=:age,`Colour`=:colour,`Size`=:size,`Sex`=:sex,`Detail`=:detail,`DoC`=:doc,`Affection`=:affection,`Cost`=:cost,`Time`=:time,`LifeSpan`=:lifespan,`Space`=:space,`Loudness`=:loudness,`Activeness`=:activeness,`Obedience`=:obedience,`Shedding`=:shedding,`IntWithDog`=:intwithdog,`IntWithCat`=:intwithcat,`IntWithChild`=:intwithchild WHERE `id`=:id ";
     qry->prepare(s);
 
     //SET BIND VALUES FOR VALUES TO BE UPDATED
@@ -209,6 +210,7 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
     qry->bindValue(":type", type);
     qry->bindValue(":name", name);
     qry->bindValue(":sex", sex);
+    qry->bindValue(":size",a->getTraits()["size"]);
     qry->bindValue(":age", age);
     qry->bindValue(":colour", colour);
     qry->bindValue(":detail", detail);
@@ -335,7 +337,7 @@ bool Shelter::loadAnimals(){
     bool status;
     //prepare Sql Query to load animals
     qry=new QSqlQuery(db);
-    qry->prepare("SELECT name, type, sex, age, colour, detail, DoC, Affection, Cost, Time, LifeSpan, Space, Loudness, Activeness, Obedience, Shedding, IntWithDog, IntWithCat, IntWithChild  , id FROM Animals");
+    qry->prepare("SELECT name, type, sex, age, colour, detail, DoC, Affection, Cost, Time, LifeSpan, Space, Loudness, Activeness, Obedience, Shedding, IntWithDog, IntWithCat, IntWithChild  , id, size FROM Animals");
 
     //if succesfully connected to dB
     if(qry->exec()){
@@ -349,6 +351,7 @@ bool Shelter::loadAnimals(){
             QString detail = qry->value(5).toString();
             QString colour = qry->value(4).toString();
             int id = qry->value(19).toInt();
+            int size = qry->value(20).toInt();
 
             if(id > lastId){
               lastId = id;
@@ -385,6 +388,7 @@ bool Shelter::loadAnimals(){
             attr.insert("intwithdog", IntWithDog);
             attr.insert("intwithcat", IntWithCat);
             attr.insert("intwithchild", IntWithChild);
+            attr.insert("size",size);
 
 
             //Create instances of Animals and add to Vector of Animals
