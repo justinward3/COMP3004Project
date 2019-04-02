@@ -179,12 +179,15 @@
       <property name="text">
        <string>Sex:</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>30</y>
+        <x>277</x>
+        <y>50</y>
         <width>31</width>
         <height>21</height>
        </rect>
@@ -198,6 +201,9 @@
       </property>
       <property name="text">
        <string>Age:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">
@@ -223,8 +229,8 @@
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>243</x>
-        <y>50</y>
+        <x>240</x>
+        <y>70</y>
         <width>71</width>
         <height>21</height>
        </rect>
@@ -238,6 +244,9 @@
       </property>
       <property name="text">
        <string>Lifespan:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_9">
@@ -592,8 +601,8 @@
      <widget class="QLabel" name="animalAge">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>30</y>
+        <x>317</x>
+        <y>50</y>
         <width>21</width>
         <height>21</height>
        </rect>
@@ -608,8 +617,8 @@
      <widget class="QLabel" name="animalLifespan">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>50</y>
+        <x>317</x>
+        <y>70</y>
         <width>21</width>
         <height>21</height>
        </rect>
@@ -760,6 +769,45 @@
       </property>
       <property name="text">
        <string>animalShedding</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>30</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>DejaVu Sans</family>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Size:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="animalSize">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>30</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>S</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
