@@ -31,9 +31,9 @@ ACMAlgorithm::ACMAlgorithm() {
 	caseDict["activeness"] = 3;
 	caseDict["obedience"] = 3;
 	caseDict["shedding"] = 3;
-	caseDict["intWithDog"] = 1;
-	caseDict["intWithCat"] = 1;
-	caseDict["intWithChild"] = 1;
+	caseDict["intwithdog"] = 1;
+	caseDict["intwithcat"] = 1;
+	caseDict["intwithchild"] = 1;
 
 	weightDict["type"] = 5;
 	weightDict["sex"] = 2;
@@ -45,14 +45,14 @@ ACMAlgorithm::ACMAlgorithm() {
 	weightDict["Cost"] = 5;
 	weightDict["time"] = 4;
 	weightDict["lifeSpan"] = 4;
-	weightDict["space"] = 5;
-	weightDict["loudness"] = 3;
+	weightDict["space"] = 4;
+	weightDict["loudness"] = 2;
 	weightDict["activeness"] = 3;
 	weightDict["obedience"] = 3;
 	weightDict["shedding"] = 4;
-	weightDict["intWithDog"] = 5;
-	weightDict["intWithCat"] = 5;
-	weightDict["intWithChild"] = 5;
+	weightDict["intwithdog"] = 5;
+	weightDict["intwithcat"] = 5;
+	weightDict["intwithchild"] = 5;
 
 }
 
@@ -62,18 +62,29 @@ ACMAlgorithm::~ACMAlgorithm(){
 
 QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Animal*> animals){
     cout << "Running..." <<endl;
+
+    //The list of the top numMatchesSaved matches for every client, in the form of Map<Client, Map<Match Score, Animal Matched>>
     QMap<Client*, QMap<float, Animal*>> clientMatches;
+
+    //The numMatchesSaved is the lesser of clients or animals as we want at most that many matches
 	int numMatchesSaved = (clients.size() < animals.size()) ? clients.size() : animals.size();
 
+  //For every client and every animal, run the match algorithm and saved the top numSavedMatches matches for each client.
     for (auto client : clients){
+
         for (auto animal : animals){
-            //qDebug() << "Running ACM on " << client->getFname() << " and " << animal->getName();
+            qDebug() << "\nRunning ACM on " << client->getFname() << " and " << animal->getName() << " numMatchesSaved: " << numMatchesSaved;
             float matchScore = runACMOnPair(animal, client);
             if(matchScore != -100){
-                if (clientMatches.count() <= numMatchesSaved){
+                //If there are currently less matches saved than numMatchesSaved
+                if (clientMatches[client].count() < numMatchesSaved){
+                    qDebug() << client->getFname() << " " << client->getLname() << " matched with: " << animal->getName() << " score: " << matchScore;
                     clientMatches[client].insert(matchScore,animal);
                 }else{
                     int worst = 0;
+
+                    //Pop is a boolean (0 false, 1 true) value indicating whether the current matchScore is going to be popping an
+                    //existing match score from clientMatches[client]
                     int pop = 0;
                     for (auto key : clientMatches[client].keys()){
                         if (matchScore >= key && pop == 0){
@@ -81,11 +92,16 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
                             worst = key;
                         }else if (key < worst){
                             worst = key;
+                            pop = 1;
                         }
                     }
+
+                    //If pop == 1 then we need to remove the worst score and add in the key (current animal) score
                     if (pop == 1){
+                        qDebug() << "Unmatching " << client->getFname() << " " << client->getLname() << " and " << clientMatches[client][worst]->getName() << " score: " << worst;
                         clientMatches[client].remove(worst);
                         clientMatches[client].insert(matchScore , animal);
+                        qDebug() << client->getFname() << " " << client->getLname() << " matched with: " << animal->getName() << " score: " << matchScore;
                     }
                 }
             }
@@ -96,30 +112,43 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
     vector<Client*> exhausted; //Clients who dont have a match
     vector<Client*> lowMatchCount; //Clients who don't have enough matches
     cout<<"While: " << pairs.size() << " < " << numMatchesSaved <<endl;
-    int iteration = 0;
+    int iteration = 1;
+    for (int i=0; i<clients.size(); i++){
+        if (clientMatches[clients[i]].keys().size() < numMatchesSaved){
+          lowMatchCount.insert(lowMatchCount.end(), clients[i]);
+        }
+    }
+  //While we dont have enough matches + clients without possible matches
 	while ((pairs.count() < numMatchesSaved) ||  pairs.count() < (numMatchesSaved + exhausted.size())) {
+        cout << "\nIteraion: " << iteration << "\n" << endl;
         for (int i=0; i<clients.size(); i++){
             Client* client = clients[i];
-            //qDebug()<< "Current Client is " << client->getFname();
+            qDebug()<< "Current Client is " << client->getFname() << " In pairs " << pairs.values().count(client) << " time(s)";
+
+            //Only look to add this client if they don't already exist in pairs
             if (pairs.values().count(client) == 0){
-                //qDebug() <<"    "<<client->getFname() << "has no matches";
-                for (int i=0; i<clientMatches[client].keys().size(); i++){
+                //For all scores in decrementing order
+                for (int i=clientMatches[client].keys().size()-1; i>=0; i--){
                     float key = clientMatches[client].keys().at(i);
                     if (clientMatches[client][key] != NULL){
                         Animal* animal = clientMatches[client][key];
                         //qDebug() << "       Checking if we can add" << client->getFname() << " with " << animal->getName();
-                        if (!pairs.contains(animal)){
-                            //qDebug() << "       Adding: " << animal->getName() << " with " << client->getFname();
+
+                        //If the pair doesn't contain the animal already, add this match
+                        if (!pairs.contains(animal) && pairs.values().count(client) == 0){
+                            qDebug() << "       Adding: " << animal->getName() << " with " << client->getFname() << " score: " << key;
                             pairs.insert(animal,client);
                             //qDebug() <<"            Done with "<< client->getFname();
 				                    break;
 						            }else{
-                            //qDebug() <<"    "<< animal->getName() << "could not be used";
+                            qDebug() <<"     "<< animal->getName() << "could not be used";
                             //int temp = clientMatches[pairs[animal]].values(animal)[0];
                             std::vector<Client*>::iterator it;
-                            it = find (exhausted.begin(), exhausted.end(), pairs[animal]);
-                            if (key > clientMatches[pairs[animal]].key(animal) && it != exhausted.end()){
-                                //qDebug() << "Swapping: " << animal->getName() << " from " << pairs[animal]->getFname() << " to " << client->getFname();
+                            it = find (lowMatchCount.begin(), lowMatchCount.end(), pairs[animal]);
+
+                            //If the existing match is worse than the new match, pop it out and replace it with this match
+                            if ((key > clientMatches[pairs[animal]].key(animal) && it == exhausted.end()) && pairs.values().count(client) == 0) {
+                                qDebug() << "Swapping: " << animal->getName() << " from " << pairs[animal]->getFname() << " to " << client->getFname();
                                 pairs.remove(animal);
                                 pairs.insert(animal,client);
 								                break;
@@ -127,66 +156,77 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
 						             }
         					}
         				}
-        			}
 
-            Animal * temp = pairs.key(client);
-            //qDebug() << "Before  IF";
-            if (clientMatches[client].count() < animals.size() && clientMatches[client].count() < clients.size() && !temp){
-				          //Check the matches this client does have to see if they have nay good matches
-				        int matchable = 0;
-                for (auto key : clientMatches[client].keys()){
-                    Animal* animal = clientMatches[client][key];
-                    std::vector<Client*>::iterator it;
-                    it = find (lowMatchCount.begin(), lowMatchCount.end(), pairs[animal]);
-					//If Exhausted does not contain the client this animal is paired with currently, then its safe to remove him for rematching
-                    if (it == lowMatchCount.end()) {
-                        //qDebug() << "Removing " << pairs[animal]->getFname() <<  " Inserting: " << client->getFname();
-						            pairs.remove(animal);
-                        pairs.insert(animal,client);
-                        lowMatchCount.insert(lowMatchCount.end(),client);
-						            matchable = 1;
-                                    break;
-                      }else {
 
-                        int oldScore;
-                        int newScore;
-                        for (int i=0; i<clientMatches[client].keys().size(); i++){
-                          if (clientMatches[client][clientMatches[client].keys()[i]] == animal){
-                            newScore = clientMatches[client].keys()[i];
-                            break;
-                          }
-                        }
-                        Client* currentMatch = lowMatchCount[std::distance(lowMatchCount.begin(), it)];
-                        for (int i=0; i<clientMatches[currentMatch].keys().size(); i++){
-                          if (clientMatches[currentMatch][clientMatches[currentMatch].keys()[i]] == animal){
-                            oldScore = clientMatches[currentMatch].keys()[i];
-                            break;
-                          }
-                        }
-                        if (newScore > oldScore){
-                          pairs.remove(animal);
+              Animal * temp = pairs.key(client);
+              //qDebug() << "Before  IF";
+
+              //If this client doesn't have enough matches and didn't receive a match
+              if (clientMatches[client].count() < numMatchesSaved && !temp){
+  				          //Check the matches this client does have to see if they have nay good matches
+  				        int matchable = 0;
+                  for (int i = clientMatches[client].keys().size() -1; i>= 0; i--){
+                      int key = clientMatches[client].keys()[i];
+                      Animal* animal = clientMatches[client][key];
+
+                      //Grab the existing match for this animal
+                      std::vector<Client*>::iterator it;
+                      it = find (lowMatchCount.begin(),lowMatchCount.end(), pairs[animal]);
+
+                      //If lowMatchCount does not contain the client this animal is paired with currently, then its safe to remove him for rematching
+                      if (it == lowMatchCount.end()) {
+                          qDebug() << "Removing " << pairs[animal]->getFname() <<  " Inserting: " << client->getFname();
+  						            pairs.remove(animal);
                           pairs.insert(animal,client);
-                          lowMatchCount.insert(lowMatchCount.end(),client);
-                          std::vector<Client*>::iterator it;
-                          it = find (lowMatchCount.begin(), lowMatchCount.end(), pairs[animal]);
-                          lowMatchCount.erase(it);
-        						      matchable = 1;
-                        }
-      					}
-      				}
-      				if (matchable == 0){
-                          exhausted.insert(exhausted.end(),client);
-      				}
-      			}
+                          lowMatchCount.insert(lowMatchCount.end(),pairs[animal]);
+  						            matchable = 1;
+                          break;
+                        }else {
+
+                          //Otherwise check the existing match old score
+                          int oldScore;
+                          int newScore;
+                          for (int i=0; i<clientMatches[client].keys().size(); i++){
+                            if (clientMatches[client][clientMatches[client].keys()[i]] == animal){
+                              newScore = clientMatches[client].keys()[i];
+                              break;
+                            }
+                          }
+                          Client* currentMatch = lowMatchCount[std::distance(lowMatchCount.begin(), it)];
+                          for (int i=0; i<clientMatches[currentMatch].keys().size(); i++){
+                            if (clientMatches[currentMatch][clientMatches[currentMatch].keys()[i]] == animal){
+                              oldScore = clientMatches[currentMatch].keys()[i];
+                              break;
+                            }
+                          }
+                          it = find (exhausted.begin(),exhausted.end(), pairs[animal]);
+
+                          //If exhausted does not contain the client this animal is paired with currently, then its safe to remove him for rematching
+                          if (newScore > oldScore && it == exhausted.end()){
+                            qDebug() << "Senstive: " << animal->getName() << " from " << pairs[animal]->getFname() << " to " << client->getFname();
+
+                            pairs.remove(animal);
+                            pairs.insert(animal,client);
+                            lowMatchCount.insert(lowMatchCount.end(),client);
+                            std::vector<Client*>::iterator it;
+                            it = find (lowMatchCount.begin(), lowMatchCount.end(), pairs[animal]);
+                            lowMatchCount.erase(it);
+          						      matchable = 1;
+                            break;
+                          }
+        					}
+        				}
+        				if (matchable == 0){
+                            exhausted.insert(exhausted.end(),client);
+        				}
+        			}
+            }
             //qDebug() << "";
           }
 
-          //qDebug() << "BROKE FREE";
-          QList<Animal*> akeys = pairs.keys();
+          qDebug() << "BROKE FREE";
           int total = 0;
-          for(int i=0; i<akeys.size();i++){
-            //qDebug() << iteration << ": " << pairs.count() << " + " << exhausted.size();
-          }
+
           total = pairs.count() + exhausted.size();
 
           if (total >= numMatchesSaved){
@@ -209,7 +249,6 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
   QList<QString> caseKeys = caseDict.keys();
   for(int i=0; i<caseKeys.size();i++){
     QString trait = caseKeys[i];
-    //qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname();
 
     //Grab the trait values and set the pastMatchScore variable
     float clientValue = client->getMatchingPrefs()[trait];
@@ -274,13 +313,13 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
         // Remember for these 1 is Y and 2 is N
         // -1 so 0 is Y and 1 is N
         // 0 is friendly 1 is not
-        clientValue = (client->getMatchingPrefs()["dogs"]-1 || client->getMatchingPrefs()["dogsfuture"]-1);
+        clientValue = (client->getMatchingPrefs()["dogs"] == 1 || client->getMatchingPrefs()["dogsfuture"] == 1) ? 0 : 1;
     }
     else if(trait == "intWithCat"){
-        clientValue = client->getMatchingPrefs()["cats"]-1 || client->getMatchingPrefs()["catsfuture"]-1;
+        clientValue = (client->getMatchingPrefs()["cats"] == 1 || client->getMatchingPrefs()["catsfuture"] == 1) ? 0 : 1;
     }
     else if(trait == "intWithChild"){
-        clientValue = client->getMatchingPrefs()["children"]-1 || client->getMatchingPrefs()["childrenfuture"]-1;
+        clientValue = (client->getMatchingPrefs()["children"] == 1 || client->getMatchingPrefs()["childrenfuture"] == 1) ? 0 : 1;
     }
     else if(trait == "loudness"){
         // 1 is Minimal, 2 is N/A
@@ -336,30 +375,36 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
         }
     }
 
-    //qDebug()<<" Animal Value is :"<<animalValue<<"      "<<" Client Value is :"<<clientValue;
+
 
 		pastMatchScore = matchScore;
 
+
 		//Check our cases and compute trait match score
 		if (caseDict.value(trait) == 1){
-			if (clientValue == animalValue && animalValue != 0){
+      //qDebug() << "Trait: " << trait << " case 1, cV: " << clientValue << " aV: " << animalValue;
+			if (clientValue == animalValue){
 				matchScore += (1 * weightDict.value(trait));
 			}else if (animalValue != 0){
 				matchScore += (-1 * weightDict.value(trait));
 			}
 		}else if (caseDict.value(trait) == 2){
-			matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
+			matchScore += (((clientValue-animalValue)+1/clientValue)*weightDict.value(trait));
 		}else if (caseDict.value(trait) == 3){
             matchScore += weightDict.value(trait)/(abs(clientValue-animalValue)+1);
 		}
 
 		if (pastMatchScore >= (matchScore+5)){
-      //qDebug() << "     No Match! Due to: " << trait << "  total: " << (matchScore-pastMatchScore);
-      //qDebug() << clientValue;
+      qDebug() << "Nulled Match: " << client->getFname() << " and " << animal->getName() << " trait: " << trait << ": " << (matchScore - pastMatchScore);
       return -100;
-		}
+		}else{
+      //qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname() << " trait score: " << (matchScore - pastMatchScore);
+    }
+
+    //PRINT the values necessary for the equation
+    //qDebug()<<" Animal Value is :"<<animalValue<< " " << " Client Value is :"<<clientValue << " case: " << caseDict.value(trait) << " weight: " << weightDict.value(trait);
 
   }
-  //qDebug() << "     Match Score of " << client->getFname() << "and " << animal->getName() << " = " << matchScore;
+  qDebug() << "Match Score of " << client->getFname() << "and " << animal->getName() << " = " << matchScore;
   return matchScore;
 }
