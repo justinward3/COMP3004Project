@@ -9,7 +9,14 @@ using namespace std;
 //Constructor for the ACM Algorithm
 ACMAlgorithm::ACMAlgorithm() {
     cout << "ACM Algorithm Constructed" << endl;
-	caseDict["type"] = 1;
+    QStringList keys = {"type","active","affection","age","cats","catsfuture","children","childrenfuture","colour","cost","dogs","dogsfuture","experience","home","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
+
+
+    QStringList ClientKeys = {"experience","affection","cost","time","home","children","childrenfuture","dogs","dogsfuture","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
+    QStringList AnimalKeys = {"DoC","affection","cost","time","space","loudness","activeness","obedience","shedding","lifespan","intwithdog","intwithcat","intwithchild"};
+
+
+    caseDict["type"] = 1;
 	caseDict["sex"] = 1;
 	caseDict["size"] = 1;
 	caseDict["colour"] = 1;
@@ -60,8 +67,10 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
 
     for (auto client : clients){
         for (auto animal : animals){
-            //qDebug() << "Running ACM on " << client->getFname() << " and " << animal->getName();
+            qDebug() << "Running ACM on " << client->getFname() << " and " << animal->getName();
             float matchScore = runACMOnPair(animal, client);
+            qDebug()<< " waiting for user input to move on...";
+            getchar();
             if(matchScore != -100){
                 if (clientMatches.count() <= numMatchesSaved){
                     clientMatches[client].insert(matchScore,animal);
@@ -205,10 +214,46 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
   QList<QString> caseKeys = caseDict.keys();
   for(int i=0; i<caseKeys.size();i++){
     QString trait = caseKeys[i];
+    qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname();
 
 		//Grab the trait values and set the pastMatchScore variable
-    float clientValue = client->getMatchingPrefs()[trait]+1;
+    float clientValue = client->getMatchingPrefs()[trait];
     float animalValue = animal->getTraits()[trait];
+    //^this doesnt work for type^
+
+    //REMEMBER NOT ALL FROM THAT DICT IS IN ANIMAL TRAITS EX, COLOUR
+
+    if (trait == "type"){
+        if ( dynamic_cast<Dog*>( animal ) )
+           animalValue =  1;
+
+        else if ( dynamic_cast<Cat*>( animal ) )
+           animalValue =  2;
+
+        else if ( dynamic_cast<Bird*>( animal ) )
+           animalValue =  3;
+
+        else if ( dynamic_cast<SmallAnimal*>( animal ) )
+           animalValue = 4;
+    }
+    else if (trait == "sex"){
+        if(animal->getSex() == 'M'){
+            animalValue = 1;
+        }
+        else if(animal->getSex() == 'F'){
+            animalValue = 2;
+        }
+    }
+    else if (trait == "age"){
+        //Must put age in correct range
+    }
+
+    if (trait == "DoC"){
+        clientValue = client->getMatchingPrefs()["experience"];
+    }
+
+    qDebug()<<" Animal Value is :"<<animalValue<<"      "<<" Client Value is :"<<clientValue;
+
 		pastMatchScore = matchScore;
 
 		//Check our cases and compute trait match score
@@ -226,6 +271,7 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 
 		if (pastMatchScore >= (matchScore+5)){
       qDebug() << "     No Match! Due to: " << trait << "  total: " << (matchScore-pastMatchScore);
+      qDebug() << clientValue;
       return -100;
 		}
 
