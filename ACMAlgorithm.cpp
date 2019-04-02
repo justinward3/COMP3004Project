@@ -25,7 +25,7 @@ ACMAlgorithm::ACMAlgorithm() {
 	caseDict["affection"] = 2;
 	caseDict["cost"] = 2;
 	caseDict["time"] = 2;
-	caseDict["lifeSpan"] = 3;
+    caseDict["lifespan"] = 3;
 	caseDict["space"] = 2;
 	caseDict["loudness"] = 2;
 	caseDict["activeness"] = 3;
@@ -69,8 +69,6 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
         for (auto animal : animals){
             qDebug() << "Running ACM on " << client->getFname() << " and " << animal->getName();
             float matchScore = runACMOnPair(animal, client);
-            qDebug()<< " waiting for user input to move on...";
-            getchar();
             if(matchScore != -100){
                 if (clientMatches.count() <= numMatchesSaved){
                     clientMatches[client].insert(matchScore,animal);
@@ -100,7 +98,6 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
     cout<<"While: " << pairs.size() << " < " << numMatchesSaved <<endl;
     int iteration = 0;
 	while ((pairs.count() < numMatchesSaved) ||  pairs.count() < (numMatchesSaved + exhausted.size())) {
-        //cout<<"While"<<endl;
         for (int i=0; i<clients.size(); i++){
             Client* client = clients[i];
             qDebug()<< "Current Client is " << client->getFname();
@@ -140,9 +137,9 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
                 for (auto key : clientMatches[client].keys()){
                     Animal* animal = clientMatches[client][key];
                     std::vector<Client*>::iterator it;
-                    it = find (exhausted.begin(), exhausted.end(), pairs[animal]);
+                    it = find (lowMatchCount.begin(), lowMatchCount.end(), pairs[animal]);
 					//If Exhausted does not contain the client this animal is paired with currently, then its safe to remove him for rematching
-                    if (it == exhausted.end()) {
+                    if (it == lowMatchCount.end()) {
                         qDebug() << "Removing " << pairs[animal]->getFname() <<  " Inserting: " << client->getFname();
 						            pairs.remove(animal);
                         pairs.insert(animal,client);
@@ -181,7 +178,7 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
                           exhausted.insert(exhausted.end(),client);
       				}
       			}
-            qDebug();
+            qDebug() << "";
           }
 
           qDebug() << "BROKE FREE";
@@ -196,13 +193,11 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
             break;
           }
           iteration += 1;
-          if ( iteration > 20){
-              break;//lool
-          }
         }
 
 	return pairs;
 }
+
 
 
 int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
@@ -216,7 +211,7 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
     QString trait = caseKeys[i];
     qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname();
 
-		//Grab the trait values and set the pastMatchScore variable
+    //Grab the trait values and set the pastMatchScore variable
     float clientValue = client->getMatchingPrefs()[trait];
     float animalValue = animal->getTraits()[trait];
     //^this doesnt work for type^
@@ -246,10 +241,99 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
     }
     else if (trait == "age"){
         //Must put age in correct range
+        client->getMatchingPrefs()["older"];
     }
-
-    if (trait == "DoC"){
+    else if(trait == "DoC"){
         clientValue = client->getMatchingPrefs()["experience"];
+    }
+    else if(trait == "colour"){
+        QString colour = animal->getColour();
+        if(colour == "Brown"){
+            animalValue = 1;
+        }
+        else if(colour == "Black"){
+            animalValue = 2;
+        }
+        else if(colour == "Golden"){
+            animalValue = 3;
+        }
+        else if(colour == "Orange"){
+            animalValue = 4;
+        }
+        else if(colour == "White"){
+            animalValue = 5;
+        }
+        else if(colour == "Grey"){
+            animalValue = 6;
+        }
+        else{
+            animalValue = 7;
+        }
+    }
+    else if(trait == "intWithDog"){
+        // Remember for these 1 is Y and 2 is N
+        // -1 so 0 is Y and 1 is N
+        // 0 is friendly 1 is not
+        clientValue = (client->getMatchingPrefs()["dogs"]-1 || client->getMatchingPrefs()["dogsfuture"]-1);
+    }
+    else if(trait == "intWithCat"){
+        clientValue = client->getMatchingPrefs()["cats"]-1 || client->getMatchingPrefs()["catsfuture"]-1;
+    }
+    else if(trait == "intWithChild"){
+        clientValue = client->getMatchingPrefs()["children"]-1 || client->getMatchingPrefs()["childrenfuture"]-1;
+    }
+    else if(trait == "loudness"){
+        // 1 is Minimal, 2 is N/A
+        clientValue = client->getMatchingPrefs()["noise"]+1;
+        //Apartment is 1, House is 2
+        if(client->getMatchingPrefs()["home"] == 1)
+            clientValue = clientValue -1;
+        }
+        else if(client->getMatchingPrefs()["home"] ==  2){
+            clientValue = clientValue +1;
+        }
+    else if(trait == "obedience"){
+        clientValue = client->getMatchingPrefs()["obedient"];
+    }
+    else if(trait == "lifespan"){
+        clientValue = client->getMatchingPrefs()["lifespan"];
+        int lS = animal->getTraits()["lifespan"];
+        if(0<=lS && lS<=2){
+            animalValue = 1;
+        }
+        else if( 3<=lS && lS<=5){
+            animalValue = 2;
+        }
+        else if (6<=lS && lS<=10){
+            animalValue = 3;
+        }
+        else if (lS > 10){
+            animalValue = 4;
+        }
+        else {
+            animalValue = 1;
+        }
+    }
+    else if(trait == "cost"){
+        int cost = animal->getTraits()["cost"];
+        if(0<=cost && cost<=200){
+            animalValue = 1;
+        }
+        else if( 201<=cost && cost<=500){
+            animalValue = 2;
+        }
+        else if (501<=cost && cost<=750){
+            animalValue = 3;
+        }
+        else if (751<=cost && cost<= 1000){
+            animalValue = 4;
+        }
+        else if( cost > 1000){
+            animalValue = 5;
+        }
+        else{
+            animalValue = 1;
+        }
     }
 
     qDebug()<<" Animal Value is :"<<animalValue<<"      "<<" Client Value is :"<<clientValue;
