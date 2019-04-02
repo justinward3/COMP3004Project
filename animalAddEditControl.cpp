@@ -49,17 +49,17 @@ void animalAddEditControl::edit(Animal *a, int i)
         ui->animalShedding->setCurrentIndex((animal->getTraits())["shedding"]-1);
         ui->animalLifespan->setText(QString::number((animal->getTraits())["lifespan"]));
 
-        if (animal->getTraits()["intwithdog"] == 0){
+        if (animal->getTraits()["intwithdog"] == 1){
           ui->dogCheckBox->setChecked(1);
         }else{
           ui->dogCheckBox->setChecked(0);
         }
-        if (animal->getTraits()["intwithcat"] == 0){
+        if (animal->getTraits()["intwithcat"] == 1){
           ui->catCheckBox->setChecked(1);
         }else{
           ui->catCheckBox->setChecked(0);
         }
-        if (animal->getTraits()["intwithchild"] == 0){
+        if (animal->getTraits()["intwithchild"] == 1){
           ui->childCheckBox->setChecked(1);
         }else{
           ui->childCheckBox->setChecked(0);
@@ -108,17 +108,17 @@ void animalAddEditControl::on_saveButton_clicked()
     QString costStr = ui->animalCost->text();
     QString timeStr = ui->animalTime->text();
     QString lifespanStr = ui->animalLifespan->text();
-    int intwithdog = 1;
+    int intwithdog = 0;
     if (ui->dogCheckBox->isChecked()){
-      intwithdog = 0;
+      intwithdog = 1;
     }
-    int intwithcat = 1;
+    int intwithcat = 0;
     if (ui->catCheckBox->isChecked()){
-      intwithcat = 0;
+      intwithcat = 1;
     }
-    int intwithchild = 1;
+    int intwithchild = 0;
     if (ui->childCheckBox->isChecked()){
-      intwithchild = 0;
+      intwithchild = 1;
     }
     /*
     QString space = ui->animalSpace->currentText();
