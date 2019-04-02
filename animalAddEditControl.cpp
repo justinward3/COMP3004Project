@@ -136,11 +136,11 @@ void animalAddEditControl::on_saveButton_clicked()
             && lifespanStr!="" && costStr!="" && timeStr!="") {
 
         //Populate Matching parameter dictionary
+        attr.insert("size",(ui->animalSize->currentIndex()+1));
         attr.insert("DoC", (ui->animalDifficulty->currentIndex()+1));
         attr.insert("affection", (ui->animalAffection->currentIndex()+1));
         attr.insert("cost", cost);
         attr.insert("time", time);
-        attr.insert("size",(ui->animalSize->currentIndex()+1));
         attr.insert("space", (ui->animalSpace->currentIndex()+1));
         attr.insert("loudness", (ui->animalLoudness->currentIndex()+1));
         attr.insert("activeness", (ui->animalActiveness->currentIndex()+1));
@@ -231,11 +231,11 @@ void animalAddEditControl::on_addButton_clicked()
             && lifespanStr!="" && costStr!="" && timeStr!="") {
 
         //Populate Matching parameter dictionary
+        attr.insert("size",(ui->animalSize->currentIndex()+1));
         attr.insert("DoC", (ui->animalDifficulty->currentIndex()+1));
         attr.insert("affection", (ui->animalAffection->currentIndex()+1));
         attr.insert("cost", cost);
         attr.insert("time", time);
-        attr.insert("size", (ui->animalSize->currentIndex()+1));
         attr.insert("space", (ui->animalSpace->currentIndex()+1));
         attr.insert("loudness", (ui->animalLoudness->currentIndex()+1));
         attr.insert("activeness", (ui->animalActiveness->currentIndex()+1));
@@ -246,7 +246,7 @@ void animalAddEditControl::on_addButton_clicked()
         attr.insert("intwithcat", intwithcat);
         attr.insert("intwithchild", intwithchild);
 
-        qDebug() << "DoC: " << attr["doc"] << "\nAffection: " << attr["affection"] << "\nACost: " << attr["cost"]
+        qDebug() << "Size:" << attr["size"] << "\nDoC: " << attr["doc"] << "\nAffection: " << attr["affection"] << "\nACost: " << attr["cost"]
             << "\nTime: " << attr["time"] << "\nSpace: " << attr["space"] << "\nLoudness: " << attr["loudness"]
             << "\nActiveness: " << attr["activeness"] << "\nObedience: " << attr["obedience"]
             << "\nShedding: " << attr["shedding"] << "\nLifespan: " << attr["lifespan"] << endl;
