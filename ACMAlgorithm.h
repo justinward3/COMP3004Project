@@ -16,9 +16,9 @@ class ACMAlgorithm{
 		ACMAlgorithm();
 		~ACMAlgorithm();
         QMap<Animal*, Client*> runACM(vector<Client*>,vector<Animal*>);
+        int runACMOnPair(Animal*, Client*);
 
 	private:
-        int runACMOnPair(Animal*, Client*);
         QMap<QString, int> caseDict;
         QMap<QString, int> weightDict;
 

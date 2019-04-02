@@ -75,18 +75,22 @@ void staffWindow::on_acmButton_clicked()
     for(int i=0; i<akeys.size();i++){
         QStringList animaltypes = {"Dog","Cat","Bird","Small Animal"};
         qDebug()<<"Match "<<i+1<<":";
-        if ( dynamic_cast<Dog*>( akeys[i] ) )
+        if ( dynamic_cast<Dog*>( akeys[i] ) ){
            qDebug()<<"Dog "<<akeys[i]->getName()<< "and" << matches[akeys[i]]->getFname() << matches[akeys[i]]->getLname() << "who wanted a" << animaltypes[matches[akeys[i]]->getMatchingPrefs()["type"]-1];
-
-        else if ( dynamic_cast<Cat*>( akeys[i] ) )
+           qDebug()<<"With a Match Score of "<<acm.runACMOnPair(akeys[i],matches[akeys[i]]);
+        }
+        else if ( dynamic_cast<Cat*>( akeys[i] ) ){
            qDebug()<<"Cat "<<akeys[i]->getName()<< "and" << matches[akeys[i]]->getFname() << matches[akeys[i]]->getLname()<< "who wanted a" << animaltypes[matches[akeys[i]]->getMatchingPrefs()["type"]-1];
-
-        else if ( dynamic_cast<Bird*>( akeys[i] ) )
+           qDebug()<<"With a Match Score of "<<acm.runACMOnPair(akeys[i],matches[akeys[i]]);
+        }
+        else if ( dynamic_cast<Bird*>( akeys[i] ) ){
            qDebug()<<"Bird "<<akeys[i]->getName()<< "and" << matches[akeys[i]]->getFname() << matches[akeys[i]]->getLname()<< "who wanted a" << animaltypes[matches[akeys[i]]->getMatchingPrefs()["type"]-1];
-
-        else if ( dynamic_cast<SmallAnimal*>( akeys[i] ) )
+           qDebug()<<"With a Match Score of "<<acm.runACMOnPair(akeys[i],matches[akeys[i]]);
+        }
+        else if ( dynamic_cast<SmallAnimal*>( akeys[i] ) ){
            qDebug()<<"Small Animal "<<akeys[i]->getName()<< "and" << matches[akeys[i]]->getFname() << matches[akeys[i]]->getLname()<< "who wanted a" << animaltypes[matches[akeys[i]]->getMatchingPrefs()["type"]-1];
-
+           qDebug()<<"With a Match Score of "<<acm.runACMOnPair(akeys[i],matches[akeys[i]]);
+        }
     }
 
     qDebug()<<"Done?";
