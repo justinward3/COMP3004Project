@@ -38,6 +38,7 @@ void animalAddEditControl::edit(Animal *a, int i)
         ui->animalAge->setText(QString::number(animal->getAge()));
         ui->animalColour->setText(animal->getColour());
         ui->animalDetail->setText(animal->getDetail());
+        ui->animalSize->setCurrentIndex((animal->getTraits())["size"]-1);
         ui->animalDifficulty->setCurrentIndex((animal->getTraits())["DoC"]-1);
         ui->animalAffection->setCurrentIndex((animal->getTraits())["affection"]-1);
         ui->animalCost->setText(QString::number((animal->getTraits())["cost"]));
@@ -139,6 +140,7 @@ void animalAddEditControl::on_saveButton_clicked()
         attr.insert("affection", (ui->animalAffection->currentIndex()+1));
         attr.insert("cost", cost);
         attr.insert("time", time);
+        attr.insert("size",(ui->animalSize->currentIndex()+1));
         attr.insert("space", (ui->animalSpace->currentIndex()+1));
         attr.insert("loudness", (ui->animalLoudness->currentIndex()+1));
         attr.insert("activeness", (ui->animalActiveness->currentIndex()+1));
@@ -164,6 +166,7 @@ void animalAddEditControl::on_saveButton_clicked()
 void animalAddEditControl::animalAddEditControlFields(bool flag) {
     ui->animalName->setEnabled(flag);
     ui->animalSex->setEnabled(flag);
+    ui->animalSize->setEnabled(flag);
     ui->animalAge->setEnabled(flag);
     ui->animalColour->setEnabled(flag);
     ui->animalDetail->setEnabled(flag);
@@ -232,6 +235,7 @@ void animalAddEditControl::on_addButton_clicked()
         attr.insert("affection", (ui->animalAffection->currentIndex()+1));
         attr.insert("cost", cost);
         attr.insert("time", time);
+        attr.insert("size", (ui->animalSize->currentIndex()+1));
         attr.insert("space", (ui->animalSpace->currentIndex()+1));
         attr.insert("loudness", (ui->animalLoudness->currentIndex()+1));
         attr.insert("activeness", (ui->animalActiveness->currentIndex()+1));

@@ -17,6 +17,7 @@ animalViewControl::animalViewControl(QWidget *parent) :
     ui->saveButton->setEnabled(false);
     ui->animalName->setEnabled(false);
     ui->animalSex->setEnabled(false);
+    ui->animalSize->setEnabled(false);
     ui->animalAge->setEnabled(false);
     ui->animalColour->setEnabled(false);
     ui->animalDetail->setEnabled(false);
@@ -68,6 +69,7 @@ void animalViewControl::setAnimal(Animal *a, int i)
         ui->animalAge->setText(QString::number(animal->getAge()));
         ui->animalColour->setText(animal->getColour());
         ui->animalDetail->setText(animal->getDetail());
+        ui->animalSize->setCurrentIndex((animal->getTraits())["size"]-1);
         ui->animalDifficulty->setCurrentIndex((animal->getTraits())["DoC"]-1);
         ui->animalAffection->setCurrentIndex((animal->getTraits())["affection"]-1);
         ui->animalCost->setText(QString::number((animal->getTraits())["cost"]));
