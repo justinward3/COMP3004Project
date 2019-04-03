@@ -1,4 +1,4 @@
-#include "clientEditControl.h"
+ #include "clientEditControl.h"
 #include "ui_clientDetailView.h"
 #include "animalListControl.h"
 #include "mainWindow.h"
@@ -44,7 +44,11 @@ void clientEditControl::edit(Client *c){
         qDebug()<<"No MP";
     }
     else{
+
         QStringList keys = {"type","active","affection","age","cats","catsfuture","children","childrenfuture","colour","cost","dogs","dogsfuture","experience","home","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
+        for(int i=0; i< keys.size();i++){
+          //qDebug() << i << " : " << keys[i];
+        }
         //prepare Sql Query to load Client Data
         //populate matching prefs also
         qDebug()<<client->getMatchingPrefs();
@@ -63,15 +67,15 @@ void clientEditControl::edit(Client *c){
         ui->aDogsFuture->setCurrentIndex(temp[keys[11]]-1);
         ui->aExperience->setCurrentIndex(temp[keys[12]]-1);
         ui->aHome->setCurrentIndex(temp[keys[13]]-1);
-        ui->aLifespan->setCurrentIndex(temp[keys[13]]-1);
-        ui->aNoise->setCurrentIndex(temp[keys[14]]-1);
-        ui->aObedient->setCurrentIndex(temp[keys[14]]-1);
-        ui->aOlder->setCurrentIndex(temp[keys[15]]-1);
-        ui->aSex->setCurrentIndex(temp[keys[16]]-1);
-        ui->aShedding->setCurrentIndex(temp[keys[17]]-1);
-        ui->aSize->setCurrentIndex(temp[keys[18]]-1);
-        ui->aSpace->setCurrentIndex(temp[keys[19]]-1);
-        ui->aTime->setCurrentIndex(temp[keys[20]]-1);
+        ui->aLifespan->setCurrentIndex(temp[keys[14]]-1);
+        ui->aNoise->setCurrentIndex(temp[keys[15]]-1);
+        ui->aObedient->setCurrentIndex(temp[keys[16]]-1);
+        ui->aOlder->setCurrentIndex(temp[keys[17]]-1);
+        ui->aSex->setCurrentIndex(temp[keys[18]]-1);
+        ui->aShedding->setCurrentIndex(temp[keys[19]]-1);
+        ui->aSize->setCurrentIndex(temp[keys[20]]-1);
+        ui->aSpace->setCurrentIndex(temp[keys[21]]-1);
+        ui->aTime->setCurrentIndex(temp[keys[22]]-1);
     }
 
 }

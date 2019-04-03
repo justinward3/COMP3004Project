@@ -9,6 +9,7 @@ clientAddViewControl::clientAddViewControl(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->editButton->setVisible(false);
+    ui->clientMatchingInfo->setVisible(false);
 }
 
 //Deconstructor
@@ -56,15 +57,15 @@ void clientAddViewControl::setView(int view, Client *client)
             ui->aDogsFuture->setCurrentIndex(temp[keys[11]]-1);
             ui->aExperience->setCurrentIndex(temp[keys[12]]-1);
             ui->aHome->setCurrentIndex(temp[keys[13]]-1);
-            ui->aLifespan->setCurrentIndex(temp[keys[13]]-1);
-            ui->aNoise->setCurrentIndex(temp[keys[14]]-1);
-            ui->aObedient->setCurrentIndex(temp[keys[14]]-1);
-            ui->aOlder->setCurrentIndex(temp[keys[15]]-1);
-            ui->aSex->setCurrentIndex(temp[keys[16]]-1);
-            ui->aShedding->setCurrentIndex(temp[keys[17]]-1);
-            ui->aSize->setCurrentIndex(temp[keys[18]]-1);
-            ui->aSpace->setCurrentIndex(temp[keys[19]]-1);
-            ui->aTime->setCurrentIndex(temp[keys[20]]-1);
+            ui->aLifespan->setCurrentIndex(temp[keys[14]]-1);
+            ui->aNoise->setCurrentIndex(temp[keys[15]]-1);
+            ui->aObedient->setCurrentIndex(temp[keys[16]]-1);
+            ui->aOlder->setCurrentIndex(temp[keys[17]]-1);
+            ui->aSex->setCurrentIndex(temp[keys[18]]-1);
+            ui->aShedding->setCurrentIndex(temp[keys[19]]-1);
+            ui->aSize->setCurrentIndex(temp[keys[20]]-1);
+            ui->aSpace->setCurrentIndex(temp[keys[21]]-1);
+            ui->aTime->setCurrentIndex(temp[keys[22]]-1);
         }
     }
 }

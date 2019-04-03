@@ -43,7 +43,7 @@ Shelter::~Shelter() {
 bool Shelter::connect(){
     QDir dir;
     QString DbPath = dir.currentPath();
-    DbPath.append("/cuACSDb");
+    DbPath.append("/cuACSDb2");
     cout<<DbPath.toUtf8().constData()<<endl;
     db=QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(DbPath);
