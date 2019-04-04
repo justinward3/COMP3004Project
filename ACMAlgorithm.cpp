@@ -426,7 +426,7 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 				matchScore += (-1 * weightDict.value(trait));
 			}
 		}else if (caseDict.value(trait) == 2){
-			matchScore += (((clientValue-animalValue)+1/clientValue)*weightDict.value(trait));
+			matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
 		}else if (caseDict.value(trait) == 3){
             matchScore += weightDict.value(trait)/(abs(clientValue-animalValue)+1);
 		}
