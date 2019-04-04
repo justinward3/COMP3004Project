@@ -135,11 +135,14 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
         if (clientMatches[usableClients[i]].keys().size() < numMatchesSaved){
           lowMatchCount.insert(lowMatchCount.end(), clients[i]);
         }
+        if (clientMatches[usableClients[i]].keys().size() == 0){
+          exhausted.insert(exhausted.end(), clients[i]);
+        }
     }
     qDebug() << "Please Review and Press Enter...";
     getchar();
   //While we dont have enough matches + clients without possible matches
-	while ((pairs.count() < numMatchesSaved) ||  pairs.count() < (numMatchesSaved + exhausted.size())) {
+	while ((pairs.count() < numMatchesSaved) ||  pairs.count() < (numMatchesSaved - exhausted.size())) {
         cout << "\nIteraion: " << iteration << "\n" << endl;
         for (int i=0; i<usableClients.size(); i++){
             Client* client = usableClients[i];
