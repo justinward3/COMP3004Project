@@ -2,6 +2,7 @@
 #include "animalListControl.h"
 #include "clientListControl.h"
 #include "addStaffControl.h"
+#include "matchListControl.h"
 #include "mainWindow.h"
 
 staffWindow::staffWindow(QWidget *parent) :
@@ -93,6 +94,14 @@ void staffWindow::on_acmButton_clicked()
         }
     }
 
+
     qDebug()<<"Done?";
+    this->hide();
+    matchListControl matchList;
+    matchList.setShelter(sh);
+    matchList.setMainWindow(mw);
+    matchList.setMatches(matches);
+    matchList.setModal(true);
+    matchList.exec();
 
 }
