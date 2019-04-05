@@ -825,7 +825,9 @@ staffwindow.o: staffwindow.cpp staffwindow.h \
 		ui_clientDetailView.h \
 		ui_clientListView.h \
 		addStaffControl.h \
-		ui_addStaffView.h
+		ui_addStaffView.h \
+		matchListControl.h \
+		ui_matchListView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o staffwindow.o staffwindow.cpp
 
 Animal.o: Animal.cpp Animal.h
