@@ -343,16 +343,16 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
             animalValue = 7;
         }
     }
-    else if(trait == "intWithDog"){
+    else if(trait == "intwithdog"){
         // Remember for these 1 is Y and 2 is N
         // -1 so 0 is Y and 1 is N
         // 0 is friendly 1 is not
         clientValue = (client->getMatchingPrefs()["dogs"] == 1 || client->getMatchingPrefs()["dogsfuture"] == 1) ? 0 : 1;
     }
-    else if(trait == "intWithCat"){
+    else if(trait == "intwithcat"){
         clientValue = (client->getMatchingPrefs()["cats"] == 1 || client->getMatchingPrefs()["catsfuture"] == 1) ? 0 : 1;
     }
-    else if(trait == "intWithChild"){
+    else if(trait == "intwithchild"){
         clientValue = (client->getMatchingPrefs()["children"] == 1 || client->getMatchingPrefs()["childrenfuture"] == 1) ? 0 : 1;
     }
     else if(trait == "loudness"){
