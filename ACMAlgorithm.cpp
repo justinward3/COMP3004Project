@@ -170,7 +170,7 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
                             it = find (lowMatchCount.begin(), lowMatchCount.end(), pairs[animal]);
 
                             //If the existing match is worse than the new match, pop it out and replace it with this match
-                            if ((key > clientMatches[pairs[animal]].key(animal) && it == exhausted.end()) && pairs.values().count(client) == 0) {
+                            if ((key > clientMatches[pairs[animal]].key(animal) && it == lowMatchCount.end()) && pairs.values().count(client) == 0) {
                                 qDebug() << "Swapping: " << animal->getName() << " from " << pairs[animal]->getFname() << " to " << client->getFname();
                                 pairs.remove(animal);
                                 pairs.insert(animal,client);
@@ -182,7 +182,6 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
 
 
               Animal * temp = pairs.key(client);
-              qDebug() << "Before  IF";
 
               //If this client doesn't have enough matches and didn't receive a match
               if (clientMatches[client].count() < numMatchesSaved && !temp){
@@ -201,7 +200,6 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
                           qDebug() << "Removing " << pairs[animal]->getFname() <<  " Inserting: " << client->getFname();
   						            pairs.remove(animal);
                           pairs.insert(animal,client);
-                          lowMatchCount.insert(lowMatchCount.end(),pairs[animal]);
   						            matchable = 1;
                           break;
                         }else {
@@ -230,10 +228,6 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
 
                             pairs.remove(animal);
                             pairs.insert(animal,client);
-                            lowMatchCount.insert(lowMatchCount.end(),client);
-                            std::vector<Client*>::iterator it;
-                            it = find (lowMatchCount.begin(), lowMatchCount.end(), pairs[animal]);
-                            lowMatchCount.erase(it);
           						      matchable = 1;
                             break;
                           }
@@ -247,7 +241,6 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
             qDebug() << "";
           }
 
-          qDebug() << "BROKE FREE";
           int total = 0;
 
           total = pairs.count() + exhausted.size();
@@ -324,8 +317,9 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
     }
     else if(trait == "DoC"){
         clientValue = client->getMatchingPrefs()["experience"];
-    }
-    else if(trait == "colour"){
+    }else if (trait == "size" || trait == "affection" || trait == "time" || trait == "space"){
+      //qDebug() << " Skipping CV " << clientValue << "...\n" << endl;
+    }else if(trait == "colour"){
         QString colour = animal->getColour();
         if(colour == "Brown"){
             animalValue = 1;
@@ -349,16 +343,16 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
             animalValue = 7;
         }
     }
-    else if(trait == "intwithdog"){
+    else if(trait == "intWithDog"){
         // Remember for these 1 is Y and 2 is N
         // -1 so 0 is Y and 1 is N
         // 0 is friendly 1 is not
         clientValue = (client->getMatchingPrefs()["dogs"] == 1 || client->getMatchingPrefs()["dogsfuture"] == 1) ? 0 : 1;
     }
-    else if(trait == "intwithcat"){
+    else if(trait == "intWithCat"){
         clientValue = (client->getMatchingPrefs()["cats"] == 1 || client->getMatchingPrefs()["catsfuture"] == 1) ? 0 : 1;
     }
-    else if(trait == "intwithchild"){
+    else if(trait == "intWithChild"){
         clientValue = (client->getMatchingPrefs()["children"] == 1 || client->getMatchingPrefs()["childrenfuture"] == 1) ? 0 : 1;
     }
     else if(trait == "loudness"){
@@ -435,10 +429,10 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 		}
 
 		if (pastMatchScore >= (matchScore+5)){
-      qDebug() << "Nulled Match: " << client->getFname() << " and " << animal->getName() << " trait: " << trait << ": " << (matchScore - pastMatchScore);
+      qDebug() << "Nulled Match: " << client->getFname() << " and " << animal->getName() << "CV: " << clientValue << " AV: " << animalValue <<" trait: " << trait << ": " << (matchScore - pastMatchScore);
       return -100;
 		}else{
-      //1qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname() << " trait score: " << (matchScore - pastMatchScore);
+      //qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname() << "CV: " << clientValue << " AV: " << animalValue << " trait score: " << (matchScore - pastMatchScore);
     }
 
     //PRINT the values necessary for the equation
