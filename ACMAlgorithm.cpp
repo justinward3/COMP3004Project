@@ -7,15 +7,7 @@
 using namespace std;
 
 //Constructor for the ACM Algorithm
-ACMAlgorithm::ACMAlgorithm() {
-    cout << "ACM Algorithm Constructed" << endl;
-    QStringList keys = {"type","active","affection","age","cats","catsfuture","children","childrenfuture","colour","cost","dogs","dogsfuture","experience","home","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
-
-
-    QStringList ClientKeys = {"experience","affection","cost","time","home","children","childrenfuture","dogs","dogsfuture","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
-    QStringList AnimalKeys = {"DoC","affection","cost","time","space","loudness","activeness","obedience","shedding","lifespan","intwithdog","intwithcat","intwithchild"};
-
-
+ACMAlgorithm::ACMAlgorithm() {    
   caseDict["type"] = 1;
 	caseDict["sex"] = 1;
 	caseDict["size"] = 1;
