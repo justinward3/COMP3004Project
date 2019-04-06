@@ -204,17 +204,17 @@ void animalAddEditControl::on_addButton_clicked()
     QString costStr = ui->animalCost->text();
     QString timeStr = ui->animalTime->text();
     QString lifespanStr = ui->animalLifespan->text();
-    int intwithdog = 1;
+    int intwithdog = 0;
     if (ui->dogCheckBox->isChecked()){
-      intwithdog = 0;
+      intwithdog = 1;
     }
-    int intwithcat = 1;
+    int intwithcat = 0;
     if (ui->catCheckBox->isChecked()){
-      intwithcat = 0;
+      intwithcat = 1;
     }
-    int intwithchild = 1;
+    int intwithchild = 0;
     if (ui->childCheckBox->isChecked()){
-      intwithchild = 0;
+      intwithchild = 1;
     }
     /*
     QString space = ui->animalSpace->currentText();
