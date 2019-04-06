@@ -8,10 +8,10 @@ matchListControl::matchListControl(QWidget *parent):
     ui->setupUi(this);
     //Set up table and ui
     QStringList headers;
-    headers<<"Client FirstName"<< "Client LastName" << "Animal Name" << "Score";
+    headers<<"Client" << "Desired a" << "Animal Name" << "Animal Type" << "Score";
     //QStringListModel *model = new QStringListModel();
     model = new QStandardItemModel();
-    model->setColumnCount(4);
+    model->setColumnCount(5);
     model->setHorizontalHeaderLabels(headers);
 
 }
@@ -56,17 +56,46 @@ void matchListControl::setMatches(QMap<Animal*,Client*> matches){
     for(auto key: matches.keys()){
         QList<QStandardItem*> newRow;
         Client *client = matches[key];
-        QStandardItem* fname = new QStandardItem(QString(client->getFname()));
-        QStandardItem* lname = new QStandardItem(QString(client->getLname()));
+        QStandardItem* Cname = new QStandardItem(QString(client->getFname() +" "+ client->getLname()));
         QStandardItem* name = new QStandardItem(QString(key->getName()));
         ACMAlgorithm acm;
         QString s = QString::number(acm.runACMOnPair(key,client));
         QStandardItem* score = new QStandardItem(QString(s));
+        QString t;
+        QString wantedStr;
+        int wanted = client->getMatchingPrefs()["type"];
+        //Check subclass of animal and set type bind value
+        if ( dynamic_cast<Dog*>( key ) )
+           t = "Dog";
 
+        else if ( dynamic_cast<Cat*>( key ) )
+           t = "Cat";
+
+        else if ( dynamic_cast<Bird*>( key ) )
+           t = "Bird";
+
+        else if ( dynamic_cast<SmallAnimal*>( key ) )
+           t = "Small Animal";
+
+        if (wanted == 1 )
+           wantedStr =  "Dog";
+
+        else if (wanted == 2)
+           wantedStr =  "Cat";
+
+        else if (wanted == 3)
+           wantedStr =  "Bird";
+
+        else if (wanted == 4)
+           wantedStr = "Small Animal";
+
+        QStandardItem* type = new QStandardItem(QString(t));
+        QStandardItem* wantedItem = new QStandardItem(QString(wantedStr));
         //Order matters here
-        newRow.append(fname);
-        newRow.append(lname);
+        newRow.append(Cname);
+        newRow.append(wantedItem);
         newRow.append(name);
+        newRow.append(type);
         newRow.append(score);
         //append to table
         model->appendRow(newRow);

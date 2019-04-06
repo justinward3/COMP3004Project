@@ -87,6 +87,7 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
         for (auto animal : animals){
             qDebug() << "\nRunning ACM on " << client->getFname() << " and " << animal->getName() << " numMatchesSaved: " << numMatchesSaved;
             float matchScore = runACMOnPair(animal, client);
+            qDebug() << "Waiting for enter";
             //getchar();
             if(matchScore != -100){
                 //If there are currently less matches saved than numMatchesSaved
@@ -140,7 +141,7 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
         }
     }
     qDebug() << "Please Review and Press Enter...";
-    getchar();
+    //getchar();
   //While we dont have enough matches + clients without possible matches
 	while ((pairs.count() < numMatchesSaved) ||  pairs.count() < (numMatchesSaved - exhausted.size())) {
         cout << "\nIteraion: " << iteration << "\n" << endl;
@@ -347,13 +348,17 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
         // Remember for these 1 is Y and 2 is N
         // -1 so 0 is Y and 1 is N
         // 0 is friendly 1 is not
-        clientValue = (client->getMatchingPrefs()["dogs"] == 1 || client->getMatchingPrefs()["dogsfuture"] == 1) ? 0 : 1;
+        clientValue = (client->getMatchingPrefs()["dogs"] == 1 || client->getMatchingPrefs()["dogsfuture"] == 1) ? 1 : 0;
+        qDebug() << "INTWITHDOG CLIENT:" << "Has dogs? : " << client->getMatchingPrefs()["dogs"] << " Future dogs? :" <<  client->getMatchingPrefs()["dogsfuture"];
+        qDebug() << "Final Client Val: " << clientValue;
+        qDebug() << animalValue;
+        //getchar();
     }
     else if(trait == "intwithcat"){
-        clientValue = (client->getMatchingPrefs()["cats"] == 1 || client->getMatchingPrefs()["catsfuture"] == 1) ? 0 : 1;
+        clientValue = (client->getMatchingPrefs()["cats"] == 1 || client->getMatchingPrefs()["catsfuture"] == 1) ? 1 : 0;
     }
     else if(trait == "intwithchild"){
-        clientValue = (client->getMatchingPrefs()["children"] == 1 || client->getMatchingPrefs()["childrenfuture"] == 1) ? 0 : 1;
+        clientValue = (client->getMatchingPrefs()["children"] == 1 || client->getMatchingPrefs()["childrenfuture"] == 1) ? 1 : 0;
     }
     else if(trait == "loudness"){
         // 1 is Minimal, 2 is N/A
@@ -419,9 +424,11 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
       //1qDebug() << "Trait: " << trait << " case 1, cV: " << clientValue << " aV: " << animalValue;
 			if (clientValue == animalValue){
 				matchScore += (1 * weightDict.value(trait));
-			}else if (animalValue != 0){
+            }else if ((!(trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")) && animalValue != 0){
 				matchScore += (-1 * weightDict.value(trait));
-			}
+            }else{
+                qDebug() << "Integration Case Which is not equal +- 0";
+            }
 		}else if (caseDict.value(trait) == 2){
 			matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
 		}else if (caseDict.value(trait) == 3){
@@ -429,8 +436,8 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 		}
 
 		if (pastMatchScore >= (matchScore+5)){
-      qDebug() << "Nulled Match: " << client->getFname() << " and " << animal->getName() << "CV: " << clientValue << " AV: " << animalValue <<" trait: " << trait << ": " << (matchScore - pastMatchScore);
-      return -100;
+            qDebug() << "Nulled Match: " << client->getFname() << " and " << animal->getName() << "CV: " << clientValue << " AV: " << animalValue <<" trait: " << trait << ": " << (matchScore - pastMatchScore);
+            return -100;
 		}else{
       //qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname() << "CV: " << clientValue << " AV: " << animalValue << " trait score: " << (matchScore - pastMatchScore);
     }
