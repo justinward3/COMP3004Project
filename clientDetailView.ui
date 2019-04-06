@@ -167,7 +167,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>-981</y>
+       <y>-895</y>
        <width>355</width>
        <height>1489</height>
       </rect>
@@ -912,7 +912,17 @@
        </property>
        <item>
         <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Minimal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Moderate</string>
         </property>
        </item>
        <item>
@@ -985,9 +995,6 @@
          <height>25</height>
         </rect>
        </property>
-       <property name="currentIndex">
-        <number>-1</number>
-       </property>
        <item>
         <property name="text">
          <string>Not Active</string>
@@ -1006,11 +1013,6 @@
        <item>
         <property name="text">
          <string>Heavy</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string/>
         </property>
        </item>
       </widget>
