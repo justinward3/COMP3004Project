@@ -47,7 +47,8 @@ SOURCES += \
     animalListControl.cpp \
     mainWindow.cpp \
     ACMAlgorithm.cpp \
-    matchListControl.cpp
+    matchListControl.cpp \
+    matchDetailControl.cpp
 
 HEADERS += \
     staffwindow.h \
@@ -73,7 +74,8 @@ HEADERS += \
     mainWindow.h \
     animalListControl.h \
     ACMAlgorithm.h \
-    matchListControl.h
+    matchListControl.h \
+    matchDetailControl.h
 
 FORMS += \
     menu.ui \

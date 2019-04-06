@@ -8,6 +8,7 @@
 #include "staffwindow.h"
 #include "mainWindow.h"
 #include "ui_matchListView.h"
+#include "matchDetailControl.h"
 
 
 namespace Ui {
@@ -35,6 +36,7 @@ private:
     Shelter* sh;
     QStandardItemModel* model;
     MainWindow* mw;
+    QMap<Animal*,Client*> matches;
 
 };
 

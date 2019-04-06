@@ -73,7 +73,8 @@ SOURCES       = main.cpp \
 		animalListControl.cpp \
 		mainWindow.cpp \
 		ACMAlgorithm.cpp \
-		matchListControl.cpp moc_staffwindow.cpp \
+		matchListControl.cpp \
+		matchDetailControl.cpp moc_staffwindow.cpp \
 		moc_clientwindow.cpp \
 		moc_animalAddEditControl.cpp \
 		moc_animalViewControl.cpp \
@@ -83,7 +84,8 @@ SOURCES       = main.cpp \
 		moc_clientListControl.cpp \
 		moc_mainWindow.cpp \
 		moc_animalListControl.cpp \
-		moc_matchListControl.cpp
+		moc_matchListControl.cpp \
+		moc_matchDetailControl.cpp
 OBJECTS       = main.o \
 		staffwindow.o \
 		Animal.o \
@@ -108,6 +110,7 @@ OBJECTS       = main.o \
 		mainWindow.o \
 		ACMAlgorithm.o \
 		matchListControl.o \
+		matchDetailControl.o \
 		moc_staffwindow.o \
 		moc_clientwindow.o \
 		moc_animalAddEditControl.o \
@@ -118,7 +121,8 @@ OBJECTS       = main.o \
 		moc_clientListControl.o \
 		moc_mainWindow.o \
 		moc_animalListControl.o \
-		moc_matchListControl.o
+		moc_matchListControl.o \
+		moc_matchDetailControl.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -231,7 +235,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		mainWindow.h \
 		animalListControl.h \
 		ACMAlgorithm.h \
-		matchListControl.h main.cpp \
+		matchListControl.h \
+		matchDetailControl.h main.cpp \
 		staffwindow.cpp \
 		Animal.cpp \
 		Bird.cpp \
@@ -254,7 +259,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		animalListControl.cpp \
 		mainWindow.cpp \
 		ACMAlgorithm.cpp \
-		matchListControl.cpp
+		matchListControl.cpp \
+		matchDetailControl.cpp
 QMAKE_TARGET  = cuACS
 DESTDIR       = 
 TARGET        = cuACS
@@ -470,8 +476,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents staffwindow.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h clientwindow.h animalAddEditControl.h animalViewControl.h clientAddViewControl.h clientEditControl.h AbstractFactory.h AnimalFactory.h UserFactory.h addStaffControl.h clientListControl.h mainWindow.h animalListControl.h ACMAlgorithm.h matchListControl.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp staffwindow.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp clientwindow.cpp animalAddEditControl.cpp animalViewControl.cpp clientAddViewControl.cpp clientEditControl.cpp AnimalFactory.cpp UserFactory.cpp addStaffControl.cpp clientListControl.cpp animalListControl.cpp mainWindow.cpp ACMAlgorithm.cpp matchListControl.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents staffwindow.h Animal.h Cat.h Client.h Dog.h Shelter.h Staff.h User.h Bird.h SmallAnimal.h clientwindow.h animalAddEditControl.h animalViewControl.h clientAddViewControl.h clientEditControl.h AbstractFactory.h AnimalFactory.h UserFactory.h addStaffControl.h clientListControl.h mainWindow.h animalListControl.h ACMAlgorithm.h matchListControl.h matchDetailControl.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp staffwindow.cpp Animal.cpp Bird.cpp Cat.cpp Client.cpp Dog.cpp Shelter.cpp SmallAnimal.cpp Staff.cpp User.cpp clientwindow.cpp animalAddEditControl.cpp animalViewControl.cpp clientAddViewControl.cpp clientEditControl.cpp AnimalFactory.cpp UserFactory.cpp addStaffControl.cpp clientListControl.cpp animalListControl.cpp mainWindow.cpp ACMAlgorithm.cpp matchListControl.cpp matchDetailControl.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents menu.ui animalDetailView.ui animalListView.ui clientDetailView.ui addStaffView.ui clientListView.ui mainWindow.ui matchDetailView.ui matchListView.ui $(DISTDIR)/
 
 
@@ -504,9 +510,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_staffwindow.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp moc_addStaffControl.cpp moc_clientListControl.cpp moc_mainWindow.cpp moc_animalListControl.cpp moc_matchListControl.cpp
+compiler_moc_header_make_all: moc_staffwindow.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp moc_addStaffControl.cpp moc_clientListControl.cpp moc_mainWindow.cpp moc_animalListControl.cpp moc_matchListControl.cpp moc_matchDetailControl.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_staffwindow.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp moc_addStaffControl.cpp moc_clientListControl.cpp moc_mainWindow.cpp moc_animalListControl.cpp moc_matchListControl.cpp
+	-$(DEL_FILE) moc_staffwindow.cpp moc_clientwindow.cpp moc_animalAddEditControl.cpp moc_animalViewControl.cpp moc_clientAddViewControl.cpp moc_clientEditControl.cpp moc_addStaffControl.cpp moc_clientListControl.cpp moc_mainWindow.cpp moc_animalListControl.cpp moc_matchListControl.cpp moc_matchDetailControl.cpp
 moc_staffwindow.cpp: Shelter.h \
 		Staff.h \
 		User.h \
@@ -731,10 +737,31 @@ moc_matchListControl.cpp: Shelter.h \
 		ui_menu.h \
 		ACMAlgorithm.h \
 		ui_matchListView.h \
+		matchDetailControl.h \
+		ui_matchDetailView.h \
 		matchListControl.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include matchListControl.h -o moc_matchListControl.cpp
+
+moc_matchDetailControl.cpp: Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		staffwindow.h \
+		mainWindow.h \
+		ui_menu.h \
+		ACMAlgorithm.h \
+		ui_matchDetailView.h \
+		matchDetailControl.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/COMP3004/3004 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include matchDetailControl.h -o moc_matchDetailControl.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -827,7 +854,9 @@ staffwindow.o: staffwindow.cpp staffwindow.h \
 		addStaffControl.h \
 		ui_addStaffView.h \
 		matchListControl.h \
-		ui_matchListView.h
+		ui_matchListView.h \
+		matchDetailControl.h \
+		ui_matchDetailView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o staffwindow.o staffwindow.cpp
 
 Animal.o: Animal.cpp Animal.h
@@ -1135,8 +1164,27 @@ matchListControl.o: matchListControl.cpp matchListControl.h \
 		mainWindow.h \
 		ui_menu.h \
 		ACMAlgorithm.h \
-		ui_matchListView.h
+		ui_matchListView.h \
+		matchDetailControl.h \
+		ui_matchDetailView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o matchListControl.o matchListControl.cpp
+
+matchDetailControl.o: matchDetailControl.cpp matchDetailControl.h \
+		Shelter.h \
+		Staff.h \
+		User.h \
+		Client.h \
+		Animal.h \
+		Dog.h \
+		Cat.h \
+		Bird.h \
+		SmallAnimal.h \
+		staffwindow.h \
+		mainWindow.h \
+		ui_menu.h \
+		ACMAlgorithm.h \
+		ui_matchDetailView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o matchDetailControl.o matchDetailControl.cpp
 
 moc_staffwindow.o: moc_staffwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_staffwindow.o moc_staffwindow.cpp
@@ -1170,6 +1218,9 @@ moc_animalListControl.o: moc_animalListControl.cpp
 
 moc_matchListControl.o: moc_matchListControl.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_matchListControl.o moc_matchListControl.cpp
+
+moc_matchDetailControl.o: moc_matchDetailControl.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_matchDetailControl.o moc_matchDetailControl.cpp
 
 ####### Install
 

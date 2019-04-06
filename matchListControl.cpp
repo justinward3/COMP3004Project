@@ -1,4 +1,5 @@
 #include "matchListControl.h"
+#include "matchDetailControl.h"
 #include <QStandardItemModel>
 
 matchListControl::matchListControl(QWidget *parent):
@@ -48,17 +49,25 @@ void matchListControl::on_detailButton_clicked()
     QItemSelectionModel *select = ui->matchList->selectionModel();
     if(select->hasSelection()){
         this->hide();
-
+        int row = select->currentIndex().row();
+        qDebug() << matches.keys()[row]->getName();
+        matchDetailControl matchDetail;
+        matchDetail.setShelter(sh);
+        matchDetail.setMainWindow(mw);
+        matchDetail.setMatch(matches.keys()[row],matches[matches.keys()[row]]);
+        matchDetail.setModal(true);
+        matchDetail.exec();
   }
 }
 
-void matchListControl::setMatches(QMap<Animal*,Client*> matches){
+void matchListControl::setMatches(QMap<Animal*,Client*> m){
+    ACMAlgorithm acm;
+    matches = m;
     for(auto key: matches.keys()){
         QList<QStandardItem*> newRow;
         Client *client = matches[key];
         QStandardItem* Cname = new QStandardItem(QString(client->getFname() +" "+ client->getLname()));
         QStandardItem* name = new QStandardItem(QString(key->getName()));
-        ACMAlgorithm acm;
         QString s = QString::number(acm.runACMOnPair(key,client));
         QStandardItem* score = new QStandardItem(QString(s));
         QString t;

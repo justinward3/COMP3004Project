@@ -52,19 +52,6 @@
    <property name="title">
     <string>Menu</string>
    </property>
-   <widget class="QPushButton" name="addButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>131</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add Clients</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="backButton">
     <property name="geometry">
      <rect>
@@ -76,19 +63,6 @@
     </property>
     <property name="text">
      <string>Back</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="detailButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>131</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>View Client Detail</string>
     </property>
    </widget>
   </widget>
