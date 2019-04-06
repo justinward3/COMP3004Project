@@ -88,7 +88,7 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
             qDebug() << "\nRunning ACM on " << client->getFname() << " and " << animal->getName() << " numMatchesSaved: " << numMatchesSaved;
             float matchScore = runACMOnPair(animal, client);
             qDebug() << "Waiting for enter";
-            //getchar();
+            getchar();
             if(matchScore != -100){
                 //If there are currently less matches saved than numMatchesSaved
                 if (clientMatches[client].count() < numMatchesSaved){
@@ -362,7 +362,7 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
     }
     else if(trait == "loudness"){
         // 1 is Minimal, 2 is N/A
-        clientValue = client->getMatchingPrefs()["noise"]+1;
+        clientValue = client->getMatchingPrefs()["noise"];
         //Apartment is 1, House is 2
         if(client->getMatchingPrefs()["home"] == 1)
             clientValue = clientValue -1;
@@ -439,11 +439,11 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
             qDebug() << "Nulled Match: " << client->getFname() << " and " << animal->getName() << "CV: " << clientValue << " AV: " << animalValue <<" trait: " << trait << ": " << (matchScore - pastMatchScore);
             return -100;
 		}else{
-      //qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname() << "CV: " << clientValue << " AV: " << animalValue << " trait score: " << (matchScore - pastMatchScore);
+      qDebug() <<"Analyzing :"<<trait <<" for " << animal->getName() << "and" << client->getFname() << "CV: " << clientValue << " AV: " << animalValue << " trait score: " << (matchScore - pastMatchScore);
     }
 
     //PRINT the values necessary for the equation
-    //1qDebug()<<" Animal Value is :"<<animalValue<< " " << " Client Value is :"<<clientValue << " case: " << caseDict.value(trait) << " weight: " << weightDict.value(trait);
+    qDebug()<<" Animal Value is :"<<animalValue<< " " << " Client Value is :"<<clientValue << " case: " << caseDict.value(trait) << " weight: " << weightDict.value(trait);
 
   }
   qDebug() << "Match Score of " << client->getFname() << "and " << animal->getName() << " = " << matchScore;
