@@ -401,7 +401,7 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 		if (caseDict.value(trait) == 1){
 			if (clientValue == animalValue){
 				matchScore += (1 * weightDict.value(trait));
-            }else if ((!(trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")) && animalValue != 0){
+            }else if (animalValue != 0){
 				matchScore += (-1 * weightDict.value(trait));
             }else{
                 qDebug() << "Integration Case Which is not equal +- 0";
