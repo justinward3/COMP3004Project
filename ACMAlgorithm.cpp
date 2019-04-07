@@ -7,7 +7,7 @@
 using namespace std;
 
 //Constructor for the ACM Algorithm
-ACMAlgorithm::ACMAlgorithm() {    
+ACMAlgorithm::ACMAlgorithm() {
   caseDict["type"] = 1;
 	caseDict["sex"] = 1;
 	caseDict["size"] = 1;
@@ -19,7 +19,7 @@ ACMAlgorithm::ACMAlgorithm() {
 	caseDict["time"] = 2;
   caseDict["lifespan"] = 3;
 	caseDict["space"] = 2;
-	caseDict["loudness"] = 2;
+	caseDict["loudness"] = 3;
 	caseDict["activeness"] = 3;
 	caseDict["obedience"] = 3;
 	caseDict["shedding"] = 3;
@@ -393,7 +393,7 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 		if (caseDict.value(trait) == 1){
 			if (clientValue == animalValue){
 				matchScore += (1 * weightDict.value(trait));
-      }else if ((!(trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")) && animalValue != 1){
+      }else if ((((trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")) && animalValue != 1) || !(trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")){
 				matchScore += (-1 * weightDict.value(trait));
       }else{
         qDebug() << "Integration Case Which is not equal +- 0";
@@ -410,8 +410,9 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
         }
 
     //PRINT the values necessary for the equation
-    qDebug()<<" Animal Value is :"<<animalValue<< " " << " Client Value is :"<<clientValue << " case: " << caseDict.value(trait) << " weight: " << weightDict.value(trait);
-
+    if (client->getFname() == "Universal"){
+      qDebug()<<"Trait: " << trait << " Animal Value is :"<<animalValue<< " " << " Client Value is :"<<clientValue << " case: " << caseDict.value(trait) << " weight: " << weightDict.value(trait) << " score: " << (matchScore - pastMatchScore);
+    }
   }
   qDebug() << "Match Score of " << client->getFname() << "and " << animal->getName() << " = " << matchScore;
   return matchScore;
