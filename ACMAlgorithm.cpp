@@ -330,13 +330,13 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
         // Remember for these 1 is Y and 2 is N
         // -1 so 0 is Y and 1 is N
         // 0 is friendly 1 is not
-        clientValue = (client->getMatchingPrefs()["dogs"] == 1 || client->getMatchingPrefs()["dogsfuture"] == 1) ? 1 : 0;
+        clientValue = (client->getMatchingPrefs()["dogs"] == 1 || client->getMatchingPrefs()["dogsfuture"] == 1) ? 0 : 1;
     }
     else if(trait == "intwithcat"){
-        clientValue = (client->getMatchingPrefs()["cats"] == 1 || client->getMatchingPrefs()["catsfuture"] == 1) ? 1 : 0;
+        clientValue = (client->getMatchingPrefs()["cats"] == 1 || client->getMatchingPrefs()["catsfuture"] == 1) ? 0 : 1;
     }
     else if(trait == "intwithchild"){
-        clientValue = (client->getMatchingPrefs()["children"] == 1 || client->getMatchingPrefs()["childrenfuture"] == 1) ? 1 : 0;
+        clientValue = (client->getMatchingPrefs()["children"] == 1 || client->getMatchingPrefs()["childrenfuture"] == 1) ? 0 : 1;
     }
     else if(trait == "loudness"){
         // 1 is Minimal, 2 is N/A
@@ -398,21 +398,21 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 
 
 		//Check our cases and compute trait match score
-	    if (caseDict.value(trait) == 1){
-		if (clientValue == animalValue){
-			matchScore += (1 * weightDict.value(trait));
-                }else if (trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild") && animalValue != 1){
-			matchScore += (-1 * weightDict.value(trait));
-                }else{
-                	qDebug() << "Integration Case Which is not equal +- 0";
-                }
-	    }else if (caseDict.value(trait) == 2){
-		matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
-	    }else if (caseDict.value(trait) == 3){
-            	matchScore += weightDict.value(trait)/(abs(clientValue-animalValue)+1);
-	    }
+		if (caseDict.value(trait) == 1){
+			if (clientValue == animalValue){
+				matchScore += (1 * weightDict.value(trait));
+      }else if ((!(trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")) && animalValue != 1){
+				matchScore += (-1 * weightDict.value(trait));
+      }else{
+        qDebug() << "Integration Case Which is not equal +- 0";
+      }
+		}else if (caseDict.value(trait) == 2){
+			matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
+		}else if (caseDict.value(trait) == 3){
+            matchScore += weightDict.value(trait)/(abs(clientValue-animalValue)+1);
+		}
 
-	    if (pastMatchScore >= (matchScore+5)){
+		if (pastMatchScore >= (matchScore+5)){
             qDebug() << "Nulled Match: " << client->getFname() << " and " << animal->getName() << "CV: " << clientValue << " AV: " << animalValue <<" trait: " << trait << ": " << (matchScore - pastMatchScore);
             return -100;
         }
