@@ -393,11 +393,11 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 		if (caseDict.value(trait) == 1){
 			if (clientValue == animalValue){
 				matchScore += (1 * weightDict.value(trait));
-            }else if ((!(trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")) && animalValue != 0){
+      }else if ((!(trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")) && animalValue != 1){
 				matchScore += (-1 * weightDict.value(trait));
-            }else{
-                qDebug() << "Integration Case Which is not equal +- 0";
-            }
+      }else{
+        qDebug() << "Integration Case Which is not equal +- 0";
+      }
 		}else if (caseDict.value(trait) == 2){
 			matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
 		}else if (caseDict.value(trait) == 3){
