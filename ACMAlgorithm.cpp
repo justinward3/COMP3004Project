@@ -398,21 +398,21 @@ int ACMAlgorithm::runACMOnPair(Animal* animal, Client* client){
 
 
 		//Check our cases and compute trait match score
-		if (caseDict.value(trait) == 1){
-			if (clientValue == animalValue){
-				matchScore += (1 * weightDict.value(trait));
-            }else if (animalValue != 0){
-				matchScore += (-1 * weightDict.value(trait));
-            }else{
-                qDebug() << "Integration Case Which is not equal +- 0";
-            }
-		}else if (caseDict.value(trait) == 2){
-			matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
-		}else if (caseDict.value(trait) == 3){
-            matchScore += weightDict.value(trait)/(abs(clientValue-animalValue)+1);
-		}
+	    if (caseDict.value(trait) == 1){
+		if (clientValue == animalValue){
+			matchScore += (1 * weightDict.value(trait));
+                }else if (trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild") && animalValue != 1){
+			matchScore += (-1 * weightDict.value(trait));
+                }else{
+                	qDebug() << "Integration Case Which is not equal +- 0";
+                }
+	    }else if (caseDict.value(trait) == 2){
+		matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
+	    }else if (caseDict.value(trait) == 3){
+            	matchScore += weightDict.value(trait)/(abs(clientValue-animalValue)+1);
+	    }
 
-		if (pastMatchScore >= (matchScore+5)){
+	    if (pastMatchScore >= (matchScore+5)){
             qDebug() << "Nulled Match: " << client->getFname() << " and " << animal->getName() << "CV: " << clientValue << " AV: " << animalValue <<" trait: " << trait << ": " << (matchScore - pastMatchScore);
             return -100;
         }
