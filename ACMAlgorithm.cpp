@@ -607,10 +607,5 @@ QList<QString> ACMAlgorithm::getTraitScores(Animal* animal, Client* client){
     traitScores.insert(traitScores.size(), currentTraitScore);
   }
 
-  QString matchScoreString;
-  matchScoreString.append("Match Score: ");
-  int score = (int)(matchScore);
-  matchScoreString.append(QString::number(score));
-  traitScores.insert(traitScores.size(), matchScoreString);
   return traitScores;
 }
