@@ -17,6 +17,7 @@ class ACMAlgorithm{
 		~ACMAlgorithm();
         QMap<Animal*, Client*> runACM(vector<Client*>,vector<Animal*>);
         int runACMOnPair(Animal*, Client*);
+				QList<QString> getTraitScores(Animal*, Client*);
 
 	private:
         QMap<QString, int> caseDict;
