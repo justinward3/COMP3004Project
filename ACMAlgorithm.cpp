@@ -117,7 +117,7 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
     vector<Client*> exhausted; //Clients who dont have a match
     vector<Client*> lowMatchCount; //Clients who don't have enough matches
     qDebug()<<"Client Name : Match Keys";
-    for (int i=0; i<usableClients.size(); i++){
+    for (size_t i=0; i<usableClients.size(); i++){
         qDebug() << usableClients[i]->getFname() << " : " <<clientMatches[usableClients[i]].keys() ;
         for(auto key : clientMatches[usableClients[i]].keys()){
           qDebug() <<"  "<< key << " : " << clientMatches[usableClients[i]][key]->getName();
@@ -129,8 +129,8 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
 
 
   //While we dont have enough matches + clients without possible matches
-    while (pairs.count() < (numMatchesSaved - exhausted.size())) {
-        for (int i=0; i<usableClients.size(); i++){
+    while (pairs.count() < (numMatchesSaved - static_cast<int>(exhausted.size()))) {
+        for (size_t i=0; i<usableClients.size(); i++){
             Client* client = usableClients[i];
             qDebug()<< "Current Client is " << client->getFname() << " In pairs " << pairs.values().count(client) << " time(s)";
 
@@ -577,19 +577,25 @@ QList<QString> ACMAlgorithm::getTraitScores(Animal* animal, Client* client){
 		pastMatchScore = matchScore;
 
     QString currentTraitScore;
+    QString equation;
 		//Check our cases and compute trait match score
 		if (caseDict.value(trait) == 1){
 			if (clientValue == animalValue){
 				matchScore += (1 * weightDict.value(trait));
+                equation = QString::number(matchScore) + " += 1 x " + QString::number(weightDict.value(trait));
       }else if ((((trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")) && animalValue != 1) || !(trait == "intwithdog" || trait == "intwithcat" || trait == "intwithchild")){
 				matchScore += (-1 * weightDict.value(trait));
+                equation = QString::number(matchScore) + " += -1 x " + QString::number(weightDict.value(trait));
       }else{
         qDebug() << "Integration Case Which is not equal +- 0";
+        equation = QString::number(matchScore) + " += 0";
       }
 		}else if (caseDict.value(trait) == 2){
 			matchScore += (((clientValue-animalValue)/clientValue)*weightDict.value(trait));
+            equation = QString::number(matchScore) + " += (((" + QString::number(clientValue) + " - " + QString::number(animalValue) + ") x " + QString::number(weightDict.value(trait)) + "))";
 		}else if (caseDict.value(trait) == 3){
             matchScore += weightDict.value(trait)/(abs(clientValue-animalValue)+1);
+            equation = QString::number(matchScore) + " += " + QString::number(weightDict.value(trait)) + " / (ABS(" + QString::number(clientValue) + " - " + QString::number(animalValue) + ") +1)";
 		}
 
 		if (pastMatchScore >= (matchScore+5)){
@@ -603,11 +609,18 @@ QList<QString> ACMAlgorithm::getTraitScores(Animal* animal, Client* client){
     //oss << "Trait: " << trait << " Animal Value: " << animalValue << " Client Value: " << clientValue << " Case #: " << caseDict.value(trait) << " Weight: " << weightDict.value(trait) << " Score: " << (matchScore - pastMatchScore);
     currentTraitScore.append("Trait: ");
     currentTraitScore.append(trait);
+    currentTraitScore.append("Trait Weight : ");
+    currentTraitScore.append(QString::number(weightDict.value(trait)));
     currentTraitScore.append(" Animal Value: ");
     currentTraitScore.append(QString::number(animalValue));
     currentTraitScore.append(" Client Value: ");
     currentTraitScore.append(QString::number(clientValue));
-    currentTraitScore.append(" | Trait Score =;");
+    currentTraitScore.append(" Case : ");
+    currentTraitScore.append(QString::number(caseDict.value(trait)));
+    currentTraitScore.append(" Equation : ");
+    currentTraitScore.append(equation);
+    currentTraitScore.append(QString::number(caseDict.value(trait)));
+    currentTraitScore.append(" | Trait Score =");
     currentTraitScore.append(QString::number(matchScore-pastMatchScore));
 
     qDebug() << "In method "<< currentTraitScore << "\n";
