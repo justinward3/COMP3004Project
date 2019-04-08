@@ -597,17 +597,10 @@ QList<QString> ACMAlgorithm::getTraitScores(Animal* animal, Client* client){
       return traitScores;
     }
 
-    //PRINT the values necessary for the equation
-    ostringstream oss;
 
-    //oss << "Trait: " << trait << " Animal Value: " << animalValue << " Client Value: " << clientValue << " Case #: " << caseDict.value(trait) << " Weight: " << weightDict.value(trait) << " Score: " << (matchScore - pastMatchScore);
-    currentTraitScore.append("Trait: ");
+    currentTraitScore.append("Score for ");
     currentTraitScore.append(trait);
-    currentTraitScore.append(" Animal Value: ");
-    currentTraitScore.append(QString::number(animalValue));
-    currentTraitScore.append(" Client Value: ");
-    currentTraitScore.append(QString::number(clientValue));
-    currentTraitScore.append(" | Trait Score =;");
+    currentTraitScore.append(": ");
     currentTraitScore.append(QString::number(matchScore-pastMatchScore));
 
     qDebug() << "In method "<< currentTraitScore << "\n";
