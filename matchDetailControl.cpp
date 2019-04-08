@@ -51,8 +51,10 @@ void matchDetailControl::on_backButton_clicked()
 void matchDetailControl::setMatch(Animal* a ,Client* c){
         setAnimal(a);
         setClient(c);
+
         QString t;
         QString wantedStr;
+
         int wanted = c->getMatchingPrefs()["type"];
         //Check subclass of animal and set type bind value
         if ( dynamic_cast<Dog*>( a ) )
@@ -78,4 +80,7 @@ void matchDetailControl::setMatch(Animal* a ,Client* c){
 
         else if (wanted == 4)
            wantedStr = "Small Animal";
+
+        ui->animalType->setText(wantedStr);
+        ui->aType->setText(wantedStr);
 }
