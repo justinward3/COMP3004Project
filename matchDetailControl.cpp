@@ -23,6 +23,10 @@ void matchDetailControl::setAnimal(Animal* animal){
     ui->animalAge->setText(QString::number(animal->getAge()));
     ui->animalColour->setText(animal->getColour());
     ui->animalDetail->setText(animal->getDetail());
+    QStringList activeList= {"None","Little","Moderate","Lots"};
+    QStringList spaceList= {"Little", "Moderate", "Lots"};
+    ui->animalActiveness->setText(activeList[animal->getTraits()["activeness"]-1]);
+    ui->animalSpace->setText(spaceList[animal->getTraits()["space"]-1]);
     ui->animalCost->setText(QString::number((animal->getTraits())["cost"]));
     ui->animalTime->setText(QString::number((animal->getTraits())["time"]));
 }
