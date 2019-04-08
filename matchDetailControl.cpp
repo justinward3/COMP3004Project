@@ -43,6 +43,23 @@ void matchDetailControl::setAnimal(Animal* animal){
     ui->animalSpace->setText((lmlList[animal->getTraits()["space"]-1]) + " space");
     ui->animalAffection->setText(lmlList[animal->getTraits()["affection"]-1]);
     ui->animalObedience->setText(docList[animal->getTraits()["obedience"]-1]);
+
+    //Integration Checkboxes
+    if (animal->getTraits()["intwithdog"] == 1){
+      ui->dogCheckBox->setChecked(1);
+    }else{
+      ui->dogCheckBox->setChecked(0);
+    }
+    if (animal->getTraits()["intwithcat"] == 1){
+      ui->catCheckBox->setChecked(1);
+    }else{
+      ui->catCheckBox->setChecked(0);
+    }
+    if (animal->getTraits()["intwithchild"] == 1){
+      ui->childCheckBox->setChecked(1);
+    }else{
+      ui->childCheckBox->setChecked(0);
+    }
 }
 
 void matchDetailControl::setClient(Client* client){
