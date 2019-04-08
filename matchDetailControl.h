@@ -22,6 +22,8 @@ public:
     explicit matchDetailControl(QWidget *parent = 0);
     ~matchDetailControl();
     void setShelter(Shelter*);
+    void setAnimal(Animal*);
+    void setClient(Client*);
     void setMainWindow(MainWindow*);
     void setMatch(Animal*,Client*);
 
