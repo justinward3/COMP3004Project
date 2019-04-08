@@ -141,6 +141,10 @@ void matchDetailControl::setMatch(Animal* a ,Client* c){
         setAnimal(a);
         setClient(c);
 
+        ACMAlgorithm acm;
+        int score = acm.runACMOnPair(a,c);
+        ui->score->setText(QString::number(score));
+
         QString t;
         QString wantedStr;
 
