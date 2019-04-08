@@ -862,7 +862,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>-600</y>
       <width>355</width>
       <height>939</height>
      </rect>
@@ -1666,7 +1666,7 @@
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>740</x>
+     <x>880</x>
      <y>10</y>
      <width>161</width>
      <height>31</height>
@@ -1693,7 +1693,7 @@
   <widget class="QLabel" name="label_19">
    <property name="geometry">
     <rect>
-     <x>930</x>
+     <x>1070</x>
      <y>10</y>
      <width>51</width>
      <height>31</height>
@@ -1720,7 +1720,7 @@
   <widget class="QLabel" name="score">
    <property name="geometry">
     <rect>
-     <x>890</x>
+     <x>1030</x>
      <y>10</y>
      <width>51</width>
      <height>31</height>
@@ -1767,18 +1767,18 @@
     </rect>
    </property>
    <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAsNeeded</enum>
+    <enum>Qt::ScrollBarAlwaysOn</enum>
    </property>
    <property name="widgetResizable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <widget class="QWidget" name="scrollAreaWidgetContents">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>329</width>
-      <height>339</height>
+      <width>315</width>
+      <height>2249</height>
      </rect>
     </property>
     <widget class="QLabel" name="label_20">
@@ -1786,7 +1786,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>151</width>
+       <width>301</width>
        <height>17</height>
       </rect>
      </property>
@@ -1809,8 +1809,8 @@
       <rect>
        <x>10</x>
        <y>40</y>
-       <width>301</width>
-       <height>511</height>
+       <width>291</width>
+       <height>2341</height>
       </rect>
      </property>
      <property name="text">
