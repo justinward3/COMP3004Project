@@ -144,6 +144,14 @@ void matchDetailControl::setMatch(Animal* a ,Client* c){
         ACMAlgorithm acm;
         int score = acm.runACMOnPair(a,c);
         ui->score->setText(QString::number(score));
+        QStringList details = acm.getTraitScores(a,c);
+        QString matchInfodetail = "";
+        for( auto trait : details){
+            matchInfodetail.append(trait);
+            matchInfodetail.append("\n");
+            matchInfodetail.append("\n");
+        }
+        ui->matchingInfo->setText(matchInfodetail);
 
         QString t;
         QString wantedStr;

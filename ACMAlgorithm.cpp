@@ -606,21 +606,24 @@ QList<QString> ACMAlgorithm::getTraitScores(Animal* animal, Client* client){
 
     currentTraitScore.append("Score for ");
     currentTraitScore.append(trait);
+    currentTraitScore.append("\n");
     currentTraitScore.append("Trait Weight : ");
     currentTraitScore.append(QString::number(weightDict.value(trait)));
+    currentTraitScore.append("\n");
     currentTraitScore.append(" Animal Value: ");
     currentTraitScore.append(QString::number(animalValue));
+    currentTraitScore.append("\n");
     currentTraitScore.append(" Client Value: ");
     currentTraitScore.append(QString::number(clientValue));
+    currentTraitScore.append("\n");
     currentTraitScore.append(" Case : ");
     currentTraitScore.append(QString::number(caseDict.value(trait)));
+    currentTraitScore.append("\n");
     currentTraitScore.append(" Equation : ");
     currentTraitScore.append(equation);
-    currentTraitScore.append(QString::number(caseDict.value(trait)));
-    currentTraitScore.append(" | Trait Score =");
+    currentTraitScore.append("\n");
+    currentTraitScore.append(" Trait Score =");
     currentTraitScore.append(QString::number(matchScore-pastMatchScore));
-
-    qDebug() << "In method "<< currentTraitScore << "\n";
     traitScores.insert(traitScores.size(), currentTraitScore);
   }
 
