@@ -1645,7 +1645,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QLabel" name="clientName_2">
+    <widget class="QLabel" name="clientName">
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -1711,7 +1711,7 @@
     <number>0</number>
    </property>
    <property name="text">
-    <string>/47</string>
+    <string>/46</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

@@ -17,6 +17,20 @@ void matchDetailControl::setShelter(Shelter* shelter_ptr){
     sh = shelter_ptr;
 }
 
+void matchDetailControl::setAnimal(Animal* animal){
+    ui->animalName->setText(animal->getName());
+    ui->animalSex->setText(animal->getSex());
+    ui->animalAge->setText(QString::number(animal->getAge()));
+    ui->animalColour->setText(animal->getColour());
+    ui->animalDetail->setText(animal->getDetail());
+    ui->animalCost->setText(QString::number((animal->getTraits())["cost"]));
+    ui->animalTime->setText(QString::number((animal->getTraits())["time"]));
+}
+
+void matchDetailControl::setClient(Client* client){
+    ui->clientName->setText(client->getFname() + " " + client->getLname());
+}
+
 //set mw pointer
 void matchDetailControl::setMainWindow(MainWindow *main)
 {
@@ -35,7 +49,8 @@ void matchDetailControl::on_backButton_clicked()
 }
 
 void matchDetailControl::setMatch(Animal* a ,Client* c){
-        ui->animalName->setText(a->getName());
+        setAnimal(a);
+        setClient(c);
         QString t;
         QString wantedStr;
         int wanted = c->getMatchingPrefs()["type"];
