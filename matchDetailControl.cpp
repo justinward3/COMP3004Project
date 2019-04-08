@@ -81,6 +81,6 @@ void matchDetailControl::setMatch(Animal* a ,Client* c){
         else if (wanted == 4)
            wantedStr = "Small Animal";
 
-        ui->animalType->setText(wantedStr);
+        ui->animalType->setText(t);
         ui->aType->setText(wantedStr);
 }
