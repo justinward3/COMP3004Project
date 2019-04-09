@@ -21,5 +21,14 @@ LAUNCHING INSTRUCTIONS
    credentials. 
    You can use the following email to login as client:
    u.m@cu.ca
-
-Note: The highest score you can get in the ACM is 49, however scores above 42 are very rare.
+- - - - - - - - - - - - - - - - - - - -
+NOTES
+- - - - - - - - - - - - - - - - - - - -
+1) The algorithm is designed around a 'real' animal shelter. That is, it expects higher amounts of dogs and cats over birds and small pets. It also expects most clients are looking for a dog or a cat. Additionally, the algorithm is designed for a realistic amount of integratable animals. 
+2) Scoring:
+   -10 < X < 10  - Matchable
+   10 < X < 20 - Decent Match
+   20 < X < 30 - Good Match
+   30 < X < 40 - Great Match
+   40 < X      - Amazing Match
+3) Matches can be made under -10, however it is unlikely. The range of scores is -32 to 49
