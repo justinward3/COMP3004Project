@@ -4,6 +4,7 @@
 #include "addStaffControl.h"
 #include "matchListControl.h"
 #include "mainWindow.h"
+#include "QMessageBox"
 
 staffWindow::staffWindow(QWidget *parent) :
     QDialog(parent),
@@ -71,6 +72,7 @@ void staffWindow::on_acmButton_clicked()
     qDebug()<<"It's Showtime!";
     ACMAlgorithm acm;
     QMap<Animal*,Client*> matches = acm.runACM(sh->getClients(),sh->getAnimals());
+    QMessageBox::information(0, "ACM Complete","ACM has completed, press Ok to continue...", QMessageBox::Ok);
     QList<Animal*> akeys = matches.keys();
     qDebug()<<"SIZE:"<<akeys.size();
     for(int i=0; i<akeys.size();i++){

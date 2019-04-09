@@ -83,51 +83,55 @@ void clientEditControl::edit(Client *c){
 void clientEditControl::on_saveButton_clicked()
 {
         QStringList keys = {"type","active","affection","age","cats","catsfuture","children","childrenfuture","colour","cost","dogs","dogsfuture","experience","home","lifespan","noise","obedient","older","sex","shedding","size","space","time"};
-        qDebug()<<"We in trouble now boys!";
         QString newname = ui->clientFName->text();
         QString newLname = ui->clientLName->text();
         QString newEmail = ui->clientEmail->text();
         QString newPNum = ui->clientPNum->text();
         QString newAdd = ui->clientAdd->text();
-        QMap<QString,int> temp;
-        temp.insert(keys[0],ui->aType->currentIndex()+1);
-        temp.insert(keys[1],ui->aActive->currentIndex()+1);
-        temp.insert(keys[2],ui->aAffection->currentIndex()+1);
-        temp.insert(keys[3],ui->aAge->currentIndex()+1);
-        temp.insert(keys[4],ui->aCats->currentIndex()+1);
-        temp.insert(keys[5],ui->aCatsFuture->currentIndex()+1);
-        temp.insert(keys[6],ui->aChildren->currentIndex()+1);
-        temp.insert(keys[7],ui->aChildrenFuture->currentIndex()+1);
-        temp.insert(keys[8],ui->aColour->currentIndex()+1);
-        temp.insert(keys[9],ui->aCost->currentIndex()+1);
-        temp.insert(keys[10],ui->aDogs->currentIndex()+1);
-        temp.insert(keys[11],ui->aDogsFuture->currentIndex()+1);
-        temp.insert(keys[12],ui->aExperience->currentIndex()+1);
-        temp.insert(keys[13],ui->aHome->currentIndex()+1);
-        temp.insert(keys[14],ui->aLifespan->currentIndex()+1);
-        temp.insert(keys[15],ui->aNoise->currentIndex()+1);
-        temp.insert(keys[16],ui->aObedient->currentIndex()+1);
-        temp.insert(keys[17],ui->aOlder->currentIndex()+1);
-        temp.insert(keys[18],ui->aSex->currentIndex()+1);
-        temp.insert(keys[19],ui->aShedding->currentIndex()+1);
-        temp.insert(keys[20],ui->aSize->currentIndex()+1);
-        temp.insert(keys[21],ui->aSpace->currentIndex()+1);
-        temp.insert(keys[22],ui->aTime->currentIndex()+1);
-        qDebug()<<temp;
-        int retstatus;
-        retstatus = sh->update(client,new Client(newname,newLname,newAdd,newPNum,newEmail,temp));
-        if(retstatus == 1){
-            mw->updateCurrUserName(newEmail);
-            QMessageBox::information(0, "DB Status","Profile updated in DATABASE", QMessageBox::Ok);
-            this->on_backButton_clicked();
+        if(!(newname == "" || newLname == "" || newEmail == "" || newPNum == "" || newAdd == "")){
+            QMap<QString,int> temp;
+            temp.insert(keys[0],ui->aType->currentIndex()+1);
+            temp.insert(keys[1],ui->aActive->currentIndex()+1);
+            temp.insert(keys[2],ui->aAffection->currentIndex()+1);
+            temp.insert(keys[3],ui->aAge->currentIndex()+1);
+            temp.insert(keys[4],ui->aCats->currentIndex()+1);
+            temp.insert(keys[5],ui->aCatsFuture->currentIndex()+1);
+            temp.insert(keys[6],ui->aChildren->currentIndex()+1);
+            temp.insert(keys[7],ui->aChildrenFuture->currentIndex()+1);
+            temp.insert(keys[8],ui->aColour->currentIndex()+1);
+            temp.insert(keys[9],ui->aCost->currentIndex()+1);
+            temp.insert(keys[10],ui->aDogs->currentIndex()+1);
+            temp.insert(keys[11],ui->aDogsFuture->currentIndex()+1);
+            temp.insert(keys[12],ui->aExperience->currentIndex()+1);
+            temp.insert(keys[13],ui->aHome->currentIndex()+1);
+            temp.insert(keys[14],ui->aLifespan->currentIndex()+1);
+            temp.insert(keys[15],ui->aNoise->currentIndex()+1);
+            temp.insert(keys[16],ui->aObedient->currentIndex()+1);
+            temp.insert(keys[17],ui->aOlder->currentIndex()+1);
+            temp.insert(keys[18],ui->aSex->currentIndex()+1);
+            temp.insert(keys[19],ui->aShedding->currentIndex()+1);
+            temp.insert(keys[20],ui->aSize->currentIndex()+1);
+            temp.insert(keys[21],ui->aSpace->currentIndex()+1);
+            temp.insert(keys[22],ui->aTime->currentIndex()+1);
+            qDebug()<<temp;
+            int retstatus;
+            retstatus = sh->update(client,new Client(newname,newLname,newAdd,newPNum,newEmail,temp));
+            if(retstatus == 1){
+                mw->updateCurrUserName(newEmail);
+                QMessageBox::information(0, "DB Status","Profile updated in DATABASE", QMessageBox::Ok);
+                this->on_backButton_clicked();
+            }
+            else if(retstatus == 0){
+                //pop a failed message
+                QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please exit and contact system admin", QMessageBox::Ok);
+            }
+            else if(retstatus == -1){
+                //pop a failed message
+                QMessageBox::critical(0, "Profile Error","Email in use, please try again!", QMessageBox::Ok);
+            }
         }
-        else if(retstatus == 0){
-            //pop a failed message
-            QMessageBox::critical(0, "DB Status","DATABASE FAILURE, please exit and contact system admin", QMessageBox::Ok);
-        }
-        else if(retstatus == -1){
-            //pop a failed message
-            QMessageBox::critical(0, "Profile Error","Email in use, please try again!", QMessageBox::Ok);
+        else{
+            QMessageBox::critical(0, "Profile Error","Invalid Data!", QMessageBox::Ok);
         }
 }
 

@@ -119,7 +119,7 @@ void clientAddViewControl::on_addButton_clicked()
          client = UserFactory::createClient(Fname,Lname,Add,PNum,email);
         //If successfully added to Shelter, pop a success message and go back
         if(sh->operator +=(client)){
-            QMessageBox::critical(0, "DB Status",client->getFname()+" added to DATABASE", QMessageBox::Ok);
+            QMessageBox::information(0, "DB Status",client->getFname()+" added to DATABASE", QMessageBox::Ok);
             this->on_backButton_clicked();
         }
         else{

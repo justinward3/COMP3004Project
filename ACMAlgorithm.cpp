@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdlib>
 #include <sstream>
+#include "QMessageBox"
 
 
 using namespace std;
@@ -18,7 +19,7 @@ ACMAlgorithm::ACMAlgorithm() {
 	caseDict["affection"] = 2;
 	caseDict["cost"] = 2;
 	caseDict["time"] = 2;
-  caseDict["lifespan"] = 3;
+    caseDict["lifespan"] = 3;
 	caseDict["space"] = 2;
 	caseDict["loudness"] = 3;
 	caseDict["activeness"] = 3;
@@ -50,11 +51,11 @@ ACMAlgorithm::ACMAlgorithm() {
 }
 
 ACMAlgorithm::~ACMAlgorithm(){
-	cout << "ACM Algorithm Deconstructed" << endl;
+    qDebug()  << "ACM Algorithm Deconstructed";
 }
 
 QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Animal*> animals){
-    cout << "Running..." <<endl;
+    qDebug()  << "Running..." ;
 
     //The list of the top numMatchesSaved matches for every client, in the form of Map<Client, Map<Match Score, Animal Matched>>
     QMap<Client*, QMap<float, Animal*>> clientMatches;
@@ -128,7 +129,8 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
     }
 
 
-  //While we dont have enough matches + clients without possible matches
+    int iteration = 0;
+    //While we dont have enough matches + clients without possible matches
     while (pairs.count() < (numMatchesSaved - static_cast<int>(exhausted.size()))) {
         for (size_t i=0; i<usableClients.size(); i++){
             Client* client = usableClients[i];
@@ -190,8 +192,8 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
                         }else {
 
                           //Otherwise check the existing match old score
-                          int oldScore;
-                          int newScore;
+                          int oldScore=0;
+                          int newScore=0;
                           for (int i=0; i<clientMatches[client].keys().size(); i++){
                             if (clientMatches[client][clientMatches[client].keys()[i]] == animal){
                               newScore = clientMatches[client].keys()[i];
@@ -226,6 +228,14 @@ QMap<Animal*, Client*> ACMAlgorithm::runACM(vector<Client*> clients, vector<Anim
         			}
             }
           }
+        iteration +=1;
+        if(iteration == 100){
+             qDebug() << "ACM Error!";
+             if(pairs.size() == 0){
+                QMessageBox::critical(0, "ACM Error","ACM has failed due to an unknown error. Please contact a JSB Member!", QMessageBox::Ok);
+             }
+             break;
+        }
         }
 
 	return pairs;

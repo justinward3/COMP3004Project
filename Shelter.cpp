@@ -15,13 +15,13 @@ using namespace std;
 
 //Constructor for Shelter
 Shelter::Shelter() {
-      cout<< "Shelter Constructor " <<endl;
+      qDebug()<< "Shelter Constructor ";
 }
 
 //Deconstructor for Shelter
 Shelter::~Shelter() {
       db.close();
-      //cout<< "Shelter Deconstructor " <<endl;
+      qDebug()<< "Shelter Deconstructor ";
       for (vector<Animal*>::iterator it = animals.begin() ; it != animals.end(); ++it)
       {
         delete (*it);
@@ -44,7 +44,7 @@ bool Shelter::connect(){
     QDir dir;
     QString DbPath = dir.currentPath();
     DbPath.append("/cuACSDb");
-    cout<<DbPath.toUtf8().constData()<<endl;
+    qDebug()<<DbPath.toUtf8().constData();
     db=QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(DbPath);
     if(db.open()){
@@ -256,6 +256,9 @@ bool Shelter::update(Animal* a, QString type, QString name,QString colour,int ag
         }
         else if(type == "Small Animal"){
             newAnimal = new SmallAnimal(name,colour,age,sex,detail,attr,updateid);
+        }
+        else{
+            newAnimal = new Dog(name,colour,age,sex,detail,attr,updateid);
         }
         animals[pos] = newAnimal;
         delete qry;

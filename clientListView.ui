@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>View Animals</string>
+   <string>View Clients</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -63,6 +63,32 @@
     </property>
     <property name="text">
      <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>131</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Client</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="detailButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>131</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Client Details</string>
     </property>
    </widget>
   </widget>
