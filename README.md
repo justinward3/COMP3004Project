@@ -22,4 +22,4 @@ LAUNCHING INSTRUCTIONS
    You can use the following email to login as client:
    u.m@cu.ca
 
-Note: The highest score you can get in the ACM is 46, however scores above 42 are very rare.
+Note: The highest score you can get in the ACM is 49, however scores above 42 are very rare.
